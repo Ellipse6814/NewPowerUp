@@ -28,6 +28,8 @@ public class Drive extends Subsystem {
 	private DifferentialDrive drive = new DifferentialDrive(leftMotor, rightMotor);
 
 	private int gear = 1;
+	private int gearMax = 3;
+	private int gearMin = 1;
 	
 	
 	public void initDefaultCommand() {
@@ -39,19 +41,19 @@ public class Drive extends Subsystem {
 	}
 	
 	public void gearUp() {
-		if (gear<=3)
+		if (gear<gearMax)
 			gear++;
 	}
 	
 	public void gearDown() {
-		if (gear>=0)
+		if (gear>gearMin)
 			gear--;
 	}
 	
 	public void drive(double left, double right, boolean Enablegear, boolean squaredInputs) {
 		//algorithm goes here
-		left *= gear;
-		right *= gear;
+		left *= gear/(gearMax-gearMin);
+		right *= gear/(gearMax-gearMin);
 		
 		
 		
