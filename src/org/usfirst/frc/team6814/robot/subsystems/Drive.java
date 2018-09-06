@@ -27,6 +27,9 @@ public class Drive extends Subsystem {
 
 	private DifferentialDrive drive = new DifferentialDrive(leftMotor, rightMotor);
 
+	private int gear = 1;
+	
+	
 	public void initDefaultCommand() {
 		setDefaultCommand(new DriveTeleDPad());
 	}
@@ -34,9 +37,25 @@ public class Drive extends Subsystem {
 	public void drive(double left, double right) {
 		drive.tankDrive(left, right);
 	}
-
-	public void drive(double left, double right, boolean squaredInputs) {
-		drive.tankDrive(left, right, squaredInputs);
+	
+	public void gearUp() {
+		if (gear<=3)
+			gear++;
+	}
+	
+	public void gearDown() {
+		if (gear>=0)
+			gear--;
+	}
+	
+	public void drive(double left, double right, boolean Enablegear, boolean squaredInputs) {
+		//algorithm goes here
+		left *= gear;
+		right *= gear;
+		
+		
+		
+		drive.tankDrive(left, right);
 	}
 
 	public void stop() {
