@@ -30,8 +30,7 @@ public class Drive extends Subsystem {
 	private int gear = 1;
 	private int gearMax = 3;
 	private int gearMin = 1;
-	
-	
+
 	public void initDefaultCommand() {
 		setDefaultCommand(new DriveTeleDPad());
 	}
@@ -39,24 +38,22 @@ public class Drive extends Subsystem {
 	public void drive(double left, double right) {
 		drive.tankDrive(left, right);
 	}
-	
+
 	public void gearUp() {
-		if (gear<gearMax)
+		if (gear < gearMax)
 			gear++;
 	}
-	
+
 	public void gearDown() {
-		if (gear>gearMin)
+		if (gear > gearMin)
 			gear--;
 	}
-	
+
 	public void drive(double left, double right, boolean Enablegear, boolean squaredInputs) {
-		//algorithm goes here
-		left *= gear/(gearMax-gearMin);
-		right *= gear/(gearMax-gearMin);
-		
-		
-		
+		// algorithm goes here
+		left *= gear / (gearMax - gearMin + 1);
+		right *= gear / (gearMax - gearMin + 1);
+
 		drive.tankDrive(left, right);
 	}
 
