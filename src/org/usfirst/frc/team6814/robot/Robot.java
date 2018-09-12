@@ -54,14 +54,6 @@ public class Robot extends IterativeRobot {
 
 		// instantiate the command used for the autonomous period
 		m_autonomousCommand = new Autonomous();
-//TODO: fix this
-		// Show what command your subsystem is running on the SmartDashboard
-//		SmartDashboard.putData(m_drive);
-//		SmartDashboard.putData(m_elevator);
-//		SmartDashboard.putData(m_intake);
-//		SmartDashboard.putData(m_climb);
-//		SmartDashboard.putData(m_light);
-//		SmartDashboard.putData(m_oi);
 	}
 
 	@Override
@@ -107,10 +99,9 @@ public class Robot extends IterativeRobot {
 	 * The log method puts interesting information to the SmartDashboard.
 	 */
 	private void log() {
-		//TODO: fix this
-//		m_wrist.log();
-//		m_elevator.log();
-//		m_drivetrain.log();
-//		m_claw.log();
+		m_drive.log();
+		m_elevator.log();
+		m_climb.log();
+		m_intake.log();
 	}
 }

@@ -11,12 +11,10 @@ import org.usfirst.frc.team6814.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-
 public class DriveTele2Joy extends Command {
 	public DriveTele2Joy() {
 		requires(Robot.m_drive);
 	}
-	
 
 	// Called just before this Command runs the first time
 	@Override
@@ -26,10 +24,10 @@ public class DriveTele2Joy extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double leftJoy = Robot.m_oi.getJoystick().getRawAxis(0); //TODO: fix these stub ports!!!!!
+		double leftJoy = Robot.m_oi.getJoystick().getRawAxis(0); // TODO: fix these stub ports!!!!!
 		double rightJoy = Robot.m_oi.getJoystick().getRawAxis(1);
 
-		Robot.m_drive.drive(leftJoy, rightJoy);
+		Robot.m_drive.drive(leftJoy, rightJoy, true, false);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -50,5 +48,5 @@ public class DriveTele2Joy extends Command {
 	protected void interrupted() {
 		end();
 	}
-	
+
 }

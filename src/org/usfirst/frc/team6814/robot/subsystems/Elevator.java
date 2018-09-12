@@ -34,5 +34,10 @@ public class Elevator extends Subsystem {
 	public void stop() {
 		motor.set(0);
 	}
+	
+	public void log() {
+		//put log and smartDashboard things here
+	
+	}
 
 }
