@@ -18,7 +18,6 @@ public class DriveTeleDPad extends Command {
 	public DriveTeleDPad() {
 		requires(Robot.m_drive);
 	}
-	
 
 	// Called just before this Command runs the first time
 	@Override
@@ -56,7 +55,7 @@ public class DriveTeleDPad extends Command {
 			l *= .89;
 			r *= .89;
 		}
-		Robot.m_drive.drive(l, r);
+		Robot.m_drive.drive(l, r, true, false);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -77,5 +76,5 @@ public class DriveTeleDPad extends Command {
 	protected void interrupted() {
 		end();
 	}
-	
+
 }

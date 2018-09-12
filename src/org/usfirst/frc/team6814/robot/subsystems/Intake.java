@@ -60,9 +60,4 @@ public class Intake extends Subsystem {
 			SmartDashboard.putString("Intake", "Stopped");
 	}
 
-	protected void end() {
-		stop();
-		System.out.println("Intake Subsystem Stopped");
-	}
-
 }

@@ -31,6 +31,9 @@ public class Climb extends Subsystem{
 		//speed is actually voltage
 		motor.set(speed);
 	}
+	public void log() {
+		
+	}
 
 
 }

@@ -9,44 +9,45 @@ package org.usfirst.frc.team6814.robot.commands;
 
 import org.usfirst.frc.team6814.robot.Robot;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
-public class DriveTele2Joy extends Command {
-	public DriveTele2Joy() {
+/**
+ * Drive the given distance straight (negative values go backwards). Uses a
+ * local PID controller to run a simple PID loop that is only enabled while this
+ * command is running. The input is the averaged values of the left and right
+ * encoders.
+ */
+public class DriveAutoStraightTime extends TimedCommand {
+	private double speed;
+	private boolean enableGear;
+
+	public DriveAutoStraightTime(double timeInSec, double Speed, boolean EnableGear) {
+		super(timeInSec); // timeout seconds
 		requires(Robot.m_drive);
+		speed = Speed;
+		enableGear = EnableGear;
 	}
 
-	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		Robot.m_drive.reset();
+		Robot.m_drive.drive(speed, speed, enableGear, false);
 	}
 
-	// Called repeatedly when this Command is scheduled to run
-	@Override
-	protected void execute() {
-		double leftJoy = Robot.m_oi.getJoystick().getRawAxis(0); // TODO: fix these stub ports!!!!!
-		double rightJoy = Robot.m_oi.getJoystick().getRawAxis(1);
-
-		Robot.m_drive.drive(leftJoy, rightJoy, true, false);
-	}
-
-	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return false; // Runs until interrupted
+		return false;
 	}
 
-	// Called once after isFinished returns true
 	@Override
 	protected void end() {
+		// Stop PID and the wheels
 		Robot.m_drive.stop();
 	}
-
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
+	
 	@Override
 	protected void interrupted() {
 		end();
 	}
-
 }

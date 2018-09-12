@@ -7,6 +7,10 @@
 
 package org.usfirst.frc.team6814.robot;
 
+import org.usfirst.frc.team6814.robot.commands.ClimbDown;
+import org.usfirst.frc.team6814.robot.commands.ClimbUp;
+import org.usfirst.frc.team6814.robot.commands.DriveGearDown;
+import org.usfirst.frc.team6814.robot.commands.DriveGearUp;
 import org.usfirst.frc.team6814.robot.commands.IntakeIn;
 import org.usfirst.frc.team6814.robot.commands.IntakeOut;
 
@@ -37,8 +41,13 @@ public class OI {
 //		// Create some buttons
 		JoystickButton intakeOut = new JoystickButton(m_joystick, 1);
 		JoystickButton intakeIn = new JoystickButton(m_joystick, 2);
-		
-		
+
+		JoystickButton gearUp = new JoystickButton(m_joystick, 3);
+		JoystickButton gearDown = new JoystickButton(m_joystick, 4);
+
+		JoystickButton climbUp = new JoystickButton(m_joystick, 5);
+		JoystickButton climbDown = new JoystickButton(m_joystick, 6);
+
 //		JoystickButton dpadUp = new JoystickButton(m_joystick, 5);
 //		JoystickButton dpadRight = new JoystickButton(m_joystick, 6);
 //		JoystickButton dpadDown = new JoystickButton(m_joystick, 7);
@@ -51,7 +60,13 @@ public class OI {
 //		// Connect the buttons to commands
 		intakeOut.whileHeld(new IntakeIn());
 		intakeIn.whileHeld(new IntakeOut());
-		
+
+		gearUp.whenPressed(new DriveGearUp());
+		gearDown.whenPressed(new DriveGearDown());
+
+		climbUp.whileHeld(new ClimbUp());
+		climbDown.whileHeld(new ClimbDown());
+
 //		dpadUp.whenPressed(new SetElevatorSetpoint(0.2));
 //		dpadDown.whenPressed(new SetElevatorSetpoint(-0.2));
 //		dpadRight.whenPressed(new CloseClaw());
