@@ -35,10 +35,6 @@ public class Drive extends Subsystem {
 		setDefaultCommand(new DriveTeleDPad());
 	}
 
-	public void drive(double left, double right) {
-		drive.tankDrive(left, right);
-	}
-
 	public void gearUp() {
 		if (gear < gearMax)
 			gear++;
@@ -52,13 +48,23 @@ public class Drive extends Subsystem {
 	public void drive(double left, double right, boolean Enablegear, boolean squaredInputs) {
 		// algorithm goes here
 		left *= gear / (gearMax - gearMin + 1);
-		right *= gear / (gearMax - gearMin + 1);
+		right *=
 
-		drive.tankDrive(left, right);
+				drive.tankDrive(left, right);
+	}
+
+	private double CalculatePowerWithGear(double power) {
+		return power * (gear / (gearMax - gearMin + 1)); //for example: 1st gear: power * (1/3)
+		//                                                              2nd gear: power * (2/3)
+		//                                                              3rd gear: power * (3/3)
 	}
 
 	public void stop() {
 		drive.tankDrive(0, 0);
+	}
+
+	public void log() {
+
 	}
 
 }
