@@ -30,6 +30,7 @@ public class Drive extends Subsystem {
 	private int gear = 1;
 	private int gearMax = 3;
 	private int gearMin = 1;
+	private boolean driveInverted = false;
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new DriveTeleDPad());
@@ -45,16 +46,52 @@ public class Drive extends Subsystem {
 			gear--;
 	}
 
-	public void drive(double left, double right, boolean Enablegear, boolean squaredInputs) {
+	public void toggleInverted() { // TODO: implement buttons and commands to toggle this
+		driveInverted = !driveInverted;
+	}
+
+	public void setInverted(boolean inverted) {
+		driveInverted = inverted;
+	}
+
+	public boolean getInverted() {
+		return driveInverted;
+	}
+
+	public void drive(double left, double right, boolean enableGear, boolean squaredInputs) {
 		// algorithm goes here
-		if (Enablegear) {
-			left = CalculatePowerWithGear(left);
-			right = CalculatePowerWithGear(right);
+		if (enableGear) {
+			left = calculatePowerWithGear(left);
+			right = calculatePowerWithGear(right);
 		}
+
+		left = calculatePowerInverted(left);
+		right = calculatePowerInverted(right);
+		
 		drive.tankDrive(left, right, squaredInputs);
 	}
 
-	private double CalculatePowerWithGear(double power) {
+	public void driveLeft(double left, boolean enableGears) {
+		if (enableGears) {
+			left = calculatePowerWithGear(left);
+		}
+		
+		left = calculatePowerInverted(left);
+		
+		leftMotor.set(left);
+	}
+
+	public void driveRight(double right, boolean enableGears) {
+		if (enableGears) {
+			right = calculatePowerWithGear(right);
+		}
+
+		right = calculatePowerInverted(right);
+		
+		leftMotor.set(right);
+	}
+
+	private double calculatePowerWithGear(double power) {
 		// 1st gear: power * (1/3)
 		// 2nd gear: power * (2/3)
 		// 3rd gear: power * (3/3)
@@ -63,8 +100,37 @@ public class Drive extends Subsystem {
 		return power * (gear / (gearMax - gearMin + 1));
 	}
 
+	private double calculatePowerInverted(double power) {
+		if (driveInverted)
+			return power * -1;
+		return power;
+	}
+
+	public double getGyroAngle() {
+		// TODO:
+		return 0;
+	}
+
+	public double getEncoderLeft() {
+		// TODO:
+		return 0;
+	}
+
+	public double getEncoderRight() {
+		// TODO:
+		return 0;
+	}
+
 	public void stop() {
 		drive.tankDrive(0, 0);
+	}
+
+	public void reset() { // TODO:
+		gear = 1;
+		driveInverted = false;
+//		m_gyro.reset();
+//		m_leftEncoder.reset();
+//		m_rightEncoder.reset();
 	}
 
 	public void log() {
