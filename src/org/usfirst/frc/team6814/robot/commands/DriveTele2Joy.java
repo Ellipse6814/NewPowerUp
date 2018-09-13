@@ -24,10 +24,10 @@ public class DriveTele2Joy extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double leftJoy = Robot.m_oi.getJoystick().getRawAxis(0); // TODO: fix these stub ports!!!!!
-		double rightJoy = Robot.m_oi.getJoystick().getRawAxis(1);
-
-		Robot.m_drive.drive(leftJoy, rightJoy, true, false);
+		double power = Robot.m_oi.getJoystick().getRawAxis(0); // TODO: fix these stub ports!!!!!
+		double turn = Robot.m_oi.getJoystick().getRawAxis(1);
+		
+		Robot.m_drive.driveArcade(power, turn, true, false);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
