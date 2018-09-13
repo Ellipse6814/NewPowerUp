@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team6814.robot.subsystems;
 
+import org.usfirst.frc.team6814.robot.commands.DriveTele2Joy;
 import org.usfirst.frc.team6814.robot.commands.DriveTeleDPad;
 
 import edu.wpi.first.wpilibj.Spark;
@@ -33,7 +34,7 @@ public class Drive extends Subsystem {
 	private boolean driveInverted = false;
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new DriveTeleDPad());
+		setDefaultCommand(new DriveTele2Joy());
 	}
 
 	public void gearUp() {
@@ -67,6 +68,30 @@ public class Drive extends Subsystem {
 
 		left = calculatePowerInverted(left);
 		right = calculatePowerInverted(right);
+		
+		drive.tankDrive(left, right, squaredInputs);
+	}
+	
+	public void driveArcade(double power, double turn, boolean enableGear, boolean squaredInputs) {
+		// algorithm goes here
+		if (enableGear) {
+			power = calculatePowerWithGear(power);
+			turn = calculatePowerWithGear(turn);
+
+			if (gear == 1)
+				turn *= 0.9;
+			else if (gear == 2)
+				turn *= 0.7;
+			else if (gear == 3)
+				turn *= 0.5;
+		}
+
+		power = calculatePowerInverted(power);
+		turn = calculatePowerInverted(turn);
+		
+		double left,right;
+		left  = power - turn;
+		right = power + turn;
 		
 		drive.tankDrive(left, right, squaredInputs);
 	}
