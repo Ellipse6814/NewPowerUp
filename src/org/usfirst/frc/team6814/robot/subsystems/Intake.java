@@ -15,11 +15,12 @@ public class Intake extends Subsystem {
 	public Intake() {
 		super();
 
-		System.out.println("Intake Subsystem Started");
 
 		// Let's name everything on the LiveWindow
 		addChild("Left Motor", leftIntake);
 		addChild("Right Motor", rightIntake);
+		
+		System.out.println("Intake Subsystem Started");
 	}
 
 	@Override

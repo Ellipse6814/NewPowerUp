@@ -19,15 +19,57 @@ public class DriveTele2Joy extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		// DELETEME:
+		System.out.println("driveCmd started");
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double power = Robot.m_oi.getJoystick().getRawAxis(0); // TODO: fix these stub ports!!!!!
-		double turn = Robot.m_oi.getJoystick().getRawAxis(1);
-		
+		double pov = Robot.m_oi.getJoystick().getPOV();
+
+		if (pov != 0) {
+			usePOV(pov);
+			System.out.println("using POV");
+			return;
+		}
+
+		double power = Robot.m_oi.getJoystick().getRawAxis(1);
+		double turn = Robot.m_oi.getJoystick().getRawAxis(4);
+
 		Robot.m_drive.driveArcade(power, turn, true, false);
+		System.out.println("DriveCMD working: power=" + power + "  turn=" + turn);
+	}
+
+	private void usePOV(double dir) {
+		double l = 0, r = 0;
+		if (dir == 0) {
+			l = 1;
+			r = 1;
+			l *= .89;
+			r *= .89;
+		} else if (dir == 90) {
+			l = -1;
+			r = 1;
+			l *= .89;
+			r *= .89;
+		} else if (dir == 180) {
+			l = -1;
+			r = -1;
+			l *= .89;
+			r *= .89;
+		} else if (dir == 270) {
+			l = 1;
+			r = -1;
+			l *= .89;
+			r *= .89;
+		} else if (dir == 360) {
+			l = 1;
+			r = 1;
+			l *= .89;
+			r *= .89;
+		}
+		Robot.m_drive.drive(l, r, true, false);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

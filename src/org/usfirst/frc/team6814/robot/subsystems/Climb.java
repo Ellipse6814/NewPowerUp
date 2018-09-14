@@ -4,11 +4,12 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Climb extends Subsystem{
-	private Spark motor = new Spark(5);
+	private Spark motor = new Spark(7);
 	
 	public Climb() {
 		//this is called when the robot power button is called
 		super();
+		System.out.println("Climb Subsystem Started");
 	}
 	public void up() {
 		motor.set(1);

@@ -16,7 +16,11 @@ public class Elevator extends Subsystem {
 
 	private Spark motor = new Spark(6);
 	
-
+public Elevator() {
+	super();
+	System.out.println("Elevator Subsystem Started");
+}
+	
 	public void initDefaultCommand() {
 		setDefaultCommand(new ElevatorTeleShoulder());
 	}

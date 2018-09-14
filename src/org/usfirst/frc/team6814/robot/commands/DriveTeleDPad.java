@@ -28,6 +28,7 @@ public class DriveTeleDPad extends Command {
 	@Override
 	protected void execute() {
 		double dir = Robot.m_oi.getJoystick().getPOV();
+		
 		double l = 0, r = 0;
 		if (dir == 0) {
 			l = 1;

@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive extends Subsystem {
 
@@ -28,10 +29,17 @@ public class Drive extends Subsystem {
 
 	private DifferentialDrive drive = new DifferentialDrive(leftMotor, rightMotor);
 
+	private int isitRunning =0;
+	
 	private int gear = 1;
 	private int gearMax = 3;
 	private int gearMin = 1;
 	private boolean driveInverted = false;
+
+	public Drive() {
+		super();
+		System.out.println("Drive Subsystem Started");
+	}
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new DriveTele2Joy());
@@ -40,11 +48,13 @@ public class Drive extends Subsystem {
 	public void gearUp() {
 		if (gear < gearMax)
 			gear++;
+		System.out.println("Gear+ " + gear);
 	}
 
 	public void gearDown() {
 		if (gear > gearMin)
 			gear--;
+		System.out.println("Gear- " + gear);
 	}
 
 	public void toggleInverted() { // TODO: implement buttons and commands to toggle this
@@ -68,10 +78,11 @@ public class Drive extends Subsystem {
 
 		left = calculatePowerInverted(left);
 		right = calculatePowerInverted(right);
-		
+
 		drive.tankDrive(left, right, squaredInputs);
+		isitRunning +=1;
 	}
-	
+
 	public void driveArcade(double power, double turn, boolean enableGear, boolean squaredInputs) {
 		// algorithm goes here
 		if (enableGear) {
@@ -88,11 +99,11 @@ public class Drive extends Subsystem {
 
 		power = calculatePowerInverted(power);
 		turn = calculatePowerInverted(turn);
-		
-		double left,right;
-		left  = power - turn;
+
+		double left, right;
+		left = power - turn;
 		right = power + turn;
-		
+
 		drive.tankDrive(left, right, squaredInputs);
 	}
 
@@ -100,9 +111,9 @@ public class Drive extends Subsystem {
 		if (enableGears) {
 			left = calculatePowerWithGear(left);
 		}
-		
+
 		left = calculatePowerInverted(left);
-		
+
 		leftMotor.set(left);
 	}
 
@@ -112,7 +123,7 @@ public class Drive extends Subsystem {
 		}
 
 		right = calculatePowerInverted(right);
-		
+
 		leftMotor.set(right);
 	}
 
@@ -159,7 +170,8 @@ public class Drive extends Subsystem {
 	}
 
 	public void log() {
-
+		SmartDashboard.putNumber("running", isitRunning);
+		SmartDashboard.putNumber("Gear", gear);
 	}
 
 }
