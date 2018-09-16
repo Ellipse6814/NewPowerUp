@@ -59,6 +59,7 @@ public class Intake extends Subsystem {
 			SmartDashboard.putString("Intake", "In");
 		else
 			SmartDashboard.putString("Intake", "Stopped");
+		System.out.println("Intake Logging..."); //DELETEME
 	}
 
 }

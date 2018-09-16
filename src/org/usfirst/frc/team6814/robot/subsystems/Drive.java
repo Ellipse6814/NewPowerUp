@@ -29,13 +29,15 @@ public class Drive extends Subsystem {
 
 	private DifferentialDrive drive = new DifferentialDrive(leftMotor, rightMotor);
 
-	private int isitRunning =0;
-	
+	private int isitRunning = 0; // DELETEME:
+
 	private int gear = 1;
 	private int gearMax = 3;
 	private int gearMin = 1;
 	private boolean driveInverted = false;
 
+	//Getters & Setters:
+	
 	public Drive() {
 		super();
 		System.out.println("Drive Subsystem Started");
@@ -69,6 +71,22 @@ public class Drive extends Subsystem {
 		return driveInverted;
 	}
 
+	public void stop() {
+		drive.tankDrive(0, 0);
+	}
+
+	public void reset() { // TODO:
+		gear = 1;
+		driveInverted = false;
+//		m_gyro.reset();
+//		m_leftEncoder.reset();
+//		m_rightEncoder.reset();
+	}
+	
+	
+	// Drive Commands:
+	
+	
 	public void drive(double left, double right, boolean enableGear, boolean squaredInputs) {
 		// algorithm goes here
 		if (enableGear) {
@@ -80,7 +98,7 @@ public class Drive extends Subsystem {
 		right = calculatePowerInverted(right);
 
 		drive.tankDrive(left, right, squaredInputs);
-		isitRunning +=1;
+		isitRunning += 1;
 	}
 
 	public void driveArcade(double power, double turn, boolean enableGear, boolean squaredInputs) {
@@ -126,19 +144,21 @@ public class Drive extends Subsystem {
 
 		leftMotor.set(right);
 	}
+	
+	// Utils
 
 	private double calculatePowerWithGear(double power) {
 		// 1st gear: power * (1/3)
 		// 2nd gear: power * (2/3)
 		// 3rd gear: power * (3/3)
 
-		// power * (current gear / total num of gears)
+		// power * (current gear / total number of gears)
 		return power * (gear / (gearMax - gearMin + 1));
 	}
 
 	private double calculatePowerInverted(double power) {
 		if (driveInverted)
-			return power * -1;
+			return -power;
 		return power;
 	}
 
@@ -157,21 +177,11 @@ public class Drive extends Subsystem {
 		return 0;
 	}
 
-	public void stop() {
-		drive.tankDrive(0, 0);
-	}
-
-	public void reset() { // TODO:
-		gear = 1;
-		driveInverted = false;
-//		m_gyro.reset();
-//		m_leftEncoder.reset();
-//		m_rightEncoder.reset();
-	}
 
 	public void log() {
 		SmartDashboard.putNumber("running", isitRunning);
 		SmartDashboard.putNumber("Gear", gear);
+		System.out.println(isitRunning);
 	}
 
 }

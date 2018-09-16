@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
 	public static Light m_light;
 	public static OI m_oi;
 
-	Command m_autonomousCommand;
+	private Command m_autonomousCommand;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -72,10 +72,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
 		m_autonomousCommand.cancel();
 	}
 
@@ -93,6 +89,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		Scheduler.getInstance().run();
+		log();
 	}
 
 	/**

@@ -11,10 +11,12 @@ import org.usfirst.frc.team6814.robot.commands.ElevatorTeleShoulder;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Elevator extends Subsystem {
 
 	private Spark motor = new Spark(6);
+	private double motorSpeed = 0;
 	
 public Elevator() {
 	super();
@@ -28,6 +30,7 @@ public Elevator() {
 	public void setMotor(double speed) {
 		//speed is actually voltage
 		motor.set(speed);
+		motorSpeed = speed;
 	}
 	
 	public void setPoint(double point) {
@@ -41,7 +44,7 @@ public Elevator() {
 	
 	public void log() {
 		//put log and smartDashboard things here
-	
+		SmartDashboard.putNumber("Elevator Motor Speed", motorSpeed);
 	}
 
 }
