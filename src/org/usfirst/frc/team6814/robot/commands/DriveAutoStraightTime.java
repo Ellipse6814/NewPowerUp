@@ -23,16 +23,22 @@ public class DriveAutoStraightTime extends TimedCommand {
 	private boolean enableGear;
 
 	public DriveAutoStraightTime(double timeInSec, double Speed, boolean EnableGear) {
-		super(timeInSec); // timeout seconds
-		requires(Robot.m_drive);
+		super(timeInSec); // timeout seconds: (this functionality is built-in to the TimedCommnand base
+							// class)
+		requires(Robot.drive);
 		speed = Speed;
 		enableGear = EnableGear;
 	}
 
 	@Override
 	protected void initialize() {
-		Robot.m_drive.reset();
-		Robot.m_drive.drive(speed, speed, enableGear, false);
+		Robot.drive.reset();
+		Robot.drive.drive(speed, speed, enableGear);
+	}
+
+	@Override
+	protected void execute() {
+		Robot.drive.drive(speed, speed, enableGear); // feeds the motor safety function
 	}
 
 	@Override
@@ -43,9 +49,9 @@ public class DriveAutoStraightTime extends TimedCommand {
 	@Override
 	protected void end() {
 		// Stop PID and the wheels
-		Robot.m_drive.stop();
+		Robot.drive.stop();
 	}
-	
+
 	@Override
 	protected void interrupted() {
 		end();

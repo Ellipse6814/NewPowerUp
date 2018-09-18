@@ -6,19 +6,19 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class IntakeOut extends Command {
 	public IntakeOut() {
-		requires(Robot.m_intake);
+		requires(Robot.intake);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		Robot.m_intake.out();
+		Robot.intake.out();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-	  //nothing to loop
+		Robot.intake.out(); //feeds the motor safety function 
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -30,7 +30,7 @@ public class IntakeOut extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.m_intake.stop();
+		Robot.intake.stop();
 	}
 
 	// Called when another command which requires one or more of the same

@@ -27,17 +27,13 @@ public class Drive extends Subsystem {
 	private SpeedController leftMotor = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
 	private SpeedController rightMotor = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
 
-	private DifferentialDrive drive = new DifferentialDrive(leftMotor, rightMotor);
-
-	private int isitRunning = 0; // DELETEME:
-
 	private int gear = 1;
 	private int gearMax = 3;
 	private int gearMin = 1;
 	private boolean driveInverted = false;
 
-	//Getters & Setters:
-	
+	// Getters & Setters:
+
 	public Drive() {
 		super();
 		System.out.println("Drive Subsystem Started");
@@ -72,7 +68,7 @@ public class Drive extends Subsystem {
 	}
 
 	public void stop() {
-		drive.tankDrive(0, 0);
+		drive(0, 0);
 	}
 
 	public void reset() { // TODO:
@@ -82,26 +78,32 @@ public class Drive extends Subsystem {
 //		m_leftEncoder.reset();
 //		m_rightEncoder.reset();
 	}
-	
-	
+
 	// Drive Commands:
-	
-	
-	public void drive(double left, double right, boolean enableGear, boolean squaredInputs) {
+
+	public void drive(double left, double right, boolean enableGear) {
 		// algorithm goes here
+//
+
+		// take gears into factor
 		if (enableGear) {
 			left = calculatePowerWithGear(left);
 			right = calculatePowerWithGear(right);
 		}
 
+		// drive the robot backwards
 		left = calculatePowerInverted(left);
 		right = calculatePowerInverted(right);
 
-		drive.tankDrive(left, right, squaredInputs);
-		isitRunning += 1;
+		drive(left, right);
 	}
 
-	public void driveArcade(double power, double turn, boolean enableGear, boolean squaredInputs) {
+	public void drive(double left, double right) {
+		leftMotor.set(left);
+		rightMotor.set(-right);
+	}
+
+	public void driveArcade(double power, double turn, boolean enableGear) {
 		// algorithm goes here
 		if (enableGear) {
 			power = calculatePowerWithGear(power);
@@ -122,7 +124,7 @@ public class Drive extends Subsystem {
 		left = power - turn;
 		right = power + turn;
 
-		drive.tankDrive(left, right, squaredInputs);
+		drive(left, right);
 	}
 
 	public void driveLeft(double left, boolean enableGears) {
@@ -142,9 +144,9 @@ public class Drive extends Subsystem {
 
 		right = calculatePowerInverted(right);
 
-		leftMotor.set(right);
+		rightMotor.set(right);
 	}
-	
+
 	// Utils
 
 	private double calculatePowerWithGear(double power) {
@@ -162,6 +164,11 @@ public class Drive extends Subsystem {
 		return power;
 	}
 
+	private double motorRamp(double power) {
+		// TODO: implement this!!
+		return 0;
+	}
+
 	public double getGyroAngle() {
 		// TODO:
 		return 0;
@@ -177,11 +184,8 @@ public class Drive extends Subsystem {
 		return 0;
 	}
 
-
 	public void log() {
-		SmartDashboard.putNumber("running", isitRunning);
 		SmartDashboard.putNumber("Gear", gear);
-		System.out.println(isitRunning);
 	}
 
 }

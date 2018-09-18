@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveTele2Joy extends Command {
 	public DriveTele2Joy() {
-		requires(Robot.m_drive);
+		requires(Robot.drive);
 	}
 
 	// Called just before this Command runs the first time
@@ -26,18 +26,18 @@ public class DriveTele2Joy extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double pov = Robot.m_oi.getJoystick().getPOV();
+		double pov = Robot.oi.getJoystick().getPOV();
+//		System.out.println(pov);
+//		if (pov != 0) {
+//			usePOV(pov);
+//			System.out.println("using POV"+pov);
+//			return;
+//		}
 
-		if (pov != 0) {
-			usePOV(pov);
-			System.out.println("using POV");
-			return;
-		}
+		double power = Robot.oi.getJoystick().getRawAxis(1);
+		double turn = Robot.oi.getJoystick().getRawAxis(4);
 
-		double power = Robot.m_oi.getJoystick().getRawAxis(1);
-		double turn = Robot.m_oi.getJoystick().getRawAxis(4);
-
-		Robot.m_drive.driveArcade(power, turn, true, false);
+		Robot.drive.driveArcade(power, turn, true);
 		System.out.println("DriveCMD working: power=" + power + "  turn=" + turn);
 	}
 
@@ -69,7 +69,7 @@ public class DriveTele2Joy extends Command {
 			l *= .89;
 			r *= .89;
 		}
-		Robot.m_drive.drive(l, r, true, false);
+		Robot.drive.drive(l, r, true);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -81,7 +81,7 @@ public class DriveTele2Joy extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.m_drive.stop();
+		Robot.drive.stop();
 	}
 
 	// Called when another command which requires one or more of the same

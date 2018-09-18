@@ -29,12 +29,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static Drive m_drive;
-	public static Elevator m_elevator;
-	public static Intake m_intake;
-	public static Climb m_climb;
-	public static Light m_light;
-	public static OI m_oi;
+	public static Drive drive;
+	public static Elevator elevator;
+	public static Intake intake;
+	public static Climb climb;
+	public static OI oi;
 
 	private Command m_autonomousCommand;
 
@@ -45,12 +44,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// Initialize all subsystems
-		m_drive = new Drive();
-		m_elevator = new Elevator();
-		m_intake = new Intake();
-		m_climb = new Climb();
-		m_light = new Light();
-		m_oi = new OI();
+		drive = new Drive();
+		elevator = new Elevator();
+		intake = new Intake();
+		climb = new Climb();
+		oi = new OI();
 
 		// instantiate the command used for the autonomous period
 		m_autonomousCommand = new Autonomous();
@@ -97,9 +95,9 @@ public class Robot extends IterativeRobot {
 	 * The log method puts interesting information to the SmartDashboard.
 	 */
 	private void log() {
-		m_drive.log();
-		m_elevator.log();
-		m_climb.log();
-		m_intake.log();
+		drive.log();
+		elevator.log();
+		climb.log();
+		intake.log();
 	}
 }

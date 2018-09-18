@@ -80,6 +80,7 @@ public class OI {
 //		r2.whenPressed(new Pickup());
 //		l1.whenPressed(new Place());
 //		l2.whenPressed(new Autonomous());
+		System.out.println("Robot OI started");
 	}
 
 	public Joystick getJoystick() {

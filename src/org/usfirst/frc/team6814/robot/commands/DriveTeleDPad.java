@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveTeleDPad extends Command {
 	public DriveTeleDPad() {
-		requires(Robot.m_drive);
+		requires(Robot.drive);
 	}
 
 	// Called just before this Command runs the first time
@@ -27,7 +27,7 @@ public class DriveTeleDPad extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double dir = Robot.m_oi.getJoystick().getPOV();
+		double dir = Robot.oi.getJoystick().getPOV();
 		
 		double l = 0, r = 0;
 		if (dir == 0) {
@@ -56,7 +56,7 @@ public class DriveTeleDPad extends Command {
 			l *= .89;
 			r *= .89;
 		}
-		Robot.m_drive.drive(l, r, true, false);
+		Robot.drive.drive(l, r, true);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -68,7 +68,7 @@ public class DriveTeleDPad extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.m_drive.stop();
+		Robot.drive.stop();
 	}
 
 	// Called when another command which requires one or more of the same

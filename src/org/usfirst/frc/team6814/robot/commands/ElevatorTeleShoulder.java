@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ElevatorTeleShoulder extends Command {
 	public ElevatorTeleShoulder() {
-		requires(Robot.m_elevator);
+		requires(Robot.elevator);
 	}
 
 	// Called just before this Command runs the first time
@@ -27,11 +27,11 @@ public class ElevatorTeleShoulder extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double upPower = Robot.m_oi.getJoystick().getRawAxis(2); //left shoulder
-		double downPower = Robot.m_oi.getJoystick().getRawAxis(3); //right shoulder
+		double upPower = Robot.oi.getJoystick().getRawAxis(2); //left shoulder
+		double downPower = Robot.oi.getJoystick().getRawAxis(3); //right shoulder
 		double power = upPower - downPower;
 
-		Robot.m_elevator.setMotor(power);
+		Robot.elevator.setMotor(power);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -43,7 +43,7 @@ public class ElevatorTeleShoulder extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.m_drive.stop();
+		Robot.drive.stop();
 	}
 
 	// Called when another command which requires one or more of the same
