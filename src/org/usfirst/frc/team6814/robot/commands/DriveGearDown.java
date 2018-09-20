@@ -23,7 +23,6 @@ public class DriveGearDown extends Command {
 	@Override
 	protected void initialize() {
 		Robot.drive.gearDown();
-		System.out.println("Command Gear DOWN");
 	}
 
 	// Called repeatedly when this Command is scheduled to run

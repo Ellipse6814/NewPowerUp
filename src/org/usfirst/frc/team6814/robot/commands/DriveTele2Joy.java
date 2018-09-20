@@ -26,7 +26,7 @@ public class DriveTele2Joy extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double pov = Robot.oi.getJoystick().getPOV();
+//		double pov = Robot.oi.getJoystick().getPOV();
 //		System.out.println(pov);
 //		if (pov != 0) {
 //			usePOV(pov);
@@ -38,7 +38,6 @@ public class DriveTele2Joy extends Command {
 		double turn = Robot.oi.getJoystick().getRawAxis(4);
 
 		Robot.drive.driveArcade(power, turn, true);
-		System.out.println("DriveCMD working: power=" + power + "  turn=" + turn);
 	}
 
 	private void usePOV(double dir) {

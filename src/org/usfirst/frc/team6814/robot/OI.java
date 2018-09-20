@@ -40,11 +40,11 @@ public class OI {
 //		SmartDashboard.putData("Deliver Soda", new Autonomous());
 //
 //		// Create some buttons
-		JoystickButton intakeOut = new JoystickButton(m_joystick, 4);
-		JoystickButton intakeIn = new JoystickButton(m_joystick, 1);
+		JoystickButton intakeOut = new JoystickButton(m_joystick, 1);
+		JoystickButton intakeIn = new JoystickButton(m_joystick, 4);
 
-		JoystickButton gearUp = new JoystickButton(m_joystick, 5);
-		JoystickButton gearDown = new JoystickButton(m_joystick, 6);
+		JoystickButton gearUp = new JoystickButton(m_joystick, 6);
+		JoystickButton gearDown = new JoystickButton(m_joystick, 5);
 
 		JoystickButton climbUp = new JoystickButton(m_joystick, 3);
 		JoystickButton climbDown = new JoystickButton(m_joystick, 2);

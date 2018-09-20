@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Drive extends Subsystem {
 
 	private Spark leftFrontMotor = new Spark(0);
-	private Spark rightFrontMotor = new Spark(2);
 	private Spark leftBackMotor = new Spark(1);
+	private Spark rightFrontMotor = new Spark(2);
 	private Spark rightBackMotor = new Spark(3);
 
 	private SpeedController leftMotor = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
@@ -99,8 +99,8 @@ public class Drive extends Subsystem {
 	}
 
 	public void drive(double left, double right) {
-		leftMotor.set(left);
-		rightMotor.set(-right);
+		leftMotor.set(-left);
+		rightMotor.set(right);
 	}
 
 	public void driveArcade(double power, double turn, boolean enableGear) {
@@ -134,7 +134,7 @@ public class Drive extends Subsystem {
 
 		left = calculatePowerInverted(left);
 
-		leftMotor.set(left);
+		leftMotor.set(-left);
 	}
 
 	public void driveRight(double right, boolean enableGears) {
@@ -155,7 +155,7 @@ public class Drive extends Subsystem {
 		// 3rd gear: power * (3/3)
 
 		// power * (current gear / total number of gears)
-		return power * (gear / (gearMax - gearMin + 1));
+		return power * (gear / (gearMax - gearMin + 1.0));
 	}
 
 	private double calculatePowerInverted(double power) {

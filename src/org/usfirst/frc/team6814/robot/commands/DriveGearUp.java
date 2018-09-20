@@ -23,7 +23,6 @@ public class DriveGearUp extends Command {
 	@Override
 	protected void initialize() {
 		Robot.drive.gearUp();
-		System.out.println("Command Gear UP");
 	}
 
 	// Called repeatedly when this Command is scheduled to run
