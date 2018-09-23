@@ -15,12 +15,11 @@ public class Intake extends Subsystem {
 	public Intake() {
 		super();
 
+		System.out.println("Intake Subsystem Started");
 
 		// Let's name everything on the LiveWindow
 		addChild("Left Motor", leftIntake);
 		addChild("Right Motor", rightIntake);
-		
-		System.out.println("Intake Subsystem Started");
 	}
 
 	@Override
@@ -48,6 +47,8 @@ public class Intake extends Subsystem {
 		status = 0;
 	}
 
+	//---------------------------------
+	
 	public int status() {
 		return status;
 	}
@@ -59,6 +60,11 @@ public class Intake extends Subsystem {
 			SmartDashboard.putString("Intake", "In");
 		else
 			SmartDashboard.putString("Intake", "Stopped");
+	}
+
+	protected void end() {
+		stop();
+		System.out.println("Intake Subsystem Stopped");
 	}
 
 }

@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-public class OI {
+public class OI { //stands for Operator Interface
 	private Joystick m_joystick = new Joystick(0);
 
 	public OI() {
@@ -40,8 +40,8 @@ public class OI {
 //		SmartDashboard.putData("Deliver Soda", new Autonomous());
 //
 //		// Create some buttons
-		JoystickButton intakeOut = new JoystickButton(m_joystick, 1);
-		JoystickButton intakeIn = new JoystickButton(m_joystick, 4);
+		JoystickButton intakeOut = new JoystickButton(m_joystick, 4);
+		JoystickButton intakeIn = new JoystickButton(m_joystick, 1);
 
 		JoystickButton gearUp = new JoystickButton(m_joystick, 6);
 		JoystickButton gearDown = new JoystickButton(m_joystick, 5);
@@ -61,8 +61,8 @@ public class OI {
 //		JoystickButton r1 = new JoystickButton(m_joystick, 12);
 //
 //		// Connect the buttons to commands
-		intakeOut.whileHeld(new IntakeIn());
-		intakeIn.whileHeld(new IntakeOut());
+		intakeOut.whileHeld(new IntakeOut());
+		intakeIn.whileHeld(new IntakeIn());
 
 		gearUp.whenPressed(new DriveGearUp());
 		gearDown.whenPressed(new DriveGearDown());
