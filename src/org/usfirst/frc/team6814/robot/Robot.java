@@ -13,7 +13,7 @@ import org.usfirst.frc.team6814.robot.subsystems.Drive;
 import org.usfirst.frc.team6814.robot.subsystems.Elevator;
 import org.usfirst.frc.team6814.robot.subsystems.Intake;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends TimedRobot { // updates code every 20ms  (50 times/second)
 
 	public static Drive drive;
 	public static Elevator elevator;

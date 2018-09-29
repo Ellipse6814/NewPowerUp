@@ -28,7 +28,7 @@ public class DriveTeleDPad extends Command {
 	@Override
 	protected void execute() {
 		double dir = Robot.oi.getJoystick().getPOV();
-		
+
 		double l = 0, r = 0;
 		if (dir == 0) {
 			l = 1;
@@ -56,7 +56,7 @@ public class DriveTeleDPad extends Command {
 			l *= .89;
 			r *= .89;
 		}
-		Robot.drive.drive(l, r, true);
+		Robot.drive.drive(l, r, true, true);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

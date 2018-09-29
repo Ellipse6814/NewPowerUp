@@ -37,7 +37,7 @@ public class DriveTele2Joy extends Command {
 		double power = Robot.oi.getJoystick().getRawAxis(1);
 		double turn = Robot.oi.getJoystick().getRawAxis(4);
 
-		Robot.drive.driveArcade(power, turn, true);
+		Robot.drive.driveArcade(power, turn, true, true);
 	}
 
 	private void usePOV(double dir) {
@@ -68,7 +68,7 @@ public class DriveTele2Joy extends Command {
 			l *= .89;
 			r *= .89;
 		}
-		Robot.drive.drive(l, r, true);
+		Robot.drive.drive(l, r, true, true);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

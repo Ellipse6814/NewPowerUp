@@ -26,6 +26,7 @@ public class Drive extends Subsystem {
 	private int gear = 1;
 	private final int gearMax = 3;
 	private final int gearMin = 1;
+	private double prevPower = 0; // for motor ramping
 	private boolean driveInverted = false;
 
 	// Getters & Setters:
@@ -77,7 +78,7 @@ public class Drive extends Subsystem {
 
 	// Drive Commands:
 
-	public void drive(double left, double right, boolean enableGear) {
+	public void drive(double left, double right, boolean enableGear, boolean rampMotors) {
 		// algorithm goes here
 //
 
@@ -91,6 +92,11 @@ public class Drive extends Subsystem {
 		left = calculatePowerInverted(left);
 		right = calculatePowerInverted(right);
 
+		if (rampMotors) {
+			left = motorRamp(left);
+			right = motorRamp(right);
+		}
+
 		drive(left, right);
 	}
 
@@ -99,7 +105,7 @@ public class Drive extends Subsystem {
 		rightMotor.set(right);
 	}
 
-	public void driveArcade(double power, double turn, boolean enableGear) {
+	public void driveArcade(double power, double turn, boolean enableGear, boolean rampMotors) {
 		// algorithm goes here
 		if (enableGear) {
 			power = calculatePowerWithGear(power);
@@ -120,26 +126,39 @@ public class Drive extends Subsystem {
 		left = power - turn;
 		right = power + turn;
 
+		if (rampMotors) {
+			left = motorRamp(left);
+			right = motorRamp(right);
+		}
+
 		drive(left, right);
 	}
 
-	public void driveLeft(double left, boolean enableGears) {
+	public void driveLeft(double left, boolean enableGears, boolean rampMotors) {
 		if (enableGears) {
 			left = calculatePowerWithGear(left);
 		}
 
 		left = calculatePowerInverted(left);
 
+		if (rampMotors) {
+			left = motorRamp(left);
+		}
+
 		leftMotor.set(-left);
 	}
 
-	public void driveRight(double right, boolean enableGears) {
+	public void driveRight(double right, boolean enableGears, boolean rampMotors) {
 		if (enableGears) {
 			right = calculatePowerWithGear(right);
 		}
 
 		right = calculatePowerInverted(right);
-
+		
+		if (rampMotors) {
+			right = motorRamp(right);
+		}
+		
 		rightMotor.set(right);
 	}
 
@@ -150,8 +169,7 @@ public class Drive extends Subsystem {
 		// 2nd gear: power * (2/3)
 		// 3rd gear: power * (3/3)
 
-		
-		//TODO: implement a more comfortable calculation with ifs and cases
+		// TODO: implement a more comfortable calculation with ifs and cases
 		// power * (current gear / total number of gears)
 		return power * (gear / (gearMax - gearMin + 1.0));
 	}
@@ -163,8 +181,17 @@ public class Drive extends Subsystem {
 	}
 
 	private double motorRamp(double power) {
-		// TODO: implement this!!
-		return 0;
+		// because output from 0 to 1 changes speed to 0 - 12 ft/s = 3.6m/s,
+		// -> 1m/s = 1/3.6 output; 1m/s/s = 3.6
+		// because the code updates every 20ms -> 50 times per second,
+		// -> each time it is allowed to accelerate by +- (? m/s/s) / 50
+		// assuming the robot is 45 kg -> F=ma how much force can we stand?; let's just use 1 m/s/s to test first TODO
+		final double MaxChange = (1 / 3.6) / 50;
+		if (power - prevPower > MaxChange)
+			power = prevPower + MaxChange;
+		if (power - prevPower < -MaxChange)
+			power = prevPower - MaxChange;
+		return power;
 	}
 
 	public double getGyroAngle() {

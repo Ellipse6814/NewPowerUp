@@ -21,24 +21,26 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
 public class DriveAutoStraightTime extends TimedCommand {
 	private double speed;
 	private boolean enableGear;
+	private boolean rampMotors;
 
-	public DriveAutoStraightTime(double timeInSec, double Speed, boolean EnableGear) {
+	public DriveAutoStraightTime(double timeInSec, double Speed, boolean EnableGear, boolean RampMotors) {
 		super(timeInSec); // timeout seconds: (this functionality is built-in to the TimedCommnand base
 							// class)
 		requires(Robot.drive);
 		speed = Speed;
 		enableGear = EnableGear;
+		rampMotors = RampMotors;
 	}
 
 	@Override
 	protected void initialize() {
 		Robot.drive.reset();
-		Robot.drive.drive(speed, speed, enableGear);
+		Robot.drive.drive(speed, speed, enableGear, rampMotors);
 	}
 
 	@Override
 	protected void execute() {
-		Robot.drive.drive(speed, speed, enableGear); // feeds the motor safety function
+		Robot.drive.drive(speed, speed, enableGear, rampMotors); // feeds the motor safety function
 	}
 
 	@Override
