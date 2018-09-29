@@ -24,6 +24,17 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI { //stands for Operator Interface
 	private Joystick m_joystick = new Joystick(0);
+	
+	
+//	// Create some buttons
+	JoystickButton intakeOut = new JoystickButton(m_joystick, 4);
+	JoystickButton intakeIn = new JoystickButton(m_joystick, 1);
+
+	JoystickButton gearUp = new JoystickButton(m_joystick, 6);
+	JoystickButton gearDown = new JoystickButton(m_joystick, 5);
+
+	JoystickButton climbUp = new JoystickButton(m_joystick, 3);
+	JoystickButton climbDown = new JoystickButton(m_joystick, 2);
 
 	public OI() {
 		// Put Some buttons on the SmartDashboard
@@ -39,15 +50,8 @@ public class OI { //stands for Operator Interface
 //
 //		SmartDashboard.putData("Deliver Soda", new Autonomous());
 //
-//		// Create some buttons
-		JoystickButton intakeOut = new JoystickButton(m_joystick, 4);
-		JoystickButton intakeIn = new JoystickButton(m_joystick, 1);
 
-		JoystickButton gearUp = new JoystickButton(m_joystick, 6);
-		JoystickButton gearDown = new JoystickButton(m_joystick, 5);
 
-		JoystickButton climbUp = new JoystickButton(m_joystick, 3);
-		JoystickButton climbDown = new JoystickButton(m_joystick, 2);
 		
 		
 

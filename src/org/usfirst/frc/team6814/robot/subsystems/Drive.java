@@ -7,29 +7,25 @@
 
 package org.usfirst.frc.team6814.robot.subsystems;
 
+import org.usfirst.frc.team6814.robot.Constants;
 import org.usfirst.frc.team6814.robot.commands.DriveTele2Joy;
-import org.usfirst.frc.team6814.robot.commands.DriveTeleDPad;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive extends Subsystem {
 
-	private Spark leftFrontMotor = new Spark(0);
-	private Spark leftBackMotor = new Spark(1);
-	private Spark rightFrontMotor = new Spark(2);
-	private Spark rightBackMotor = new Spark(3);
-
-	private SpeedController leftMotor = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
-	private SpeedController rightMotor = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
+	private SpeedController leftMotor = new SpeedControllerGroup(new Spark(Constants.kDriveLeftFrontMotorPort),
+			new Spark(Constants.kDriveLeftBackMotorPort));
+	private SpeedController rightMotor = new SpeedControllerGroup(new Spark(Constants.kDriveRightFrontMotorPort),
+			new Spark(Constants.kDriveRightBackMotorPort));
 
 	private int gear = 1;
-	private int gearMax = 3;
-	private int gearMin = 1;
+	private final int gearMax = 3;
+	private final int gearMin = 1;
 	private boolean driveInverted = false;
 
 	// Getters & Setters:
@@ -154,6 +150,8 @@ public class Drive extends Subsystem {
 		// 2nd gear: power * (2/3)
 		// 3rd gear: power * (3/3)
 
+		
+		//TODO: implement a more comfortable calculation with ifs and cases
 		// power * (current gear / total number of gears)
 		return power * (gear / (gearMax - gearMin + 1.0));
 	}

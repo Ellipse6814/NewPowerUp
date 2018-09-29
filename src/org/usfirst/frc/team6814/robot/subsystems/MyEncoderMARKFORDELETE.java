@@ -4,14 +4,14 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class MyEncoder {
+public class MyEncoderMARKFORDELETE {
 	private Encoder encoder;
 	private String name;
 	private double gearboxRatio = 1;
 	private final double convertToDistanceConst;
 
-	public MyEncoder(String Name, int channelA, int channelB, boolean reverseDirection, EncodingType encodingType,
-			int GearboxRatio, int wheelDiameter) {
+	public MyEncoderMARKFORDELETE(String Name, int channelA, int channelB, boolean reverseDirection, EncodingType encodingType,
+			double GearboxRatio, double wheelDiameter) {
 		encoder = new Encoder(channelA, channelB, reverseDirection, encodingType);
 		name = Name;
 		gearboxRatio = GearboxRatio;
@@ -46,7 +46,7 @@ public class MyEncoder {
 	}
 
 	public void log() {
-		SmartDashboard.putNumber("Encoder- " + name, getDistance());
+		SmartDashboard.putNumber(name, getDistance());
 	}
 
 	public Encoder get() {
