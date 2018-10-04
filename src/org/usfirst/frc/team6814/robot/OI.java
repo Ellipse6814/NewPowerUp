@@ -22,19 +22,25 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-public class OI { //stands for Operator Interface
-	private Joystick m_joystick = new Joystick(0);
-	
-	
+public class OI { // stands for Operator Interface
+	private Joystick doubleJoystick = new Joystick(0);
+	private Joystick singleJoystick = new Joystick(1);
+
 //	// Create some buttons
-	JoystickButton intakeOut = new JoystickButton(m_joystick, 4);
-	JoystickButton intakeIn = new JoystickButton(m_joystick, 1);
+	// double joystick
+	JoystickButton intakeOut = new JoystickButton(doubleJoystick, 4);
+	JoystickButton intakeIn = new JoystickButton(doubleJoystick, 1);
 
-	JoystickButton gearUp = new JoystickButton(m_joystick, 6);
-	JoystickButton gearDown = new JoystickButton(m_joystick, 5);
+	JoystickButton gearUp = new JoystickButton(doubleJoystick, 6);
+	JoystickButton gearDown = new JoystickButton(doubleJoystick, 5);
 
-	JoystickButton climbUp = new JoystickButton(m_joystick, 3);
-	JoystickButton climbDown = new JoystickButton(m_joystick, 2);
+	JoystickButton climbUp = new JoystickButton(doubleJoystick, 3);
+	JoystickButton climbDown = new JoystickButton(doubleJoystick, 2);
+
+	// -----------------------------------------------------------
+	// single joystick
+	JoystickButton intakeIn1 = new JoystickButton(singleJoystick, 2);
+	JoystickButton intakeOut1 = new JoystickButton(singleJoystick, 1);
 
 	public OI() {
 		// Put Some buttons on the SmartDashboard
@@ -50,10 +56,6 @@ public class OI { //stands for Operator Interface
 //
 //		SmartDashboard.putData("Deliver Soda", new Autonomous());
 //
-
-
-		
-		
 
 //		JoystickButton dpadUp = new JoystickButton(m_joystick, 5);
 //		JoystickButton dpadRight = new JoystickButton(m_joystick, 6);
@@ -73,7 +75,11 @@ public class OI { //stands for Operator Interface
 
 		climbUp.whileHeld(new ClimbUp());
 		climbDown.whileHeld(new ClimbDown());
-		
+
+		// ----------------------------------------------
+
+		intakeIn1.whileHeld(new IntakeIn());
+		intakeOut1.whileHeld(new IntakeOut());
 
 //		dpadUp.whenPressed(new SetElevatorSetpoint(0.2));
 //		dpadDown.whenPressed(new SetElevatorSetpoint(-0.2));
@@ -87,7 +93,10 @@ public class OI { //stands for Operator Interface
 		System.out.println("Robot OI started");
 	}
 
-	public Joystick getJoystick() {
-		return m_joystick;
+	public Joystick getDoubleJoystick() {
+		return doubleJoystick;
+	}
+	public Joystick getSingleJoystick() {
+		return singleJoystick;
 	}
 }

@@ -27,8 +27,8 @@ public class ElevatorTeleShoulder extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double upPower = Robot.oi.getJoystick().getRawAxis(2); //left shoulder
-		double downPower = Robot.oi.getJoystick().getRawAxis(3); //right shoulder
+		double downPower = Robot.oi.getDoubleJoystick().getRawAxis(2); //left shoulder
+		double upPower = Robot.oi.getDoubleJoystick().getRawAxis(3); //right shoulder
 		double power = upPower - downPower;
 
 		Robot.elevator.setMotor(power);

@@ -18,29 +18,21 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
  * command is running. The input is the averaged values of the left and right
  * encoders.
  */
-public class DriveAutoStraightTime extends TimedCommand {
-	private double speed;
-	private boolean enableGear;
-	private boolean rampMotors;
-
-	public DriveAutoStraightTime(double timeInSec, double Speed, boolean EnableGear, boolean RampMotors) {
-		super(timeInSec); // timeout seconds: (this functionality is built-in to the TimedCommnand base
+public class AutoWait extends TimedCommand {
+private double timeInSec;
+	public AutoWait(double TimeInSec) {
+		super(TimeInSec); // timeout seconds: (this functionality is built-in to the TimedCommnand base
 							// class)
-		requires(Robot.drive);
-		speed = Speed;
-		enableGear = EnableGear;
-		rampMotors = RampMotors;
+		timeInSec = TimeInSec;
 	}
 
 	@Override
 	protected void initialize() {
-		Robot.drive.reset();
-		Robot.drive.drive(speed, speed, enableGear, rampMotors);
+		System.out.println("Started auto wait for: "+ timeInSec +"s");
 	}
 
 	@Override
 	protected void execute() {
-		Robot.drive.drive(speed, speed, enableGear, rampMotors); // feeds the motor safety function
 	}
 
 	// using inherited functionality
@@ -51,8 +43,6 @@ public class DriveAutoStraightTime extends TimedCommand {
 
 	@Override
 	protected void end() {
-		// Stop PID and the wheels
-		Robot.drive.stop();
 	}
 
 	@Override

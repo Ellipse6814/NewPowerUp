@@ -34,9 +34,16 @@ public class DriveTele2Joy extends Command {
 //			return;
 //		}
 
-		double power = Robot.oi.getJoystick().getRawAxis(1);
-		double turn = Robot.oi.getJoystick().getRawAxis(4);
+		double power = Robot.oi.getDoubleJoystick().getRawAxis(1);
+		double turn = Robot.oi.getDoubleJoystick().getRawAxis(4);
 
+		if (Math.abs(power)<0.01) {
+			power = 0;
+		}
+		if (Math.abs(turn)<0.01) {
+			turn = 0;
+		}
+		
 		Robot.drive.driveArcade(power, turn, true, true);
 	}
 

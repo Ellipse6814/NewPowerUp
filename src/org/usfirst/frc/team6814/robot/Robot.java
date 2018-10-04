@@ -32,7 +32,7 @@ public class Robot extends TimedRobot { // updates code every 20ms  (50 times/se
 	public static Climb climb;
 	public static OI oi;
 
-	private Command m_autonomousCommand;
+	private Autonomous m_autonomousCommand;
 
 	/**
 	 * This function is run when the robot is first started up and should be used

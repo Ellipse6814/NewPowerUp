@@ -7,7 +7,7 @@ public class Constants {
 
 	// Elevator
 
-	public static final int kElevatorMotorPort = 6; // PWM
+	public static final int kElevatorMotorPort = 4; // PWM
 
 	public static final double kElevatorKp = 0;
 	public static final double kElevatorKi = 0;
@@ -16,8 +16,8 @@ public class Constants {
 	public static final double kElevatorPIDTolerance = 0.01;// meters
 	public static final int kElevatorEncoderReduceNoiseAverageSampleNum = 5;
 
-	public static final int kElevatorEncoderChannelA = 1;
-	public static final int kElevatorEncoderChannelB = 0;
+	public static final int kElevatorEncoderChannelA = 2;
+	public static final int kElevatorEncoderChannelB = 3;
 	public static final boolean kElevatorEncoderReversed = false;
 	public static final EncodingType kElevatorEncoderEncodingType = EncodingType.k4X;
 	public static final double kElevatorEncoderRegardStop = 0.2; // seconds
@@ -29,8 +29,8 @@ public class Constants {
 	//
 	// Intake
 
-	public static final int kIntakeLeftMotorPort = 4;
-	public static final int kIntakeRightMotorPort = 5;
+	public static final int kIntakeLeftMotorPort = 5;
+	public static final int kIntakeRightMotorPort = 6;
 
 	public static final double kIntakeLeftSpeed = 1;
 	public static final double kIntakeRightSpeed = 1;
@@ -42,7 +42,18 @@ public class Constants {
 	public static final int kDriveLeftBackMotorPort = 1;
 	public static final int kDriveRightFrontMotorPort = 2;
 	public static final int kDriveRightBackMotorPort = 3;
+	public static final int kDriveEncoderChannelA = 0;
+	public static final int kDriveEncoderChannelB = 1;
+	
+	public static final int kDriveEncoderReduceNoiseAverageSampleNum = 5;
 
+	public static final boolean kDriveEncoderReversed = false;
+	public static final EncodingType kDriveEncoderEncodingType = EncodingType.k4X;
+	public static final double kDriveEncoderRegardStop = 0.2; // seconds
+
+	public static final double kDriveGearboxRatio = 1 / 1; // output rotations with one motor rotation
+	public static final double kDriveWheelDiameter = 0.15; // meters
+	public static final double kDrivePulse2Distance = (kDriveGearboxRatio) * (Math.PI * kDriveWheelDiameter);
 	
 
 	// static PID constants:

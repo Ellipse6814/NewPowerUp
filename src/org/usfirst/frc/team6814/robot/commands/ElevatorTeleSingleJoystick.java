@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Have the robot drive tank style using the PS3 Joystick until interrupted.
  */
-public class DriveTeleDPad extends Command {
-	public DriveTeleDPad() {
-		requires(Robot.drive);
+public class ElevatorTeleSingleJoystick extends Command {
+	public ElevatorTeleSingleJoystick() {
+		requires(Robot.elevator);
 	}
 
 	// Called just before this Command runs the first time
@@ -27,36 +27,10 @@ public class DriveTeleDPad extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double dir = Robot.oi.getDoubleJoystick().getPOV();
+		double power = Robot.oi.getSingleJoystick().getRawAxis(1);
+		power *= -1;
 
-		double l = 0, r = 0;
-		if (dir == 0) {
-			l = 1;
-			r = 1;
-			l *= .89;
-			r *= .89;
-		} else if (dir == 90) {
-			l = -1;
-			r = 1;
-			l *= .89;
-			r *= .89;
-		} else if (dir == 180) {
-			l = -1;
-			r = -1;
-			l *= .89;
-			r *= .89;
-		} else if (dir == 270) {
-			l = 1;
-			r = -1;
-			l *= .89;
-			r *= .89;
-		} else if (dir == 360) {
-			l = 1;
-			r = 1;
-			l *= .89;
-			r *= .89;
-		}
-		Robot.drive.drive(l, r, true, true);
+		Robot.elevator.setMotor(power);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

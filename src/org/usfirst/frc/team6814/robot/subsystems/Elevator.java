@@ -7,23 +7,25 @@
 
 package org.usfirst.frc.team6814.robot.subsystems;
 
+import java.time.Instant;
+
 import org.usfirst.frc.team6814.robot.Constants;
 import org.usfirst.frc.team6814.robot.commands.ElevatorTeleShoulder;
+import org.usfirst.frc.team6814.robot.commands.ElevatorTeleSingleJoystick;
 
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Elevator extends PIDSubsystem {
 
 	private Spark motor = new Spark(Constants.kElevatorMotorPort);
-	private double motorSpeed = 0;
 	private Encoder encoder;
+	private double prevPower = 0;
+	private boolean encoderSafe = true;
+	private long encoderSafetyTimestamp = 0;
+	private double encoderSafetyEncoderVal = 0;
 
 	public Elevator() {
 		super("Elevator PIDSubsystem", Constants.kElevatorKp, Constants.kElevatorKi, Constants.kElevatorKd);
@@ -33,11 +35,11 @@ public class Elevator extends PIDSubsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new ElevatorTeleShoulder());
+		setDefaultCommand(new ElevatorTeleSingleJoystick());
 	}
 
 	private void initEncoder() {
-		encoder = new Encoder(Constants.kElevatorEncoderChannelA, Constants.kElevatorEncoderChannelA,
+		encoder = new Encoder(Constants.kElevatorEncoderChannelA, Constants.kElevatorEncoderChannelB,
 				Constants.kElevatorEncoderReversed, Constants.kElevatorEncoderEncodingType);
 		encoder.setMaxPeriod(Constants.kElevatorEncoderRegardStop); // regard motor as stopped if no movement for 0.2
 																	// seconds
@@ -62,12 +64,14 @@ public class Elevator extends PIDSubsystem {
 		// speed is actually voltage
 		disablePID();
 		motor.set(speed);
-		motorSpeed = speed;
+		prevPower = speed;
+		updateEncoderSafety();
 	}
 
 	public void stop() {
 		disablePID();
 		motor.set(0);
+		prevPower = 0;
 	}
 
 	public double getEncoderDistance() {
@@ -81,7 +85,10 @@ public class Elevator extends PIDSubsystem {
 	}
 
 	public void enablePID() {
-		enable();
+		if (encoderSafe)
+			enable();
+		else
+			System.out.println("WARNING: DID NOT ENABLE PID BECAUSE ENCODER IS NOT FUNCTIONING PROPERLY ");
 	}
 
 	public void PIDsetpoint(double position) {
@@ -89,11 +96,36 @@ public class Elevator extends PIDSubsystem {
 		enablePID();
 	}
 
+	public void setEncoderSafe(boolean value) {
+		encoderSafe = value;
+	}
+
+	public boolean getEncoderSafe() {
+		return encoderSafe;
+	}
+
+	private void updateEncoderSafety() {
+		Instant instant = Instant.now();
+		if (prevPower > 0.4 && getEncoderDistance() - encoderSafetyEncoderVal < 0.02) {
+			// something's not right, check if it has been happening for 2 seconds
+			if (instant.toEpochMilli() - encoderSafetyTimestamp > 2000) {
+				encoderSafe = false;
+				disablePID();
+				System.out.println(
+						"ERROR: DETECTED ENCODER NOT FUNCTIONING PROPERLY: DISABLING PID FUNCTIONALITY, EVERYTHING ELSE IS OK.");
+			}
+		} else {
+			// expected: update last safe timestamp
+			encoderSafetyTimestamp = instant.toEpochMilli();
+		}
+	}
+
 	public void log() {
 		// put log and smartDashboard things here
-		SmartDashboard.putNumber("Elevator Motor Speed", motorSpeed);
+		SmartDashboard.putNumber("Elevator Motor Speed", prevPower);
 		SmartDashboard.putNumber("Elevator PID Setpoint", getSetpoint());
 		SmartDashboard.putNumber("Elevator Encoder", getEncoderDistance());
+		SmartDashboard.putBoolean("Encoder Functional", encoderSafe);
 	}
 
 	@Override
@@ -106,5 +138,9 @@ public class Elevator extends PIDSubsystem {
 		// add any post-processing here, such as motor ramps, and output clamps
 //TODO:
 		motor.set(output);
+		prevPower = output;
+		updateEncoderSafety();
+
 	}
+
 }

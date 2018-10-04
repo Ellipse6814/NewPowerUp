@@ -32,13 +32,13 @@ public class Intake extends Subsystem {
 
 	public void in() {
 		leftIntake.set(-Constants.kIntakeLeftSpeed);
-		rightIntake.set(Constants.kIntakeRightSpeed);
+		rightIntake.set(-Constants.kIntakeRightSpeed);
 		status = -1;
 	}
 
 	public void out() {
 		leftIntake.set(Constants.kIntakeLeftSpeed);
-		rightIntake.set(-Constants.kIntakeRightSpeed);
+		rightIntake.set(Constants.kIntakeRightSpeed);
 		status = 1;
 	}
 
