@@ -22,20 +22,24 @@ public class DriveAutoStraightTime extends TimedCommand {
 	private double speed;
 	private boolean enableGear;
 	private boolean rampMotors;
+	private double timeInSec;
 
-	public DriveAutoStraightTime(double timeInSec, double Speed, boolean EnableGear, boolean RampMotors) {
-		super(timeInSec); // timeout seconds: (this functionality is built-in to the TimedCommnand base
+	public DriveAutoStraightTime(double TimeInSec, double Speed, boolean EnableGear, boolean RampMotors) {
+		super(TimeInSec); // timeout seconds: (this functionality is built-in to the TimedCommnand base
 							// class)
 		requires(Robot.drive);
 		speed = Speed;
 		enableGear = EnableGear;
 		rampMotors = RampMotors;
+		timeInSec = TimeInSec;
 	}
 
 	@Override
 	protected void initialize() {
 		Robot.drive.reset();
 		Robot.drive.drive(speed, speed, enableGear, rampMotors);
+		System.out.println("Auto drive for: "+ timeInSec +"s started");
+
 	}
 
 	@Override
@@ -53,10 +57,12 @@ public class DriveAutoStraightTime extends TimedCommand {
 	protected void end() {
 		// Stop PID and the wheels
 		Robot.drive.stop();
+		System.out.println("Auto drive for: "+ timeInSec +"s ended");
 	}
 
 	@Override
 	protected void interrupted() {
+		System.out.println("Auto drive for: "+ timeInSec +"s was interrupted");
 		end();
 	}
 }

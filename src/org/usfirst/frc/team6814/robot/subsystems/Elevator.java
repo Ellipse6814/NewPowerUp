@@ -105,6 +105,9 @@ public class Elevator extends PIDSubsystem {
 	}
 
 	private void updateEncoderSafety() {
+		if (!encoderSafe) {
+			return;
+		}
 		Instant instant = Instant.now();
 		if (prevPower > 0.4 && getEncoderDistance() - encoderSafetyEncoderVal < 0.02) {
 			// something's not right, check if it has been happening for 2 seconds
@@ -112,12 +115,13 @@ public class Elevator extends PIDSubsystem {
 				encoderSafe = false;
 				disablePID();
 				System.out.println(
-						"ERROR: DETECTED ENCODER NOT FUNCTIONING PROPERLY: DISABLING PID FUNCTIONALITY, EVERYTHING ELSE IS OK.");
+						"ERROR: DETECTED ELEVATOR ENCODER NOT FUNCTIONING PROPERLY: DISABLING PID FUNCTIONALITY, EVERYTHING ELSE IS OK.");
 			}
 		} else {
 			// expected: update last safe timestamp
 			encoderSafetyTimestamp = instant.toEpochMilli();
 		}
+		encoderSafetyEncoderVal = getEncoderDistance();
 	}
 
 	public void log() {
@@ -125,7 +129,7 @@ public class Elevator extends PIDSubsystem {
 		SmartDashboard.putNumber("Elevator Motor Speed", prevPower);
 		SmartDashboard.putNumber("Elevator PID Setpoint", getSetpoint());
 		SmartDashboard.putNumber("Elevator Encoder", getEncoderDistance());
-		SmartDashboard.putBoolean("Encoder Functional", encoderSafe);
+		SmartDashboard.putBoolean("Elevator Encoder Functional", encoderSafe);
 	}
 
 	@Override

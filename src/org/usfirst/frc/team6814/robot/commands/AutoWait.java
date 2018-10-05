@@ -43,10 +43,12 @@ private double timeInSec;
 
 	@Override
 	protected void end() {
+		System.out.println("Auto wait for: "+ timeInSec +"s finished");
 	}
 
 	@Override
 	protected void interrupted() {
+		System.out.println("Started auto wait for: "+ timeInSec +"s was interrupted");
 		end();
 	}
 }

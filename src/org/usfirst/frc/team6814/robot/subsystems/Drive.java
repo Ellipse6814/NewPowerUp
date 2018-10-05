@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team6814.robot.subsystems;
 
+import java.time.Instant;
+
 import org.usfirst.frc.team6814.robot.Constants;
 import org.usfirst.frc.team6814.robot.commands.DriveTele2Joy;
 
@@ -25,6 +27,9 @@ public class Drive extends Subsystem {
 			new Spark(Constants.kDriveRightBackMotorPort));
 
 	private Encoder rightEncoder;
+	private boolean encoderSafe = true;
+	private double encoderSafeValL, encoderSafeValR = 0;
+	private long encoderSafeTimestamp = 0;
 
 	private int gear = 1;
 	private final int gearMax = 4;
@@ -48,14 +53,14 @@ public class Drive extends Subsystem {
 		rightEncoder = new Encoder(Constants.kDriveEncoderChannelA, Constants.kDriveEncoderChannelB,
 				Constants.kDriveEncoderReversed, Constants.kDriveEncoderEncodingType);
 		rightEncoder.setMaxPeriod(Constants.kDriveEncoderRegardStop); // regard motor as stopped if no movement for 0.2
-																	// seconds
+																		// seconds
 //		encoder.setMinRate(1); // regard motor as stopped if distance per second < 1
 		// gearbox ratio 1:49; 0.5 inch changing diameter TODO;
 //		final double PulseToDistanceConst = (1 / 49) * Math.PI * 0.02; // rotations -> meters
 		rightEncoder.setDistancePerPulse(Constants.kDrivePulse2Distance); // the scaling constant that converts pulses
-																		// into distance
+																			// into distance
 		rightEncoder.setSamplesToAverage(Constants.kDriveEncoderReduceNoiseAverageSampleNum); // used to reduce noise in
-																							// period
+																								// period
 		rightEncoder.reset();
 	}
 
@@ -73,8 +78,7 @@ public class Drive extends Subsystem {
 		// this distance is actually a fake distance because the diameter of the shaft
 		// changes
 		return rightEncoder.getDistance();
-	}	
-
+	}
 
 	public void gearUp() {
 		if (gear < gearMax)
@@ -98,6 +102,14 @@ public class Drive extends Subsystem {
 
 	public boolean getInverted() {
 		return driveInverted;
+	}
+
+	public boolean getEncoderSafe() {
+		return encoderSafe;
+	}
+
+	public void setEncoderSafe(boolean encoderSafe) {
+		this.encoderSafe = encoderSafe;
 	}
 
 	public void stop() {
@@ -141,6 +153,7 @@ public class Drive extends Subsystem {
 	public void drive(double left, double right) {
 		leftMotor.set(left);
 		rightMotor.set(-right);
+		updateEncoderSafety();
 	}
 
 	public void driveArcade(double power, double turn, boolean enableGear, boolean rampMotors) {
@@ -186,6 +199,7 @@ public class Drive extends Subsystem {
 			prevPowerL = left;
 		}
 		leftMotor.set(left);
+		updateLeftEncoderSafety();
 	}
 
 	public void driveRight(double right, boolean enableGears, boolean rampMotors) {
@@ -201,6 +215,7 @@ public class Drive extends Subsystem {
 		}
 
 		rightMotor.set(-right);
+		updateRightEncoderSafety();
 	}
 
 	// Utils
@@ -252,11 +267,52 @@ public class Drive extends Subsystem {
 		return powerR;
 	}
 
+	private void updateEncoderSafety() {
+		updateRightEncoderSafety();
+		updateLeftEncoderSafety();
+	}
+
+	private void updateRightEncoderSafety() {
+		if (!encoderSafe) {
+			return;
+		}
+		Instant instant = Instant.now();
+		if (prevPowerR > 0.4 && getEncoderRightDistance() - encoderSafeValL < 0.02) {
+			// something's not right, check if it has been happening for 2 seconds
+			if (instant.toEpochMilli() - encoderSafeTimestamp > 2000) {
+				encoderSafe = false;
+				disablePID();
+				System.out.println(
+						"ERROR: DETECTED DRIVE RIGHT ENCODER NOT FUNCTIONING PROPERLY: DISABLING PID FUNCTIONALITY, EVERYTHING ELSE IS OK.");
+			}
+		} else {
+			// expected: update last safe timestamp
+			encoderSafeTimestamp = instant.toEpochMilli();
+		}
+		encoderSafeValL = getEncoderRightDistance();
+	}
+
+	private void updateLeftEncoderSafety() {
+		// TODO:
+	}
+
+	public void enablePID() {
+		if (encoderSafe) {
+			// enable TODO:
+		}
+	}
+
+	public void disablePID() {
+		// disable TODO:
+
+	}
+
 	public void log() {
 		SmartDashboard.putNumber("Gear", gear);
 		SmartDashboard.putNumber("Left Chassis Motor", -prevPowerL);
 		SmartDashboard.putNumber("Right Chassis Motor", -prevPowerR);
 		SmartDashboard.putNumber("Right Wheel Encoder", getEncoderRightDistance());
+		SmartDashboard.putBoolean("Drive Encoder Functional", encoderSafe);
 	}
 
 }

@@ -32,7 +32,7 @@ public class Robot extends TimedRobot { // updates code every 20ms  (50 times/se
 	public static Climb climb;
 	public static OI oi;
 
-	private Autonomous m_autonomousCommand;
+	private Autonomous autonomous;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -48,12 +48,12 @@ public class Robot extends TimedRobot { // updates code every 20ms  (50 times/se
 		oi = new OI();
 
 		// instantiate the command used for the autonomous period
-		m_autonomousCommand = new Autonomous();
+		autonomous = new Autonomous();
 	}
 
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand.start(); // schedule the autonomous command (example)
+		autonomous.start(); // schedule the autonomous command (example)
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class Robot extends TimedRobot { // updates code every 20ms  (50 times/se
 
 	@Override
 	public void teleopInit() {
-		m_autonomousCommand.cancel();
+		autonomous.cancel();
 	}
 
 	/**
