@@ -32,7 +32,7 @@ public class Drive extends Subsystem {
 	private long encoderSafeTimestamp = 0;
 
 	private int gear = 1;
-	private final int gearMax = 4;
+	private final int gearMax = 3;
 	private final int gearMin = 1;
 	private double prevPowerL = 0, prevPowerR = 0; // for motor ramping
 	private boolean driveInverted = false;
@@ -151,8 +151,8 @@ public class Drive extends Subsystem {
 	}
 
 	public void drive(double left, double right) {
-		leftMotor.set(left);
-		rightMotor.set(-right);
+		leftMotor.set(-left);
+		rightMotor.set(right);
 		updateEncoderSafety();
 	}
 
@@ -162,12 +162,13 @@ public class Drive extends Subsystem {
 			power = calculatePowerWithGear(power);
 			turn = calculatePowerWithGear(turn);
 
+			//additional turn reduces (increases controlability)
 			if (gear == 1)
 				turn *= 0.9;
 			else if (gear == 2)
-				turn *= 0.7;
+				turn *= 0.8;
 			else if (gear == 3)
-				turn *= 0.5;
+				turn *= 0.8;
 		}
 
 		power = calculatePowerInverted(power);
@@ -198,7 +199,7 @@ public class Drive extends Subsystem {
 			left = motorRampL(left);
 			prevPowerL = left;
 		}
-		leftMotor.set(left);
+		leftMotor.set(-left);
 		updateLeftEncoderSafety();
 	}
 
@@ -214,7 +215,7 @@ public class Drive extends Subsystem {
 			prevPowerR = right;
 		}
 
-		rightMotor.set(-right);
+		rightMotor.set(right);
 		updateRightEncoderSafety();
 	}
 

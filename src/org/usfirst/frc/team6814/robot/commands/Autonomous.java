@@ -15,6 +15,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Autonomous extends CommandGroup {
 	public Autonomous() {
 		addSequential(new AutoWait(5));//time in seconds
-		addSequential(new DriveAutoStraightTime(3.5, 0.7, false, true)); // time, speed, gears, ramp
+		addSequential(new DriveAutoStraightTime(2, 0.7, false, true)); // time, speed, gears, ramp
 	}
 }

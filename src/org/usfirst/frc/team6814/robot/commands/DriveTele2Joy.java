@@ -34,8 +34,8 @@ public class DriveTele2Joy extends Command {
 //			return;
 //		}
 
-		double power = Robot.oi.getDoubleJoystick().getRawAxis(1);
-		double turn = Robot.oi.getDoubleJoystick().getRawAxis(4);
+		double power = -Robot.oi.getDoubleJoystick().getRawAxis(1);
+		double turn = -Robot.oi.getDoubleJoystick().getRawAxis(4);
 
 		if (Math.abs(power)<0.01) {
 			power = 0;

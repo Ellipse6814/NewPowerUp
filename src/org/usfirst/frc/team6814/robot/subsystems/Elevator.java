@@ -63,8 +63,8 @@ public class Elevator extends PIDSubsystem {
 	public void setMotor(double speed) {
 		// speed is actually voltage
 		disablePID();
-		motor.set(speed);
-		prevPower = speed;
+		motor.set(-speed);
+		prevPower = -speed;
 		updateEncoderSafety();
 	}
 
@@ -141,8 +141,8 @@ public class Elevator extends PIDSubsystem {
 	protected void usePIDOutput(double output) {
 		// add any post-processing here, such as motor ramps, and output clamps
 //TODO:
-		motor.set(output);
-		prevPower = output;
+		motor.set(-output);
+		prevPower = -output;
 		updateEncoderSafety();
 
 	}
