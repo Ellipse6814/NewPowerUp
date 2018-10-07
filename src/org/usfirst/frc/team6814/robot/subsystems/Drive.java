@@ -222,10 +222,9 @@ public class Drive extends Subsystem {
 	// Utils
 
 	private double calculatePowerWithGear(double power) {
-		// 1st gear: power * (1/4)
-		// 2nd gear: power * (2/4)
-		// 3rd gear: power * (3/4)
-		// 4rd gear: power * (4/4)
+		// 1st gear: power * (1/3)
+		// 2nd gear: power * (2/3)
+		// 3rd gear: power * (3/3)
 
 		// TODO: implement a more comfortable calculation with ifs and cases
 		// power * (current gear / total number of gears)
