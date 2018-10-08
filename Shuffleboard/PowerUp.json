@@ -1,0 +1,141 @@
+{
+  "dividerPosition": 0.24735202492211839,
+  "tabPane": [
+    {
+      "title": "Tab 1",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Elevator Motor Speed",
+              "_title": "/SmartDashboard/Elevator Motor Speed",
+              "min": -1.0,
+              "max": 1.0,
+              "center": 0.0,
+              "numTickMarks": 5.0,
+              "showText": true
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Gear",
+              "_title": "/SmartDashboard/Gear",
+              "minValue": 0.0,
+              "maxValue": 3.0,
+              "valueVisible": true
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake",
+              "_title": "SmartDashboard/Intake"
+            }
+          },
+          "4,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Left Chassis Motor",
+              "_title": "SmartDashboard/Left Chassis Motor",
+              "min": -1.0,
+              "max": 1.0,
+              "center": 0.0,
+              "numTickMarks": 5.0,
+              "showText": true
+            }
+          },
+          "6,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Right Chassis Motor",
+              "_title": "SmartDashboard/Right Chassis Motor",
+              "min": -1.0,
+              "max": 1.0,
+              "center": 0.0,
+              "numTickMarks": 5.0,
+              "showText": true
+            }
+          },
+          "0,1": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Elevator Encoder",
+              "_title": "/SmartDashboard/Elevator Encoder",
+              "Visible time": 30.0
+            }
+          },
+          "3,1": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Right Wheel Encoder",
+              "_title": "/SmartDashboard/Right Wheel Encoder",
+              "Visible time": 30.0
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Drive Encoder Functional",
+              "_title": "SmartDashboard/Drive Encoder Functional",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Elevator Encoder Functional",
+              "_title": "SmartDashboard/Elevator Encoder Functional",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
