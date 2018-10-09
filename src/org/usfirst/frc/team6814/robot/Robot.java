@@ -46,7 +46,7 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 		elevator = new Elevator();
 		intake = new Intake();
 		climb = new Climb();
-		camera = new Camera();
+		camera = new Camera(0);
 		oi = new OI();
 
 		// instantiate the command used for the autonomous period
