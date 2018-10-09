@@ -8,13 +8,13 @@
 package org.usfirst.frc.team6814.robot;
 
 import org.usfirst.frc.team6814.robot.commands.Autonomous;
+import org.usfirst.frc.team6814.robot.subsystems.Camera;
 import org.usfirst.frc.team6814.robot.subsystems.Climb;
 import org.usfirst.frc.team6814.robot.subsystems.Drive;
 import org.usfirst.frc.team6814.robot.subsystems.Elevator;
 import org.usfirst.frc.team6814.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
@@ -24,12 +24,13 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends TimedRobot { // updates code every 20ms  (50 times/second)
+public class Robot extends TimedRobot { // updates code every 20ms (50 times/second)
 
 	public static Drive drive;
 	public static Elevator elevator;
 	public static Intake intake;
 	public static Climb climb;
+	public static Camera camera;
 	public static OI oi;
 
 	private Autonomous autonomous;
@@ -45,6 +46,7 @@ public class Robot extends TimedRobot { // updates code every 20ms  (50 times/se
 		elevator = new Elevator();
 		intake = new Intake();
 		climb = new Climb();
+		camera = new Camera();
 		oi = new OI();
 
 		// instantiate the command used for the autonomous period
@@ -96,5 +98,6 @@ public class Robot extends TimedRobot { // updates code every 20ms  (50 times/se
 		elevator.log();
 		climb.log();
 		intake.log();
+		camera.log();
 	}
 }

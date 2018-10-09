@@ -7,8 +7,6 @@
 
 package org.usfirst.frc.team6814.robot.subsystems;
 
-import java.time.Instant;
-
 import org.usfirst.frc.team6814.robot.Constants;
 import org.usfirst.frc.team6814.robot.commands.DriveTele2Joy;
 
@@ -276,15 +274,15 @@ public class Drive extends Subsystem {
 		if (!encoderSafe) {
 			return;
 		}
-		Instant instant = Instant.now();
+		long time = System.currentTimeMillis();
 		if (prevPowerR > 0.4 && getEncoderRightDistance() - encoderSafeValL < 0.02) { // assume it's unsafe if at this
 																						// instant it's unsafe, but
 																						// let's wait a little longer to
 																						// call it
 			// something's not right, check if it has been happening for 2 seconds
-			if (instant.toEpochMilli() - encoderSafeTimestamp > 2000) { // it has been assumed to be unsafe for 2
-																		// seconds, probably actually unsafe, EMERGENCY
-																		// STOP!
+			if (time - encoderSafeTimestamp > 2000) { // it has been assumed to be unsafe for 2
+														// seconds, probably actually unsafe, EMERGENCY
+														// STOP!
 				encoderSafe = false;
 				disablePID();
 				System.out.println(
@@ -292,7 +290,7 @@ public class Drive extends Subsystem {
 			}
 		} else { // reset to safe
 			// expected: update last safe timestamp to now
-			encoderSafeTimestamp = instant.toEpochMilli();
+			encoderSafeTimestamp = time;
 			// !IMPORTANT: only record the last safe distance, or else delta distance will
 			// never reach 0.02m in 20ms; but this way, it still might not reach it on the
 			// first iteration, but it should reach it sometimes under 2 seconds

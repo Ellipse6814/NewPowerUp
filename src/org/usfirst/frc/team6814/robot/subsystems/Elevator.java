@@ -7,10 +7,7 @@
 
 package org.usfirst.frc.team6814.robot.subsystems;
 
-import java.time.Instant;
-
 import org.usfirst.frc.team6814.robot.Constants;
-import org.usfirst.frc.team6814.robot.commands.ElevatorTeleShoulder;
 import org.usfirst.frc.team6814.robot.commands.ElevatorTeleSingleJoystick;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -23,7 +20,7 @@ public class Elevator extends PIDSubsystem {
 	private Spark motor = new Spark(Constants.kElevatorMotorPort);
 	private Encoder encoder;
 	private double prevPower = 0;
-	
+
 	// safety module
 	private boolean encoderSafe = true;
 	private long encoderSafetyTimestamp = 0;
@@ -110,10 +107,10 @@ public class Elevator extends PIDSubsystem {
 		if (!encoderSafe) { // if encoder is already broken, then don't bother checking
 			return;
 		}
-		Instant instant = Instant.now();
+		long time = System.currentTimeMillis();
 		if (prevPower > 0.4 && getEncoderDistance() - encoderSafetyEncoderVal < 0.02) {
 			// something's not right, check if it has been happening for 2 seconds
-			if (instant.toEpochMilli() - encoderSafetyTimestamp > 2000) {
+			if (time - encoderSafetyTimestamp > 2000) {
 				encoderSafe = false;
 				disablePID();
 				System.out.println(
@@ -121,8 +118,9 @@ public class Elevator extends PIDSubsystem {
 			}
 		} else {
 			// expected: update last safe timestamp
-			encoderSafetyTimestamp = instant.toEpochMilli();
-			// !IMPORTANT: only record the last safe distance, or else delta distance will never reach 0.02m in 20ms
+			encoderSafetyTimestamp = time;
+			// !IMPORTANT: only record the last safe distance, or else delta distance will
+			// never reach 0.02m in 20ms
 			encoderSafetyEncoderVal = getEncoderDistance();
 		}
 	}
