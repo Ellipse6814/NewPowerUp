@@ -162,7 +162,7 @@ public class Drive extends Subsystem {
 			power = calculatePowerWithGear(power);
 			turn = calculatePowerWithGear(turn);
 
-			//additional turn reduces (increases controlability)
+			// additional turn reduces (increases controlability)
 			if (gear == 1)
 				turn *= 0.9;
 			else if (gear == 2)
@@ -277,19 +277,27 @@ public class Drive extends Subsystem {
 			return;
 		}
 		Instant instant = Instant.now();
-		if (prevPowerR > 0.4 && getEncoderRightDistance() - encoderSafeValL < 0.02) {
+		if (prevPowerR > 0.4 && getEncoderRightDistance() - encoderSafeValL < 0.02) { // assume it's unsafe if at this
+																						// instant it's unsafe, but
+																						// let's wait a little longer to
+																						// call it
 			// something's not right, check if it has been happening for 2 seconds
-			if (instant.toEpochMilli() - encoderSafeTimestamp > 2000) {
+			if (instant.toEpochMilli() - encoderSafeTimestamp > 2000) { // it has been assumed to be unsafe for 2
+																		// seconds, probably actually unsafe, EMERGENCY
+																		// STOP!
 				encoderSafe = false;
 				disablePID();
 				System.out.println(
 						"ERROR: DETECTED DRIVE RIGHT ENCODER NOT FUNCTIONING PROPERLY: DISABLING PID FUNCTIONALITY, EVERYTHING ELSE IS OK.");
 			}
-		} else {
-			// expected: update last safe timestamp
+		} else { // reset to safe
+			// expected: update last safe timestamp to now
 			encoderSafeTimestamp = instant.toEpochMilli();
+			// !IMPORTANT: only record the last safe distance, or else delta distance will
+			// never reach 0.02m in 20ms; but this way, it still might not reach it on the
+			// first iteration, but it should reach it sometimes under 2 seconds
+			encoderSafeValL = getEncoderRightDistance();
 		}
-		encoderSafeValL = getEncoderRightDistance();
 	}
 
 	private void updateLeftEncoderSafety() {

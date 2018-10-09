@@ -23,6 +23,8 @@ public class Elevator extends PIDSubsystem {
 	private Spark motor = new Spark(Constants.kElevatorMotorPort);
 	private Encoder encoder;
 	private double prevPower = 0;
+	
+	// safety module
 	private boolean encoderSafe = true;
 	private long encoderSafetyTimestamp = 0;
 	private double encoderSafetyEncoderVal = 0;
@@ -105,7 +107,7 @@ public class Elevator extends PIDSubsystem {
 	}
 
 	private void updateEncoderSafety() {
-		if (!encoderSafe) {
+		if (!encoderSafe) { // if encoder is already broken, then don't bother checking
 			return;
 		}
 		Instant instant = Instant.now();
@@ -120,8 +122,9 @@ public class Elevator extends PIDSubsystem {
 		} else {
 			// expected: update last safe timestamp
 			encoderSafetyTimestamp = instant.toEpochMilli();
+			// !IMPORTANT: only record the last safe distance, or else delta distance will never reach 0.02m in 20ms
+			encoderSafetyEncoderVal = getEncoderDistance();
 		}
-		encoderSafetyEncoderVal = getEncoderDistance();
 	}
 
 	public void log() {
