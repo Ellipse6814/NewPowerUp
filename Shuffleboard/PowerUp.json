@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "dividerPosition": 0.24907292954264523,
-=======
-  "dividerPosition": 0.24713242961418144,
->>>>>>> d79c4e551fb4206138055fddc1f997f7d983375a
   "tabPane": [
     {
       "title": "Tab 1",
@@ -149,7 +145,6 @@
             "content": {
               "_type": "Camera Stream",
               "_source0": "camera_server://USB Camera 0",
-<<<<<<< HEAD
               "_title": "USB Camera @ 0",
               "showControls": false,
               "showCrosshair": true,
@@ -158,9 +153,6 @@
               "fps": -1,
               "imageWidth": -1,
               "imageHeight": -1
-=======
-              "_title": "USB Camera 0"
->>>>>>> d79c4e551fb4206138055fddc1f997f7d983375a
             }
           }
         }
