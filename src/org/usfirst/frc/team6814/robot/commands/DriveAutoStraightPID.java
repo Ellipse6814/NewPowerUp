@@ -5,22 +5,24 @@ import org.usfirst.frc.team6814.robot.Robot;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
-public class DriveAutoTurnInEllipsePID extends PIDCommand {
+public class DriveAutoStraightPID extends PIDCommand {
 
 	private double speed;
 	private boolean enableGear;
 	private boolean rampMotors;
 	private double tolerance;
+	private double turningP;
 	private double setpoint;
 	private PIDController PID;
 
-	public DriveAutoTurnInEllipsePID(double setpoint, double p, double i, double d, double speed, double tolerance, boolean enableGear,
-	        boolean rampMotors) {
+	public DriveAutoStraightPID(double setpoint, double p, double i, double d, double turningP, double tolerance,
+	        double speed, boolean enableGear, boolean rampMotors) {
 		super(p, i, d);
 		requires(Robot.drive);
 		this.tolerance = tolerance;
 		this.enableGear = enableGear;
 		this.rampMotors = rampMotors;
+		this.turningP = turningP;
 		this.speed = speed;
 		this.setpoint = setpoint;
 		initPIDController();
@@ -36,12 +38,13 @@ public class DriveAutoTurnInEllipsePID extends PIDCommand {
 	@Override
 	protected double returnPIDInput() {
 		// TODO Auto-generated method stub
-		return Robot.drive.getGyroAngle();
+		return Robot.drive.getEncoderRightDistance();
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
-		Robot.drive.drive(output, -output, enableGear, rampMotors); // TODO: is this the right direction?
+		Robot.drive.drive(output, output + turningP * Robot.drive.getGyroAngle(), enableGear, rampMotors);
+		// TODO: is this the right direction?
 	}
 
 	@Override
@@ -55,6 +58,7 @@ public class DriveAutoTurnInEllipsePID extends PIDCommand {
 
 	@Override
 	protected void execute() {
+		Robot.drive.drive(speed, -speed, enableGear, rampMotors); // feeds the motor safety function
 	}
 
 	// using inherited functionality

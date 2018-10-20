@@ -7,14 +7,47 @@
 
 package org.usfirst.frc.team6814.robot.commands;
 
+import Enum.FieldPos;
+import Enum.RobotStartingPos;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- * The main autonomous command to pickup and deliver the soda to the box.
- */
+
 public class Autonomous extends CommandGroup {
+	public Autonomous(RobotStartingPos robotPos, FieldPos gameData) {
+		if (robotPos == RobotStartingPos.M) {  // M
+			if (gameData  == FieldPos.L) {
+				
+				
+			}else if (gameData == FieldPos.R) {
+				
+				
+			}			
+		}else if (robotPos == RobotStartingPos.L) {  // L
+			if (gameData  == FieldPos.L) {
+				
+				
+			}else if (gameData == FieldPos.R) {
+				
+				
+			}
+		}else if (robotPos == RobotStartingPos.R) {  // R
+			if (gameData  == FieldPos.L) {
+				
+				
+			}else if (gameData == FieldPos.R) {
+				
+				
+			}
+		}
+			
+
+	}
+
 	public Autonomous() {
-		addSequential(new AutoWait(5));//time in seconds
+		addSequential(new AutoWait(5));// time in seconds
 		addSequential(new DriveAutoStraightTime(1.6, 0.7, false, true)); // time, speed, gears, ramp
 	}
+	
 }
+
+//	addSequential(new IntakeOut(), 1.5);// you can set timeouts for commands by adding a double after it 

@@ -13,6 +13,10 @@ public class IntakeOut extends Command {
 		this.speed = speed;
 	}
 
+	public IntakeOut() {
+		this(1.0);
+	}
+
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {

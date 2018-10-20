@@ -7,72 +7,56 @@
 
 package org.usfirst.frc.team6814.robot;
 
+import org.usfirst.frc.team6814.robot.commands.Autonomous;
+import org.usfirst.frc.team6814.robot.commands.DriveAutoStraightPID;
+import org.usfirst.frc.team6814.robot.commands.DriveAutoTurnInEllipsePID;
+import org.usfirst.frc.team6814.robot.commands.DriveAutoTurnInEllipseTime;
 import org.usfirst.frc.team6814.robot.commands.DriveGearDown;
 import org.usfirst.frc.team6814.robot.commands.DriveGearUp;
 import org.usfirst.frc.team6814.robot.commands.DriveTeleToggleInverted;
+import org.usfirst.frc.team6814.robot.commands.ElevatorTeleSetSpeed;
 import org.usfirst.frc.team6814.robot.commands.IntakeIn;
 import org.usfirst.frc.team6814.robot.commands.IntakeOut;
+import org.usfirst.frc.team6814.robot.commands.IntakeStop;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI { // stands for Operator Interface
+
 	private Joystick doubleJoystick = new Joystick(0);
 	private Joystick singleJoystick = new Joystick(1);
 
-//	// Create some buttons
-	// double joystick
-	JoystickButton intakeOut = new JoystickButton(doubleJoystick, 4);
-	JoystickButton intakeIn = new JoystickButton(doubleJoystick, 1);
-
-	JoystickButton gearUp = new JoystickButton(doubleJoystick, 6);
-	JoystickButton gearDown = new JoystickButton(doubleJoystick, 5);
-
-//	JoystickButton climbUp = new JoystickButton(doubleJoystick, 3);
-//	JoystickButton climbDown = new JoystickButton(doubleJoystick, 2);
-
-	JoystickButton driveForwards = new JoystickButton(doubleJoystick, 3);
-	JoystickButton driveBackwards = new JoystickButton(doubleJoystick, 2);
-
-	// -----------------------------------------------------------
-	// single joystick
-	JoystickButton intakeIn1 = new JoystickButton(singleJoystick, 2);
-	JoystickButton intakeOut1 = new JoystickButton(singleJoystick, 1);
-
-	JoystickButton intakeIn2 = new JoystickButton(singleJoystick, 11); // fast intake
-	JoystickButton intakeOut2 = new JoystickButton(singleJoystick, 7);
-
-	JoystickButton intakeIn3 = new JoystickButton(singleJoystick, 12); // slow intake
-	JoystickButton intakeOut3 = new JoystickButton(singleJoystick, 8);
-
 	public OI() {
-		// Put Some buttons on the SmartDashboard
-//		SmartDashboard.putData("Elevator Up", new SetElevatorSetpoint(0));
-//		SmartDashboard.putData("Elevator Down", new SetElevatorSetpoint(0.2));
-//		SmartDashboard.putData("Elevator Stop", new SetElevatorSetpoint(0.3));
-//
-//		SmartDashboard.putData("Wrist Horizontal", new SetWristSetpoint(0));
-//		SmartDashboard.putData("Raise Wrist", new SetWristSetpoint(-45));
-//
-//		SmartDashboard.putData("Open Claw", new OpenClaw());
-//		SmartDashboard.putData("Close Claw", new CloseClaw());
-//
-//		SmartDashboard.putData("Deliver Soda", new Autonomous());
-//
+		// // Create some buttons
+		// double joystick
+		JoystickButton intakeOut = new JoystickButton(doubleJoystick, 4);
+		JoystickButton intakeIn = new JoystickButton(doubleJoystick, 1);
 
-//		JoystickButton dpadUp = new JoystickButton(m_joystick, 5);
-//		JoystickButton dpadRight = new JoystickButton(m_joystick, 6);
-//		JoystickButton dpadDown = new JoystickButton(m_joystick, 7);
-//		JoystickButton dpadLeft = new JoystickButton(m_joystick, 8);
-//		JoystickButton l2 = new JoystickButton(m_joystick, 9);
-//		JoystickButton r2 = new JoystickButton(m_joystick, 10);
-//		JoystickButton l1 = new JoystickButton(m_joystick, 11);
-//		JoystickButton r1 = new JoystickButton(m_joystick, 12);
-//
+		JoystickButton gearUp = new JoystickButton(doubleJoystick, 6);
+		JoystickButton gearDown = new JoystickButton(doubleJoystick, 5);
+
+//		JoystickButton climbUp = new JoystickButton(doubleJoystick, 3);
+//		JoystickButton climbDown = new JoystickButton(doubleJoystick, 2);
+
+		JoystickButton driveForwards = new JoystickButton(doubleJoystick, 3);
+		JoystickButton driveBackwards = new JoystickButton(doubleJoystick, 2);
+
+		// -----------------------------------------------------------
+		// single joystick
+		JoystickButton intakeIn1 = new JoystickButton(singleJoystick, 2);
+		JoystickButton intakeOut1 = new JoystickButton(singleJoystick, 1);
+
+		JoystickButton intakeIn2 = new JoystickButton(singleJoystick, 11); // fast intake
+		JoystickButton intakeOut2 = new JoystickButton(singleJoystick, 7);
+
+		JoystickButton intakeIn3 = new JoystickButton(singleJoystick, 12); // slow intake
+		JoystickButton intakeOut3 = new JoystickButton(singleJoystick, 8);
 //		// Connect the buttons to commands
 
 		gearUp.whenPressed(new DriveGearUp());
@@ -98,16 +82,27 @@ public class OI { // stands for Operator Interface
 		driveForwards.whenPressed(new DriveTeleToggleInverted(false));
 		driveBackwards.whenPressed(new DriveTeleToggleInverted(true));
 
-//		dpadUp.whenPressed(new SetElevatorSetpoint(0.2));
-//		dpadDown.whenPressed(new SetElevatorSetpoint(-0.2));
-//		dpadRight.whenPressed(new CloseClaw());
-//		dpadLeft.whenPressed(new OpenClaw());
-//
-//		r1.whenPressed(new PrepareToPickup());
-//		r2.whenPressed(new Pickup());
-//		l1.whenPressed(new Place());
-//		l2.whenPressed(new Autonomous());
-		System.out.println("Robot OI started");
+		// put these controls on the SmartDashboard so we can control them with a mouse
+		SmartDashboard.putData("Intake In Fast", new IntakeIn(1.0));
+		SmartDashboard.putData("Intake In Slow", new IntakeIn(0.6));
+		SmartDashboard.putData("Intake Out Fast", new IntakeOut(1.0));
+		SmartDashboard.putData("Intake Out Slow", new IntakeOut(0.6));
+		SmartDashboard.putData("Intake Stop", new IntakeStop());
+
+		SmartDashboard.putData("Elev Up", new ElevatorTeleSetSpeed(0.5));
+		SmartDashboard.putData("Elev Down", new ElevatorTeleSetSpeed(-0.5));
+		SmartDashboard.putData("Elev Stop", new ElevatorTeleSetSpeed(0.5));
+
+		SmartDashboard.putData("Run Autonomous", new Autonomous());
+		// setpoint kp ki kd speed tolerance gear ramp
+		SmartDashboard.putData("Drive Turn PID", new DriveAutoTurnInEllipsePID(-90, 1, 0, 0, 0.7, 2, false, true));
+
+		SmartDashboard.putData("Drive Turn Time", new DriveAutoTurnInEllipseTime(2, 0.7, false, true));
+
+		SmartDashboard.putData("Drive Straight PID",new DriveAutoStraightPID(10, 1, 0, 0, 0, 0.1, 0.7, false, true));
+//double setpoint, double p, double i, double d, double turningP, double tolerance, double speed, boolean enableGear, boolean rampMotors
+
+		System.out.println("Robot OI Started");
 	}
 
 	public Joystick getDoubleJoystick() {

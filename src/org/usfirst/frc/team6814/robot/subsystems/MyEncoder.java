@@ -4,13 +4,13 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class MyEncoderMARKFORDELETE {
+@Deprecated public class MyEncoder {
 	private Encoder encoder;
 	private String name;
 	private double gearboxRatio = 1;
 	private final double convertToDistanceConst;
 
-	public MyEncoderMARKFORDELETE(String Name, int channelA, int channelB, boolean reverseDirection, EncodingType encodingType,
+	public MyEncoder(String Name, int channelA, int channelB, boolean reverseDirection, EncodingType encodingType,
 			double GearboxRatio, double wheelDiameter) {
 		encoder = new Encoder(channelA, channelB, reverseDirection, encodingType);
 		name = Name;

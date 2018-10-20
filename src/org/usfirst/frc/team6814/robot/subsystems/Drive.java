@@ -14,6 +14,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -83,7 +84,7 @@ public class Drive extends Subsystem {
 	public double getGyroAngle() {
 		return gyro.getAngle();
 	}
-	
+
 	public AHRS getGyro() {
 		return gyro;
 	}
@@ -332,6 +333,13 @@ public class Drive extends Subsystem {
 		SmartDashboard.putNumber("Right Chassis Motor", -prevPowerR);
 		SmartDashboard.putNumber("Right Wheel Encoder", getEncoderRightDistance());
 		SmartDashboard.putBoolean("Drive Encoder Functional", encoderSafe);
+
+		// in test mode, we can directly see AND MODIFY values from these objects
+		addChild("Drive R Encoder", rightEncoder);
+		addChild("Gyro", gyro);
+		addChild("Drive L Motor", (Sendable) leftMotor);
+		addChild("Drive R Motor", (Sendable) rightMotor);
+
 	}
 
 }

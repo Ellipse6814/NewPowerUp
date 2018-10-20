@@ -14,6 +14,9 @@ import org.usfirst.frc.team6814.robot.subsystems.Drive;
 import org.usfirst.frc.team6814.robot.subsystems.Elevator;
 import org.usfirst.frc.team6814.robot.subsystems.Intake;
 
+import Enum.FieldPos;
+import Enum.RobotStartingPos;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -50,12 +53,20 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 		oi = new OI();
 
 		// instantiate the command used for the autonomous period
-		autonomous = new Autonomous();
 	}
 
 	@Override
 	public void autonomousInit() {
-		autonomous.start(); // schedule the autonomous command (example)
+		RobotStartingPos pos = RobotStartingPos.M;
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		if (gameData.length() > 0) {
+			if (gameData.charAt(0) == 'L') {
+				autonomous = new Autonomous(pos, FieldPos.L);
+			} else {
+				autonomous = new Autonomous(pos, FieldPos.R);
+			}
+		}
+		autonomous.start(); // schedule the autonomous command
 	}
 
 	/**

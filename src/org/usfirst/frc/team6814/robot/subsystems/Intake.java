@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Intake extends Subsystem {
 
-	private double speed = 0; // +: out,     -: in
+	private double speed = 0; // +: out, -: in
 	private Spark leftIntake = new Spark(Constants.kIntakeLeftMotorPort);
 	private Spark rightIntake = new Spark(Constants.kIntakeRightMotorPort);
 
@@ -53,6 +53,10 @@ public class Intake extends Subsystem {
 
 	public void log() {
 		SmartDashboard.putNumber("Intake", speed);
+
+		// in test mode, we can directly see AND MODIFY values from these objects
+		addChild("Intake L Motor", leftIntake);
+		addChild("Intake R Motor", rightIntake);
 	}
 
 	protected void end() {

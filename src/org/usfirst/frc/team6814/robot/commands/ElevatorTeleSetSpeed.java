@@ -14,24 +14,24 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Have the robot drive tank style using the PS3 Joystick until interrupted.
  */
-public class ElevatorTeleShoulder extends Command {
-	public ElevatorTeleShoulder() {
+public class ElevatorTeleSetSpeed extends Command {
+	private double speed;
+	public ElevatorTeleSetSpeed(double speed) {
 		requires(Robot.elevator);
+		this.speed = speed;
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		Robot.elevator.setMotor(speed);
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double downPower = Robot.oi.getDoubleJoystick().getRawAxis(2); //left shoulder
-		double upPower = Robot.oi.getDoubleJoystick().getRawAxis(3); //right shoulder
-		double power = upPower - downPower;
-
-		Robot.elevator.setMotor(power);
+		Robot.elevator.setMotor(speed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
