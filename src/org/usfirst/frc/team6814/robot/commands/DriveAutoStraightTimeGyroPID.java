@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team6814.robot.commands;
 
+import org.usfirst.frc.team6814.robot.Constants;
 import org.usfirst.frc.team6814.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.TimedCommand;
@@ -17,17 +18,17 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
  * command is running. The input is the averaged values of the left and right
  * encoders.
  */
-public class DriveAutoStraightTime extends TimedCommand {
+public class DriveAutoStraightTimeGyroPID extends TimedCommand {
 	private double speed;
 	private boolean enableGear;
 	private boolean rampMotors;
 	private double timeInSec;
 
-	public DriveAutoStraightTime(double TimeInSec, double Speed) {
+	public DriveAutoStraightTimeGyroPID(double TimeInSec, double Speed) {
 		this(TimeInSec, Speed, false, false);
 	}
 
-	public DriveAutoStraightTime(double TimeInSec, double Speed, boolean EnableGear, boolean RampMotors) {
+	public DriveAutoStraightTimeGyroPID(double TimeInSec, double Speed, boolean EnableGear, boolean RampMotors) {
 		super(TimeInSec); // timeout seconds: (this functionality is built-in to the TimedCommnand base
 		                  // class)
 		requires(Robot.drive);
@@ -47,7 +48,8 @@ public class DriveAutoStraightTime extends TimedCommand {
 
 	@Override
 	protected void execute() {
-		Robot.drive.drive(speed, speed, enableGear, rampMotors); // feeds the motor safety function
+		Robot.drive.drive(speed, speed + Constants.kDriveStraightTurnPIDkP * Robot.drive.getGyroAngle(), enableGear,
+		        rampMotors); // feeds the motor safety function
 	}
 
 	// using inherited functionality

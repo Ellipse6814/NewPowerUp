@@ -8,17 +8,19 @@
 package org.usfirst.frc.team6814.robot;
 
 import org.usfirst.frc.team6814.robot.commands.Autonomous;
-import org.usfirst.frc.team6814.robot.commands.DriveAutoStraightPID;
+import org.usfirst.frc.team6814.robot.commands.DriveAutoStraightEncoderPID;
 import org.usfirst.frc.team6814.robot.commands.DriveAutoTurnInEllipsePID;
 import org.usfirst.frc.team6814.robot.commands.DriveAutoTurnInEllipseTime;
 import org.usfirst.frc.team6814.robot.commands.DriveGearDown;
 import org.usfirst.frc.team6814.robot.commands.DriveGearUp;
 import org.usfirst.frc.team6814.robot.commands.DriveTeleToggleInverted;
-import org.usfirst.frc.team6814.robot.commands.ElevatorTeleSetSpeed;
+import org.usfirst.frc.team6814.robot.commands.ElevatorSetSpeed;
 import org.usfirst.frc.team6814.robot.commands.IntakeIn;
 import org.usfirst.frc.team6814.robot.commands.IntakeOut;
 import org.usfirst.frc.team6814.robot.commands.IntakeStop;
 
+import Enum.FieldPos;
+import Enum.RobotStartingPos;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -89,17 +91,25 @@ public class OI { // stands for Operator Interface
 		SmartDashboard.putData("Intake Out Slow", new IntakeOut(0.6));
 		SmartDashboard.putData("Intake Stop", new IntakeStop());
 
-		SmartDashboard.putData("Elev Up", new ElevatorTeleSetSpeed(0.5));
-		SmartDashboard.putData("Elev Down", new ElevatorTeleSetSpeed(-0.5));
-		SmartDashboard.putData("Elev Stop", new ElevatorTeleSetSpeed(0.5));
+		SmartDashboard.putData("Elev Up", new ElevatorSetSpeed(0.5));
+		SmartDashboard.putData("Elev Down", new ElevatorSetSpeed(-0.5));
+		SmartDashboard.putData("Elev Stop", new ElevatorSetSpeed(0.5));
 
-		SmartDashboard.putData("Run Autonomous", new Autonomous());
+		SmartDashboard.putData("Run Auto Line", new Autonomous());
+		SmartDashboard.putData("Run Auto M-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right));
+		SmartDashboard.putData("Run Auto M-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left));
+		SmartDashboard.putData("Run Auto L-R", new Autonomous(RobotStartingPos.Left, FieldPos.Right));
+		SmartDashboard.putData("Run Auto L-L", new Autonomous(RobotStartingPos.Left, FieldPos.Left));
+		SmartDashboard.putData("Run Auto R-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right));
+		SmartDashboard.putData("Run Auto R-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left));
+
+		
 		// setpoint kp ki kd speed tolerance gear ramp
-		SmartDashboard.putData("Drive Turn PID", new DriveAutoTurnInEllipsePID(-90, 1, 0, 0, 0.7, 2, false, true));
+		SmartDashboard.putData("Drive Turn PID", new DriveAutoTurnInEllipsePID(90, 0.7, 2));
 
-		SmartDashboard.putData("Drive Turn Time", new DriveAutoTurnInEllipseTime(2, 0.7, false, true));
+		SmartDashboard.putData("Drive Turn Time", new DriveAutoTurnInEllipseTime(2, 0.7));
 
-		SmartDashboard.putData("Drive Straight PID",new DriveAutoStraightPID(10, 1, 0, 0, 0, 0.1, 0.7, false, true));
+		SmartDashboard.putData("Drive Straight PID", new DriveAutoStraightEncoderPID(10, 0.1, 0.7));
 //double setpoint, double p, double i, double d, double turningP, double tolerance, double speed, boolean enableGear, boolean rampMotors
 
 		System.out.println("Robot OI Started");

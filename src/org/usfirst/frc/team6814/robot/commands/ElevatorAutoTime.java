@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
  * command is running. The input is the averaged values of the left and right
  * encoders.
  */
-public class ElevatorAutoTime extends TimedCommand {
+@Deprecated public class ElevatorAutoTime extends TimedCommand {
 	private double speed;
 	private double timeInSec;
 

@@ -17,6 +17,10 @@ public class DriveAutoTurnInEllipseTime extends TimedCommand {
 	private boolean rampMotors;
 	private double timeInSec;
 
+	public DriveAutoTurnInEllipseTime(double TimeInSec, double Speed) {
+		this(TimeInSec, Speed, false, false);
+	}
+
 	public DriveAutoTurnInEllipseTime(double TimeInSec, double Speed, boolean EnableGear, boolean RampMotors) {
 		super(TimeInSec); // timeout seconds: (this functionality is built-in to the TimedCommnand base
 		                  // class)

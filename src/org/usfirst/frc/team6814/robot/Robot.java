@@ -57,13 +57,13 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 
 	@Override
 	public void autonomousInit() {
-		RobotStartingPos pos = RobotStartingPos.M;
+		RobotStartingPos pos = RobotStartingPos.Middle;
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if (gameData.length() > 0) {
 			if (gameData.charAt(0) == 'L') {
-				autonomous = new Autonomous(pos, FieldPos.L);
+				autonomous = new Autonomous(pos, FieldPos.Left);
 			} else {
-				autonomous = new Autonomous(pos, FieldPos.R);
+				autonomous = new Autonomous(pos, FieldPos.Right);
 			}
 		}
 		autonomous.start(); // schedule the autonomous command

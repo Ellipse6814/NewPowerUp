@@ -15,7 +15,11 @@ public class DriveAutoTurnInEllipsePID extends PIDCommand {
 	private double setpoint;
 	private PIDController PID;
 
-	public DriveAutoTurnInEllipsePID(double setpoint, double speed, double tolerance, boolean enableGear,
+	public DriveAutoTurnInEllipsePID(double setpoint, double tolerance, double speed) {
+		this(setpoint, tolerance, speed, false, false);
+	}
+
+	public DriveAutoTurnInEllipsePID(double setpoint, double tolerance, double speed, boolean enableGear,
 	        boolean rampMotors) {
 		super(Constants.kDriveTurnPIDkP, Constants.kDriveTurnPIDkI, Constants.kDriveTurnPIDkD);
 		requires(Robot.drive);

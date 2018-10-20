@@ -6,7 +6,7 @@ import org.usfirst.frc.team6814.robot.Robot;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 
-public class DriveAutoStraightPID extends PIDCommand {
+public class DriveAutoStraightEncoderPID extends PIDCommand {
 
 	private double speed;
 	private boolean enableGear;
@@ -16,7 +16,11 @@ public class DriveAutoStraightPID extends PIDCommand {
 	private double setpoint;
 	private PIDController PID;
 
-	public DriveAutoStraightPID(double setpoint, double tolerance, double speed, boolean enableGear,
+	public DriveAutoStraightEncoderPID(double setpoint, double tolerance, double speed) {
+		this(setpoint, tolerance, speed, false, false);
+	}
+
+	public DriveAutoStraightEncoderPID(double setpoint, double tolerance, double speed, boolean enableGear,
 	        boolean rampMotors) {
 		super(Constants.kDriveStraightPIDkP, Constants.kDriveStraightPIDkI, Constants.kDriveStraightPIDkD);
 		requires(Robot.drive);

@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Have the robot drive tank style using the PS3 Joystick until interrupted.
  */
-public class ElevatorTeleSetSpeed extends Command {
+public class ElevatorSetSpeed extends Command {
 	private double speed;
-	public ElevatorTeleSetSpeed(double speed) {
+	public ElevatorSetSpeed(double speed) {
 		requires(Robot.elevator);
 		this.speed = speed;
 	}
