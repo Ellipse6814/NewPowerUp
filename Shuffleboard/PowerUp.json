@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.24735202492211839,
+  "dividerPosition": 0.24907292954264523,
   "tabPane": [
     {
       "title": "Tab 1",
@@ -54,7 +54,7 @@
           },
           "4,0": {
             "size": [
-              2,
+              1,
               1
             ],
             "content": {
@@ -68,9 +68,9 @@
               "showText": true
             }
           },
-          "6,0": {
+          "5,0": {
             "size": [
-              2,
+              1,
               1
             ],
             "content": {
@@ -137,7 +137,7 @@
               "colorWhenFalse": "#8B0000FF"
             }
           },
-          "0,2": {
+          "1,2": {
             "size": [
               5,
               4
@@ -145,8 +145,8 @@
             "content": {
               "_type": "Camera Stream",
               "_source0": "camera_server://USB Camera 0",
-              "_title": "USB Camera 0",
-              "showControls": true,
+              "_title": "USB Camera @ 0",
+              "showControls": false,
               "showCrosshair": true,
               "crosshairColor": "#FFFFFFFF",
               "compression": 0.0,

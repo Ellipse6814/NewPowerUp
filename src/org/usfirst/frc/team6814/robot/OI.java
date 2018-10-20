@@ -7,11 +7,9 @@
 
 package org.usfirst.frc.team6814.robot;
 
-import org.usfirst.frc.team6814.robot.commands.ClimbDown;
-import org.usfirst.frc.team6814.robot.commands.ClimbUp;
 import org.usfirst.frc.team6814.robot.commands.DriveGearDown;
 import org.usfirst.frc.team6814.robot.commands.DriveGearUp;
-import org.usfirst.frc.team6814.robot.commands.DriveTeleDPad;
+import org.usfirst.frc.team6814.robot.commands.DriveTeleToggleInverted;
 import org.usfirst.frc.team6814.robot.commands.IntakeIn;
 import org.usfirst.frc.team6814.robot.commands.IntakeOut;
 
@@ -34,13 +32,22 @@ public class OI { // stands for Operator Interface
 	JoystickButton gearUp = new JoystickButton(doubleJoystick, 6);
 	JoystickButton gearDown = new JoystickButton(doubleJoystick, 5);
 
-	JoystickButton climbUp = new JoystickButton(doubleJoystick, 3);
-	JoystickButton climbDown = new JoystickButton(doubleJoystick, 2);
+//	JoystickButton climbUp = new JoystickButton(doubleJoystick, 3);
+//	JoystickButton climbDown = new JoystickButton(doubleJoystick, 2);
+
+	JoystickButton driveForwards = new JoystickButton(doubleJoystick, 3);
+	JoystickButton driveBackwards = new JoystickButton(doubleJoystick, 2);
 
 	// -----------------------------------------------------------
 	// single joystick
 	JoystickButton intakeIn1 = new JoystickButton(singleJoystick, 2);
 	JoystickButton intakeOut1 = new JoystickButton(singleJoystick, 1);
+
+	JoystickButton intakeIn2 = new JoystickButton(singleJoystick, 11); // fast intake
+	JoystickButton intakeOut2 = new JoystickButton(singleJoystick, 7);
+
+	JoystickButton intakeIn3 = new JoystickButton(singleJoystick, 12); // slow intake
+	JoystickButton intakeOut3 = new JoystickButton(singleJoystick, 8);
 
 	public OI() {
 		// Put Some buttons on the SmartDashboard
@@ -67,19 +74,29 @@ public class OI { // stands for Operator Interface
 //		JoystickButton r1 = new JoystickButton(m_joystick, 12);
 //
 //		// Connect the buttons to commands
-		intakeOut.whileHeld(new IntakeOut());
-		intakeIn.whileHeld(new IntakeIn());
 
 		gearUp.whenPressed(new DriveGearUp());
 		gearDown.whenPressed(new DriveGearDown());
 
-		climbUp.whileHeld(new ClimbUp());
-		climbDown.whileHeld(new ClimbDown());
+		intakeOut.whileHeld(new IntakeOut(1.0));
+		intakeIn.whileHeld(new IntakeIn(1.0));
 
 		// ----------------------------------------------
 
-		intakeIn1.whileHeld(new IntakeIn());
-		intakeOut1.whileHeld(new IntakeOut());
+		intakeIn1.whileHeld(new IntakeIn(1.0));
+		intakeOut1.whileHeld(new IntakeOut(1.0));
+
+		intakeIn2.whileHeld(new IntakeIn(1.0));
+		intakeOut3.whileHeld(new IntakeOut(1.0));
+
+		intakeIn3.whileHeld(new IntakeIn(0.6));
+		intakeOut3.whileHeld(new IntakeOut(0.6));
+
+//		climbUp.whileHeld(new ClimbUp());//not used
+//		climbDown.whileHeld(new ClimbDown());
+
+		driveForwards.whenPressed(new DriveTeleToggleInverted(false));
+		driveBackwards.whenPressed(new DriveTeleToggleInverted(true));
 
 //		dpadUp.whenPressed(new SetElevatorSetpoint(0.2));
 //		dpadDown.whenPressed(new SetElevatorSetpoint(-0.2));
@@ -96,6 +113,7 @@ public class OI { // stands for Operator Interface
 	public Joystick getDoubleJoystick() {
 		return doubleJoystick;
 	}
+
 	public Joystick getSingleJoystick() {
 		return singleJoystick;
 	}

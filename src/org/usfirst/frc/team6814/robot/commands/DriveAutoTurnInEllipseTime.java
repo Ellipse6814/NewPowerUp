@@ -11,19 +11,13 @@ import org.usfirst.frc.team6814.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.TimedCommand;
 
-/**
- * Drive the given distance straight (negative values go backwards). Uses a
- * local PID controller to run a simple PID loop that is only enabled while this
- * command is running. The input is the averaged values of the left and right
- * encoders.
- */
-public class DriveAutoStraightTime extends TimedCommand {
+public class DriveAutoTurnInEllipseTime extends TimedCommand {
 	private double speed;
 	private boolean enableGear;
 	private boolean rampMotors;
 	private double timeInSec;
 
-	public DriveAutoStraightTime(double TimeInSec, double Speed, boolean EnableGear, boolean RampMotors) {
+	public DriveAutoTurnInEllipseTime(double TimeInSec, double Speed, boolean EnableGear, boolean RampMotors) {
 		super(TimeInSec); // timeout seconds: (this functionality is built-in to the TimedCommnand base
 		                  // class)
 		requires(Robot.drive);
@@ -36,8 +30,9 @@ public class DriveAutoStraightTime extends TimedCommand {
 	@Override
 	protected void initialize() {
 		Robot.drive.reset();
-		Robot.drive.drive(speed, speed, enableGear, rampMotors);
-		System.out.println("Auto drive for: " + timeInSec + "s with " + speed + " speed started");
+		Robot.drive.drive(speed, -speed, enableGear, rampMotors); // TODO: check if the negative sign is added to the
+		                                                          // right wheel
+		System.out.println("Auto turn for: " + timeInSec + "s with " + speed + " speed started");
 
 	}
 
@@ -56,12 +51,12 @@ public class DriveAutoStraightTime extends TimedCommand {
 	protected void end() {
 		// Stop PID and the wheels
 		Robot.drive.stop();
-		System.out.println("Auto drive for: " + timeInSec + "s with " + speed + " speed ended");
+		System.out.println("Auto turn for: " + timeInSec + "s with " + speed + " speed ended");
 	}
 
 	@Override
 	protected void interrupted() {
-		System.out.println("Auto drive for: " + timeInSec + "s with " + speed + " speed interrupted");
+		System.out.println("Auto turn for: " + timeInSec + "s with " + speed + " speed interrupted");
 		end();
 	}
 }
