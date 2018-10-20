@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team6814.robot;
 
+import org.usfirst.frc.team6814.robot.Enum.FieldPos;
+import org.usfirst.frc.team6814.robot.Enum.RobotStartingPos;
 import org.usfirst.frc.team6814.robot.commands.Autonomous;
 import org.usfirst.frc.team6814.robot.commands.DriveAutoStraightEncoderPID;
 import org.usfirst.frc.team6814.robot.commands.DriveAutoTurnInEllipsePID;
@@ -19,8 +21,6 @@ import org.usfirst.frc.team6814.robot.commands.IntakeIn;
 import org.usfirst.frc.team6814.robot.commands.IntakeOut;
 import org.usfirst.frc.team6814.robot.commands.IntakeStop;
 
-import Enum.FieldPos;
-import Enum.RobotStartingPos;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
