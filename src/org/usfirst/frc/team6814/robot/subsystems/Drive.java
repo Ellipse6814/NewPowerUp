@@ -319,9 +319,6 @@ public class Drive extends Subsystem {
 		}
 	}
 
-	public boolean getEncoderSafety() {
-		return encoderSafe;
-	}
 
 	private void updateLeftEncoderSafety() {
 		// Oops, there is no encoder on left wheel

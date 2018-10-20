@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6814.robot.commands;
 
+import org.usfirst.frc.team6814.robot.Constants;
 import org.usfirst.frc.team6814.robot.Robot;
 
 import edu.wpi.first.wpilibj.PIDController;
@@ -14,9 +15,9 @@ public class DriveAutoTurnInEllipsePID extends PIDCommand {
 	private double setpoint;
 	private PIDController PID;
 
-	public DriveAutoTurnInEllipsePID(double setpoint, double p, double i, double d, double speed, double tolerance, boolean enableGear,
+	public DriveAutoTurnInEllipsePID(double setpoint, double speed, double tolerance, boolean enableGear,
 	        boolean rampMotors) {
-		super(p, i, d);
+		super(Constants.kDriveTurnPIDkP, Constants.kDriveTurnPIDkI, Constants.kDriveTurnPIDkD);
 		requires(Robot.drive);
 		this.tolerance = tolerance;
 		this.enableGear = enableGear;

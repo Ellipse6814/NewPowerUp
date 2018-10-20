@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6814.robot.commands;
 
+import org.usfirst.frc.team6814.robot.Constants;
 import org.usfirst.frc.team6814.robot.Robot;
 
 import edu.wpi.first.wpilibj.PIDController;
@@ -15,14 +16,14 @@ public class DriveAutoStraightPID extends PIDCommand {
 	private double setpoint;
 	private PIDController PID;
 
-	public DriveAutoStraightPID(double setpoint, double p, double i, double d, double turningP, double tolerance,
-	        double speed, boolean enableGear, boolean rampMotors) {
-		super(p, i, d);
+	public DriveAutoStraightPID(double setpoint, double tolerance, double speed, boolean enableGear,
+	        boolean rampMotors) {
+		super(Constants.kDriveStraightPIDkP, Constants.kDriveStraightPIDkI, Constants.kDriveStraightPIDkD);
 		requires(Robot.drive);
 		this.tolerance = tolerance;
 		this.enableGear = enableGear;
 		this.rampMotors = rampMotors;
-		this.turningP = turningP;
+		this.turningP = Constants.kDriveStraightTurnPIDkP;
 		this.speed = speed;
 		this.setpoint = setpoint;
 		initPIDController();
@@ -43,7 +44,9 @@ public class DriveAutoStraightPID extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		Robot.drive.drive(output, output + turningP * Robot.drive.getGyroAngle(), enableGear, rampMotors);
+		if (Robot.drive.getEncoderSafe()) {
+			Robot.drive.drive(output, output + turningP * Robot.drive.getGyroAngle(), enableGear, rampMotors);
+		}
 		// TODO: is this the right direction?
 	}
 
@@ -58,19 +61,21 @@ public class DriveAutoStraightPID extends PIDCommand {
 
 	@Override
 	protected void execute() {
-		Robot.drive.drive(speed, -speed, enableGear, rampMotors); // feeds the motor safety function
 	}
 
 	// using inherited functionality
 	@Override
 	protected boolean isFinished() {
-		return PID.onTarget();
+		return PID.onTarget() || Robot.drive.getEncoderSafe();
 	}
 
 	@Override
 	protected void end() {
 		PID.disable();
 		Robot.drive.stop();
+		if (!Robot.drive.getEncoderSafe()) {
+			System.out.print("ENCODER UNSAFE: ");
+		}
 		System.out.println("Auto turn with PID ended");
 	}
 

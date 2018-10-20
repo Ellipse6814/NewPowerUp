@@ -11,35 +11,27 @@ import Enum.FieldPos;
 import Enum.RobotStartingPos;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-
 public class Autonomous extends CommandGroup {
 	public Autonomous(RobotStartingPos robotPos, FieldPos gameData) {
-		if (robotPos == RobotStartingPos.M) {  // M
-			if (gameData  == FieldPos.L) {
-				
-				
-			}else if (gameData == FieldPos.R) {
-				
-				
-			}			
-		}else if (robotPos == RobotStartingPos.L) {  // L
-			if (gameData  == FieldPos.L) {
-				
-				
-			}else if (gameData == FieldPos.R) {
-				
-				
+		if (robotPos == RobotStartingPos.M) { // M
+			if (gameData == FieldPos.L) {
+
+			} else if (gameData == FieldPos.R) {
+				addSequential(new DriveAutoStraightPID(setpoint, p, i, d, turningP, tolerance, speed, enableGear, rampMotors));
 			}
-		}else if (robotPos == RobotStartingPos.R) {  // R
-			if (gameData  == FieldPos.L) {
-				
-				
-			}else if (gameData == FieldPos.R) {
-				
-				
+		} else if (robotPos == RobotStartingPos.L) { // L
+			if (gameData == FieldPos.L) {
+
+			} else if (gameData == FieldPos.R) {
+
+			}
+		} else if (robotPos == RobotStartingPos.R) { // R
+			if (gameData == FieldPos.L) {
+
+			} else if (gameData == FieldPos.R) {
+
 			}
 		}
-			
 
 	}
 
@@ -47,7 +39,9 @@ public class Autonomous extends CommandGroup {
 		addSequential(new AutoWait(5));// time in seconds
 		addSequential(new DriveAutoStraightTime(1.6, 0.7, false, true)); // time, speed, gears, ramp
 	}
-	
+
 }
 
 //	addSequential(new IntakeOut(), 1.5);// you can set timeouts for commands by adding a double after it 
+//parallel commands parallel the next command (the next scheduler ignores the parallel command's finish and starts the next 
+//command right after the start of the parallel command) 
