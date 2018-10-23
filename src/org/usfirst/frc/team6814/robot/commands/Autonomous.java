@@ -7,9 +7,8 @@
 
 package org.usfirst.frc.team6814.robot.commands;
 
-import org.usfirst.frc.team6814.robot.Enum.FieldPos;
-import org.usfirst.frc.team6814.robot.Enum.RobotStartingPos;
-
+import Enum.FieldPos;
+import Enum.RobotStartingPos;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class Autonomous extends CommandGroup {
