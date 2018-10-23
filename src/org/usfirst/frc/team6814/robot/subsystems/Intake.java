@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Intake extends Subsystem {
 
-	private int status = 0; // 1:out -1:in 0:stop
+	private double speed = 0; // +: out, -: in
 	private Spark leftIntake = new Spark(Constants.kIntakeLeftMotorPort);
 	private Spark rightIntake = new Spark(Constants.kIntakeRightMotorPort);
 
@@ -18,9 +18,6 @@ public class Intake extends Subsystem {
 
 		System.out.println("Intake Subsystem Started");
 
-		// Let's name everything on the LiveWindow
-		addChild("Left Motor", leftIntake);
-		addChild("Right Motor", rightIntake);
 	}
 
 	@Override
@@ -30,37 +27,36 @@ public class Intake extends Subsystem {
 
 	// actions
 
-	public void in() {
-		leftIntake.set(-Constants.kIntakeLeftSpeed);
-		rightIntake.set(-Constants.kIntakeRightSpeed);
-		status = -1;
+	public void in(double spd) {
+		leftIntake.set(-spd);
+		rightIntake.set(-spd);
+		speed = -spd;
 	}
 
-	public void out() {
-		leftIntake.set(Constants.kIntakeLeftSpeed);
-		rightIntake.set(Constants.kIntakeRightSpeed);
-		status = 1;
+	public void out(double spd) {
+		leftIntake.set(spd);
+		rightIntake.set(spd);
+		speed = spd;
 	}
 
 	public void stop() {
 		leftIntake.set(0);
 		rightIntake.set(0);
-		status = 0;
+		speed = 0;
 	}
 
 	// ---------------------------------
 
-	public int status() {
-		return status;
+	public double getSpeed() {
+		return speed;
 	}
 
 	public void log() {
-		if (status == 1)
-			SmartDashboard.putString("Intake", "Out");
-		else if (status == -1)
-			SmartDashboard.putString("Intake", "In");
-		else
-			SmartDashboard.putString("Intake", "Stopped");
+		SmartDashboard.putNumber("Intake", speed);
+
+		// in test mode, we can directly see AND MODIFY values from these objects
+		addChild("Intake L Motor", leftIntake);
+		addChild("Intake R Motor", rightIntake);
 	}
 
 	protected void end() {

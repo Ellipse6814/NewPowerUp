@@ -4,35 +4,54 @@ import org.usfirst.frc.team6814.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeIn extends Command { // DELETEME: SWITCH IS @ PORT 4
+@Deprecated public class IntakeTeleSetSpeed extends Command {
 
-	private double speed = 0;
+	private double speed;
+	private boolean isOut;
+	private boolean exitImmediately = false;
 
-	public IntakeIn(double speed) {
+	public IntakeTeleSetSpeed(boolean isOut, double speed) {
 		requires(Robot.intake);
 		this.speed = speed;
+		this.isOut = isOut;
 	}
 
-	public IntakeIn() {
-		this(1.0);
+	public IntakeTeleSetSpeed(boolean isOut) {
+		requires(Robot.intake);
+		this.speed = 1.0;
+		this.isOut = isOut;
+	}
+
+	public IntakeTeleSetSpeed() {
+		requires(Robot.intake);
+		Robot.intake.stop();
+		exitImmediately = true;
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		Robot.intake.in(speed);
+		if (isOut)
+			Robot.intake.out(speed);
+		else
+			Robot.intake.in(speed);
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intake.in(speed); // feeds the motor safety function
+		// feeds the motor safety function
+		if (isOut)
+			Robot.intake.out(speed);
+		else
+			Robot.intake.in(speed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return exitImmediately;
 	}
 
 	// Called once after isFinished returns true

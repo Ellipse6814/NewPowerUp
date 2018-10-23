@@ -30,6 +30,11 @@ public class ElevatorTeleSingleJoystick extends Command {
 		double power = Robot.oi.getSingleJoystick().getRawAxis(1);
 		power *= -1;
 
+		//eliminate deadband
+		if (Math.abs(power)<0.01) {
+			power = 0;
+		}
+		
 		Robot.elevator.setMotor(power);
 	}
 
@@ -42,7 +47,7 @@ public class ElevatorTeleSingleJoystick extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.drive.stop();
+		Robot.elevator.stop();
 	}
 
 	// Called when another command which requires one or more of the same

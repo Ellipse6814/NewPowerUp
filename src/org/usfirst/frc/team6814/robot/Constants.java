@@ -37,14 +37,14 @@ public class Constants {
 
 	//
 	// Drive
-	
+
 	public static final int kDriveLeftFrontMotorPort = 0;
 	public static final int kDriveLeftBackMotorPort = 1;
 	public static final int kDriveRightFrontMotorPort = 2;
 	public static final int kDriveRightBackMotorPort = 3;
 	public static final int kDriveEncoderChannelA = 0;
 	public static final int kDriveEncoderChannelB = 1;
-	
+
 	public static final int kDriveEncoderReduceNoiseAverageSampleNum = 5;
 
 	public static final boolean kDriveEncoderReversed = false;
@@ -54,7 +54,15 @@ public class Constants {
 	public static final double kDriveGearboxRatio = 1 / 1; // output rotations with one motor rotation
 	public static final double kDriveWheelDiameter = 0.15; // meters
 	public static final double kDrivePulse2Distance = (kDriveGearboxRatio) * (Math.PI * kDriveWheelDiameter);
-	
+
+	public static final double kDriveStraightPIDkP = 1;
+	public static final double kDriveStraightPIDkI = 0;
+	public static final double kDriveStraightPIDkD = 0;
+	public static final double kDriveStraightTurnPIDkP = 0;
+
+	public static final double kDriveTurnPIDkP = 1;
+	public static final double kDriveTurnPIDkI = 0;
+	public static final double kDriveTurnPIDkD = 0;
 
 	// static PID constants:
 	// static acceleration, current limits

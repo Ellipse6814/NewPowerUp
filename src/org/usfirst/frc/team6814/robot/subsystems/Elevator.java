@@ -39,16 +39,16 @@ public class Elevator extends PIDSubsystem {
 
 	private void initEncoder() {
 		encoder = new Encoder(Constants.kElevatorEncoderChannelA, Constants.kElevatorEncoderChannelB,
-				Constants.kElevatorEncoderReversed, Constants.kElevatorEncoderEncodingType);
+		        Constants.kElevatorEncoderReversed, Constants.kElevatorEncoderEncodingType);
 		encoder.setMaxPeriod(Constants.kElevatorEncoderRegardStop); // regard motor as stopped if no movement for 0.2
-																	// seconds
+		                                                            // seconds
 //		encoder.setMinRate(1); // regard motor as stopped if distance per second < 1
 		// gearbox ratio 1:49; 0.5 inch changing diameter TODO;
 //		final double PulseToDistanceConst = (1 / 49) * Math.PI * 0.02; // rotations -> meters
 		encoder.setDistancePerPulse(Constants.kElevatorPulse2Distance); // the scaling constant that converts pulses
-																		// into distance
+		                                                                // into distance
 		encoder.setSamplesToAverage(Constants.kElevatorEncoderReduceNoiseAverageSampleNum); // used to reduce noise in
-																							// period
+		                                                                                    // period
 		encoder.reset();
 	}
 
@@ -87,7 +87,7 @@ public class Elevator extends PIDSubsystem {
 		if (encoderSafe)
 			enable();
 		else
-			System.out.println("WARNING: DID NOT ENABLE PID BECAUSE ENCODER IS NOT FUNCTIONING PROPERLY ");
+			System.out.println("WARNING: DID NOT ENABLE PID BECAUSE ENCODER IS NOT FUNCTIONING PROPERLY.");
 	}
 
 	public void PIDsetpoint(double position) {
@@ -114,7 +114,7 @@ public class Elevator extends PIDSubsystem {
 				encoderSafe = false;
 				disablePID();
 				System.out.println(
-						"ERROR: DETECTED ELEVATOR ENCODER NOT FUNCTIONING PROPERLY: DISABLING PID FUNCTIONALITY, EVERYTHING ELSE IS OK.");
+				        "ERROR: DETECTED ELEVATOR ENCODER NOT FUNCTIONING PROPERLY: DISABLING PID FUNCTIONALITY, EVERYTHING ELSE IS OK.");
 			}
 		} else {
 			// expected: update last safe timestamp
@@ -131,6 +131,10 @@ public class Elevator extends PIDSubsystem {
 		SmartDashboard.putNumber("Elevator PID Setpoint", getSetpoint());
 		SmartDashboard.putNumber("Elevator Encoder", getEncoderDistance());
 		SmartDashboard.putBoolean("Elevator Encoder Functional", encoderSafe);
+
+		// in test mode, we can directly see AND MODIFY values from these objects
+		addChild("Elev Motor", motor);
+		addChild("Elev Encoder", encoder);
 	}
 
 	@Override

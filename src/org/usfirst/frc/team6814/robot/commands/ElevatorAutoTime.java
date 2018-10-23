@@ -9,6 +9,7 @@ package org.usfirst.frc.team6814.robot.commands;
 
 import org.usfirst.frc.team6814.robot.Robot;
 
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
@@ -17,37 +18,28 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
  * command is running. The input is the averaged values of the left and right
  * encoders.
  */
-public class DriveAutoStraightTime extends TimedCommand {
+@Deprecated public class ElevatorAutoTime extends TimedCommand {
 	private double speed;
-	private boolean enableGear;
-	private boolean rampMotors;
 	private double timeInSec;
 
-	public DriveAutoStraightTime(double TimeInSec, double Speed) {
-		this(TimeInSec, Speed, false, false);
-	}
-
-	public DriveAutoStraightTime(double TimeInSec, double Speed, boolean EnableGear, boolean RampMotors) {
+	public ElevatorAutoTime(double TimeInSec, double speed) {
 		super(TimeInSec); // timeout seconds: (this functionality is built-in to the TimedCommnand base
-		                  // class)
-		requires(Robot.drive);
-		speed = Speed;
-		enableGear = EnableGear;
-		rampMotors = RampMotors;
+							// class)
+		requires(Robot.elevator);
+		this.speed = speed;
 		timeInSec = TimeInSec;
 	}
 
 	@Override
 	protected void initialize() {
-		Robot.drive.reset();
-		Robot.drive.drive(speed, speed, enableGear, rampMotors);
-		System.out.println("Auto drive for: " + timeInSec + "s with " + speed + " speed started");
+		Robot.elevator.setMotor(speed);
+		System.out.println("Auto elevator for: "+ timeInSec +"s with "+speed+" speed started");
 
 	}
 
 	@Override
 	protected void execute() {
-		Robot.drive.drive(speed, speed, enableGear, rampMotors); // feeds the motor safety function
+		Robot.elevator.setMotor(speed);// feeds the motor safety function
 	}
 
 	// using inherited functionality
@@ -59,13 +51,13 @@ public class DriveAutoStraightTime extends TimedCommand {
 	@Override
 	protected void end() {
 		// Stop PID and the wheels
-		Robot.drive.stop();
-		System.out.println("Auto drive for: " + timeInSec + "s with " + speed + " speed ended");
+		Robot.elevator.stop();
+		System.out.println("Auto elevator for: "+ timeInSec +"s with "+speed+" speed ended");
 	}
 
 	@Override
 	protected void interrupted() {
-		System.out.println("Auto drive for: " + timeInSec + "s with " + speed + " speed interrupted");
+		System.out.println("Auto elevator for: "+ timeInSec +"s with "+speed+" speed interrupted");
 		end();
 	}
 }

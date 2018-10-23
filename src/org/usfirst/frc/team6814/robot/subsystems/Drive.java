@@ -10,7 +10,11 @@ package org.usfirst.frc.team6814.robot.subsystems;
 import org.usfirst.frc.team6814.robot.Constants;
 import org.usfirst.frc.team6814.robot.commands.DriveTele2Joy;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -18,12 +22,19 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive extends Subsystem {
+	// I'm not making this a PID subsystem because this subsystem could have many
+	// kinds of PID: 2 wheel drive straight PID; 1 gyro, 1 wheel drive straight PID;
+	// turning PID, etc. It will be very messy if all of those were to be
+	// implemented in this one tiny file. Therefore, I am making individual PID
+	// command classes for each different PID since they will look very different
+	// based on their unique purposes.
 
 	private SpeedController leftMotor = new SpeedControllerGroup(new Spark(Constants.kDriveLeftFrontMotorPort),
-			new Spark(Constants.kDriveLeftBackMotorPort));
+	        new Spark(Constants.kDriveLeftBackMotorPort));
 	private SpeedController rightMotor = new SpeedControllerGroup(new Spark(Constants.kDriveRightFrontMotorPort),
-			new Spark(Constants.kDriveRightBackMotorPort));
+	        new Spark(Constants.kDriveRightBackMotorPort));
 
+	private AHRS gyro;
 	private Encoder rightEncoder;
 	private boolean encoderSafe = true;
 	private double encoderSafeValL, encoderSafeValR = 0;
@@ -49,22 +60,33 @@ public class Drive extends Subsystem {
 
 	private void initEncoder() {
 		rightEncoder = new Encoder(Constants.kDriveEncoderChannelA, Constants.kDriveEncoderChannelB,
-				Constants.kDriveEncoderReversed, Constants.kDriveEncoderEncodingType);
+		        Constants.kDriveEncoderReversed, Constants.kDriveEncoderEncodingType);
 		rightEncoder.setMaxPeriod(Constants.kDriveEncoderRegardStop); // regard motor as stopped if no movement for 0.2
-																		// seconds
+		                                                              // seconds
 //		encoder.setMinRate(1); // regard motor as stopped if distance per second < 1
 		// gearbox ratio 1:49; 0.5 inch changing diameter TODO;
 //		final double PulseToDistanceConst = (1 / 49) * Math.PI * 0.02; // rotations -> meters
 		rightEncoder.setDistancePerPulse(Constants.kDrivePulse2Distance); // the scaling constant that converts pulses
-																			// into distance
+		                                                                  // into distance
 		rightEncoder.setSamplesToAverage(Constants.kDriveEncoderReduceNoiseAverageSampleNum); // used to reduce noise in
-																								// period
+		                                                                                      // period
 		rightEncoder.reset();
 	}
 
+	private void initGyro() {
+		try {
+			gyro = new AHRS(SPI.Port.kMXP);
+		} catch (RuntimeException ex) {
+			System.out.println("Error instantiating navX-MXP:  " + ex.getMessage());
+		}
+	}
+
 	public double getGyroAngle() {
-		// TODO:
-		return 0;
+		return gyro.getAngle();
+	}
+
+	public AHRS getGyro() {
+		return gyro;
 	}
 
 	public double getEncoderLeftDistance() {
@@ -90,7 +112,7 @@ public class Drive extends Subsystem {
 		System.out.println("Gear- " + gear);
 	}
 
-	public void toggleInverted() { // TODO: implement buttons and commands to toggle this
+	public void toggleInverted() {
 		driveInverted = !driveInverted;
 	}
 
@@ -224,7 +246,6 @@ public class Drive extends Subsystem {
 		// 2nd gear: power * (2/3)
 		// 3rd gear: power * (3/3)
 
-		// TODO: implement a more comfortable calculation with ifs and cases
 		// power * (current gear / total number of gears)
 		return power * (gear / (gearMax - gearMin + 1.0));
 	}
@@ -275,18 +296,18 @@ public class Drive extends Subsystem {
 			return;
 		}
 		long time = System.currentTimeMillis();
-		if (prevPowerR > 0.4 && getEncoderRightDistance() - encoderSafeValL < 0.02) { // assume it's unsafe if at this
-																						// instant it's unsafe, but
-																						// let's wait a little longer to
-																						// call it
+		if (prevPowerR > 0.4 && getEncoderRightDistance() - encoderSafeValR < 0.02) { // assume it's unsafe if at this
+		                                                                              // instant it's unsafe, but
+		                                                                              // let's wait a little longer to
+		                                                                              // call it
 			// something's not right, check if it has been happening for 2 seconds
 			if (time - encoderSafeTimestamp > 2000) { // it has been assumed to be unsafe for 2
-														// seconds, probably actually unsafe, EMERGENCY
-														// STOP!
+			                                          // seconds, probably actually unsafe, EMERGENCY
+			                                          // STOP!
 				encoderSafe = false;
-				disablePID();
+//				disablePID();
 				System.out.println(
-						"ERROR: DETECTED DRIVE RIGHT ENCODER NOT FUNCTIONING PROPERLY: DISABLING PID FUNCTIONALITY, EVERYTHING ELSE IS OK.");
+				        "ERROR: DETECTED DRIVE RIGHT ENCODER NOT FUNCTIONING PROPERLY: DISABLING PID FUNCTIONALITY, EVERYTHING ELSE IS OK.");
 			}
 		} else { // reset to safe
 			// expected: update last safe timestamp to now
@@ -294,23 +315,13 @@ public class Drive extends Subsystem {
 			// !IMPORTANT: only record the last safe distance, or else delta distance will
 			// never reach 0.02m in 20ms; but this way, it still might not reach it on the
 			// first iteration, but it should reach it sometimes under 2 seconds
-			encoderSafeValL = getEncoderRightDistance();
+			encoderSafeValR = getEncoderRightDistance();
 		}
 	}
+
 
 	private void updateLeftEncoderSafety() {
-		// TODO:
-	}
-
-	public void enablePID() {
-		if (encoderSafe) {
-			// enable TODO:
-		}
-	}
-
-	public void disablePID() {
-		// disable TODO:
-
+		// Oops, there is no encoder on left wheel
 	}
 
 	public void log() {
@@ -319,6 +330,13 @@ public class Drive extends Subsystem {
 		SmartDashboard.putNumber("Right Chassis Motor", -prevPowerR);
 		SmartDashboard.putNumber("Right Wheel Encoder", getEncoderRightDistance());
 		SmartDashboard.putBoolean("Drive Encoder Functional", encoderSafe);
+
+		// in test mode, we can directly see AND MODIFY values from these objects
+		addChild("Drive R Encoder", rightEncoder);
+		addChild("Gyro", gyro);
+		addChild("Drive L Motor", (Sendable) leftMotor);
+		addChild("Drive R Motor", (Sendable) rightMotor);
+
 	}
 
 }

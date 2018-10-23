@@ -5,20 +5,28 @@ import org.usfirst.frc.team6814.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class IntakeOut extends Command {
-	public IntakeOut() {
+
+	private double speed;
+
+	public IntakeOut(double speed) {
 		requires(Robot.intake);
+		this.speed = speed;
+	}
+
+	public IntakeOut() {
+		this(1.0);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		Robot.intake.out();
+		Robot.intake.out(speed);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intake.out(); //feeds the motor safety function 
+		Robot.intake.out(speed); // feeds the motor safety function
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
