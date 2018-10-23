@@ -7,8 +7,6 @@
 
 package org.usfirst.frc.team6814.robot;
 
-import org.usfirst.frc.team6814.robot.Enum.FieldPos;
-import org.usfirst.frc.team6814.robot.Enum.RobotStartingPos;
 import org.usfirst.frc.team6814.robot.commands.Autonomous;
 import org.usfirst.frc.team6814.robot.subsystems.Camera;
 import org.usfirst.frc.team6814.robot.subsystems.Climb;
@@ -16,8 +14,11 @@ import org.usfirst.frc.team6814.robot.subsystems.Drive;
 import org.usfirst.frc.team6814.robot.subsystems.Elevator;
 import org.usfirst.frc.team6814.robot.subsystems.Intake;
 
+import Enum.FieldPos;
+import Enum.RobotStartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
@@ -36,7 +37,7 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 	public static Camera camera;
 	public static OI oi;
 
-	private Autonomous autonomous;
+	private Command autonomous;
 
 	/**
 	 * This function is run when the robot is first started up and should be used

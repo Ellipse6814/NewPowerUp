@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6814.robot.Enum;
+package Enum;
 
 public enum RobotStartingPos {
 	Left, Right, Middle;
