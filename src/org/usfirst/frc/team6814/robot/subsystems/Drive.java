@@ -50,6 +50,7 @@ public class Drive extends Subsystem {
 
 	public Drive() {
 		super();
+		initGyro();
 		initEncoder();
 		System.out.println("Drive Subsystem Started");
 	}
