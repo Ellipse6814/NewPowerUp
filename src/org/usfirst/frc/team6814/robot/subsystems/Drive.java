@@ -35,7 +35,7 @@ public class Drive extends Subsystem {
 	        new Spark(Constants.kDriveRightBackMotorPort));
 
 	private AHRS gyro;
-	private Encoder rightEncoder;
+	private Encoder leftEncoder, rightEncoder;
 	private boolean encoderSafe = true;
 	private double encoderSafeValL, encoderSafeValR = 0;
 	private long encoderSafeTimestamp = 0;

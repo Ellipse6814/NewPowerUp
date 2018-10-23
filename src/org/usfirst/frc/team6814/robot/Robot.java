@@ -18,6 +18,7 @@ import Enum.FieldPos;
 import Enum.RobotStartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
@@ -36,7 +37,7 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 	public static Camera camera;
 	public static OI oi;
 
-	private Autonomous autonomous;
+	private Command autonomous;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
