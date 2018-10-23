@@ -51,6 +51,7 @@ public class Drive extends Subsystem {
 	public Drive() {
 		super();
 		initEncoder();
+		initGyro();
 		System.out.println("Drive Subsystem Started");
 	}
 
@@ -330,6 +331,10 @@ public class Drive extends Subsystem {
 		SmartDashboard.putNumber("Right Chassis Motor", -prevPowerR);
 		SmartDashboard.putNumber("Right Wheel Encoder", getEncoderRightDistance());
 		SmartDashboard.putBoolean("Drive Encoder Functional", encoderSafe);
+		SmartDashboard.putNumber("Gyro", gyro.getAngle());
+		SmartDashboard.putNumber("Encoder TEST", rightEncoder.get());
+
+
 
 		// in test mode, we can directly see AND MODIFY values from these objects
 		addChild("Drive R Encoder", rightEncoder);

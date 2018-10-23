@@ -80,7 +80,7 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 
 	@Override
 	public void teleopInit() {
-		autonomous.cancel();
+//		autonomous.cancel(); //TODO: !!!
 	}
 
 	/**

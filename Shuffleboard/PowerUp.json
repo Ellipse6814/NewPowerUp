@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.24907292954264523,
+  "dividerPosition": 0.24922118380062305,
   "tabPane": [
     {
       "title": "Tab 1",
@@ -153,6 +153,39 @@
               "fps": -1,
               "imageWidth": -1,
               "imageHeight": -1
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Intake Out Slow",
+              "_title": "/SmartDashboard/Intake Out Slow"
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Intake In Slow",
+              "_title": "/SmartDashboard/Intake In Slow"
+            }
+          },
+          "6,2": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "PID Command",
+              "_source0": "network_table:///SmartDashboard/Drive Turn PID",
+              "_title": "/SmartDashboard/Drive Turn PID"
             }
           }
         }
