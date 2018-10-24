@@ -7,8 +7,8 @@
 
 package org.usfirst.frc.team6814.robot.commands;
 
-import org.usfirst.team6814.robot.Enum.FieldPos;
-import org.usfirst.team6814.robot.Enum.RobotStartingPos;
+import org.usfirst.frc.team6814.robot.Enum.FieldPos;
+import org.usfirst.frc.team6814.robot.Enum.RobotStartingPos;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

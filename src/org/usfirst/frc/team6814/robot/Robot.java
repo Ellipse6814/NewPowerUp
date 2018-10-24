@@ -7,14 +7,14 @@
 
 package org.usfirst.frc.team6814.robot;
 
+import org.usfirst.frc.team6814.robot.Enum.FieldPos;
+import org.usfirst.frc.team6814.robot.Enum.RobotStartingPos;
 import org.usfirst.frc.team6814.robot.commands.Autonomous;
 import org.usfirst.frc.team6814.robot.subsystems.Camera;
 import org.usfirst.frc.team6814.robot.subsystems.Climb;
 import org.usfirst.frc.team6814.robot.subsystems.Drive;
 import org.usfirst.frc.team6814.robot.subsystems.Elevator;
 import org.usfirst.frc.team6814.robot.subsystems.Intake;
-import org.usfirst.team6814.robot.Enum.FieldPos;
-import org.usfirst.team6814.robot.Enum.RobotStartingPos;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
