@@ -18,9 +18,9 @@ import org.usfirst.frc.team6814.robot.commands.ElevatorSetSpeed;
 import org.usfirst.frc.team6814.robot.commands.IntakeIn;
 import org.usfirst.frc.team6814.robot.commands.IntakeOut;
 import org.usfirst.frc.team6814.robot.commands.IntakeStop;
+import org.usfirst.team6814.robot.Enum.FieldPos;
+import org.usfirst.team6814.robot.Enum.RobotStartingPos;
 
-import Enum.FieldPos;
-import Enum.RobotStartingPos;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -94,7 +94,7 @@ public class OI { // stands for Operator Interface
 		SmartDashboard.putData("Elev Up", new ElevatorSetSpeed(0.5));
 		SmartDashboard.putData("Elev Down", new ElevatorSetSpeed(-0.5));
 		SmartDashboard.putData("Elev Stop", new ElevatorSetSpeed(0.5));
-
+		
 		SmartDashboard.putData("Run Auto Line", new Autonomous());
 		SmartDashboard.putData("Run Auto M-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right));
 		SmartDashboard.putData("Run Auto M-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left));

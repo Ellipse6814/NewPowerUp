@@ -13,9 +13,9 @@ import org.usfirst.frc.team6814.robot.subsystems.Climb;
 import org.usfirst.frc.team6814.robot.subsystems.Drive;
 import org.usfirst.frc.team6814.robot.subsystems.Elevator;
 import org.usfirst.frc.team6814.robot.subsystems.Intake;
+import org.usfirst.team6814.robot.Enum.FieldPos;
+import org.usfirst.team6814.robot.Enum.RobotStartingPos;
 
-import Enum.FieldPos;
-import Enum.RobotStartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -54,10 +54,12 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 		oi = new OI();
 
 		// instantiate the command used for the autonomous period
+		autonomous = new Autonomous();
 	}
 
 	@Override
 	public void autonomousInit() {
+		System.out.println("Auton Init Called");
 		RobotStartingPos pos = RobotStartingPos.Middle;
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if (gameData.length() > 0) {
@@ -81,7 +83,8 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 
 	@Override
 	public void teleopInit() {
-		autonomous.cancel();
+//		if (!(autonomous == null))
+			autonomous.cancel();
 	}
 
 	/**

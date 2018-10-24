@@ -19,8 +19,6 @@ public class DriveTele2Joy extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		// DELETEME:
-		System.out.println("driveCmd started");
 	}
 
 	// Called repeatedly when this Command is scheduled to run

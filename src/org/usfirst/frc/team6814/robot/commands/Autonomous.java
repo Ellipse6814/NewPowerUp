@@ -7,8 +7,9 @@
 
 package org.usfirst.frc.team6814.robot.commands;
 
-import Enum.FieldPos;
-import Enum.RobotStartingPos;
+import org.usfirst.team6814.robot.Enum.FieldPos;
+import org.usfirst.team6814.robot.Enum.RobotStartingPos;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class Autonomous extends CommandGroup {
@@ -20,6 +21,7 @@ public class Autonomous extends CommandGroup {
 	private static double et = 2; // Elevator Time for Switch
 
 	public Autonomous(RobotStartingPos robotPos, FieldPos gameData, boolean useEncoders) {
+		System.out.println("Auton Command Group Inited");
 		if (robotPos == RobotStartingPos.Middle) { // M (to the right)
 			if (gameData == FieldPos.Left) {
 				addSequential(new DriveAutoStraightEncoderPID(1.5, sT, sS), 3);

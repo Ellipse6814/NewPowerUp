@@ -137,24 +137,6 @@
               "colorWhenFalse": "#8B0000FF"
             }
           },
-          "1,2": {
-            "size": [
-              5,
-              4
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://USB Camera 0",
-              "_title": "USB Camera @ 0",
-              "showControls": false,
-              "showCrosshair": true,
-              "crosshairColor": "#FFFFFFFF",
-              "compression": 0.0,
-              "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
-            }
-          },
           "6,1": {
             "size": [
               1,
@@ -186,6 +168,35 @@
               "_type": "PID Command",
               "_source0": "network_table:///SmartDashboard/Drive Turn PID",
               "_title": "/SmartDashboard/Drive Turn PID"
+            }
+          },
+          "0,2": {
+            "size": [
+              5,
+              4
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://USB Camera 0",
+              "_title": "USB Camera 0",
+              "showControls": true,
+              "showCrosshair": true,
+              "crosshairColor": "#FFFFFFFF",
+              "compression": 0.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Intake Stop",
+              "_title": "SmartDashboard/Intake Stop"
             }
           }
         }

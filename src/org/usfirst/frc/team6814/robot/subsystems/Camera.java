@@ -25,8 +25,8 @@ public class Camera extends Subsystem {
 	private void init() {
 		camera.setResolution(320, 240);
 		camera.setFPS(30);
-		camera.setBrightness(100);
-		camera.setExposureManual(2);// Lower exposure reduces camera latency
+		camera.setBrightness(90);
+		camera.setExposureManual(1);// Lower exposure reduces camera latency
 		camera.setPixelFormat(PixelFormat.kMJPEG);
 
 	}
