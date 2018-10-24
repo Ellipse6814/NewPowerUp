@@ -65,7 +65,7 @@ public class Drive extends Subsystem {
 		        Constants.kDriveEncoderReversed, Constants.kDriveEncoderEncodingType);
 		rightEncoder.setMaxPeriod(Constants.kDriveEncoderRegardStop); // regard motor as stopped if no movement for 0.2
 		                                                              // seconds
-//		encoder.setMinRate(1); // regard motor as stopped if distance per second < 1
+		rightEncoder.setMinRate(10); // regard motor as stopped if distance per second < 10
 		// gearbox ratio 1:49; 0.5 inch changing diameter TODO;
 //		final double PulseToDistanceConst = (1 / 49) * Math.PI * 0.02; // rotations -> meters
 		rightEncoder.setDistancePerPulse(Constants.kDrivePulse2Distance); // the scaling constant that converts pulses
@@ -141,9 +141,10 @@ public class Drive extends Subsystem {
 	public void reset() { // TODO:
 		gear = 1;
 		driveInverted = false;
-//		m_gyro.reset();
+		gyro.reset();
+		rightEncoder.reset();
 //		m_leftEncoder.reset();
-//		m_rightEncoder.reset();
+		System.out.println("Drive RESET called: gear, drive, invertedDrive, gyro, rightEncoder resetted successfully.");
 	}
 
 	// Drive Commands:
@@ -321,7 +322,6 @@ public class Drive extends Subsystem {
 		}
 	}
 
-
 	private void updateLeftEncoderSafety() {
 		// Oops, there is no encoder on left wheel
 	}
@@ -334,8 +334,6 @@ public class Drive extends Subsystem {
 		SmartDashboard.putBoolean("Drive Encoder Functional", encoderSafe);
 		SmartDashboard.putNumber("Gyro", gyro.getAngle());
 		SmartDashboard.putNumber("Encoder TEST", rightEncoder.get());
-
-
 
 		// in test mode, we can directly see AND MODIFY values from these objects
 		addChild("Drive R Encoder", rightEncoder);

@@ -49,7 +49,7 @@ public class Constants {
 
 	public static final boolean kDriveEncoderReversed = false;
 	public static final EncodingType kDriveEncoderEncodingType = EncodingType.k4X;
-	public static final double kDriveEncoderRegardStop = 0.2; // seconds
+	public static final double kDriveEncoderRegardStop = 1; // seconds
 
 	public static final double kDriveGearboxRatio = 1 / 1; // output rotations with one motor rotation
 	public static final double kDriveWheelDiameter = 0.15; // meters
