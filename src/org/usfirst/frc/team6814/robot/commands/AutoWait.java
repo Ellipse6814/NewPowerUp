@@ -7,10 +7,7 @@
 
 package org.usfirst.frc.team6814.robot.commands;
 
-import org.usfirst.frc.team6814.robot.Robot;
-
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Drive the given distance straight (negative values go backwards). Uses a
@@ -18,17 +15,19 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
  * command is running. The input is the averaged values of the left and right
  * encoders.
  */
-public class AutoWait extends TimedCommand {
-private double timeInSec;
+public class AutoWait extends Command {
+	private double timeInSec;
+
 	public AutoWait(double TimeInSec) {
-		super(TimeInSec); // timeout seconds: (this functionality is built-in to the TimedCommnand base
-							// class)
+		super(); // timeout seconds: (this functionality is built-in to the TimedCommnand base
+		         // class)
 		timeInSec = TimeInSec;
 	}
 
 	@Override
 	protected void initialize() {
-		System.out.println("Started auto wait for: "+ timeInSec +"s");
+		setTimeout(timeInSec);
+		System.out.println("Started auto wait for: " + timeInSec + "s");
 	}
 
 	@Override
@@ -43,12 +42,12 @@ private double timeInSec;
 
 	@Override
 	protected void end() {
-		System.out.println("Auto wait for: "+ timeInSec +"s finished");
+		System.out.println("Auto wait for: " + timeInSec + "s finished");
 	}
 
 	@Override
 	protected void interrupted() {
-		System.out.println("Started auto wait for: "+ timeInSec +"s was interrupted");
+		System.out.println("Started auto wait for: " + timeInSec + "s was interrupted");
 		end();
 	}
 }

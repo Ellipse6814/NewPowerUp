@@ -9,9 +9,9 @@ package org.usfirst.frc.team6814.robot.commands;
 
 import org.usfirst.frc.team6814.robot.Robot;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveAutoTurnInEllipseTime extends TimedCommand {
+public class DriveAutoTurnInEllipseTime extends Command {
 	private double speed;
 	private boolean enableGear;
 	private boolean rampMotors;
@@ -22,8 +22,8 @@ public class DriveAutoTurnInEllipseTime extends TimedCommand {
 	}
 
 	public DriveAutoTurnInEllipseTime(double TimeInSec, double Speed, boolean EnableGear, boolean RampMotors) {
-		super(TimeInSec); // timeout seconds: (this functionality is built-in to the TimedCommnand base
-		                  // class)
+		super(); // timeout seconds: (this functionality is built-in to the TimedCommnand base
+		         // class)
 		requires(Robot.drive);
 		speed = Speed;
 		enableGear = EnableGear;
@@ -34,6 +34,7 @@ public class DriveAutoTurnInEllipseTime extends TimedCommand {
 	@Override
 	protected void initialize() {
 		Robot.drive.reset();
+		setTimeout(timeInSec);
 		Robot.drive.drive(speed, -speed, enableGear, rampMotors); // TODO: check if the negative sign is added to the
 		                                                          // right wheel
 		System.out.println("Auto turn for: " + timeInSec + "s with " + speed + " speed started");

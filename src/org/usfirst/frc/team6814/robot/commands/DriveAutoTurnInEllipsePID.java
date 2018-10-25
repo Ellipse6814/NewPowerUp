@@ -28,7 +28,6 @@ public class DriveAutoTurnInEllipsePID extends PIDCommand {
 		this.rampMotors = rampMotors;
 		this.speed = speed;
 		this.setpoint = setpoint;
-		initPIDController();
 	}
 
 	private void initPIDController() {
@@ -36,6 +35,8 @@ public class DriveAutoTurnInEllipsePID extends PIDCommand {
 		PID.setAbsoluteTolerance(tolerance);
 		PID.setInputRange(-25535, 25535); // set to somewhat max
 		PID.setOutputRange(-speed, speed);
+		PID.setSetpoint(setpoint);
+		PID.enable();
 	}
 
 	@Override
@@ -53,8 +54,7 @@ public class DriveAutoTurnInEllipsePID extends PIDCommand {
 	@Override
 	protected void initialize() {
 		Robot.drive.reset();
-		PID.setSetpoint(setpoint);
-		PID.enable();
+		initPIDController();
 		System.out.println("Auto turn with PID speed started");
 
 	}

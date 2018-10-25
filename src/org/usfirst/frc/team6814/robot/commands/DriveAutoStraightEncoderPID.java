@@ -32,7 +32,6 @@ public class DriveAutoStraightEncoderPID extends PIDCommand {
 		this.speed = speed;
 		this.setpoint = setpoint;
 		this.output = 0;
-		initPIDController();
 	}
 
 	private void initPIDController() {
@@ -40,6 +39,8 @@ public class DriveAutoStraightEncoderPID extends PIDCommand {
 		PID.setAbsoluteTolerance(tolerance);
 		PID.setInputRange(-25535, 25535); // set to somewhat max
 		PID.setOutputRange(-speed, speed);
+		PID.setSetpoint(setpoint);
+		PID.enable();
 	}
 
 	@Override
@@ -60,8 +61,7 @@ public class DriveAutoStraightEncoderPID extends PIDCommand {
 	@Override
 	protected void initialize() {
 		Robot.drive.reset();
-		PID.setSetpoint(setpoint);
-		PID.enable();
+		initPIDController();
 		System.out.println("Auto turn with PID speed started with setpoint " + setpoint);
 
 	}

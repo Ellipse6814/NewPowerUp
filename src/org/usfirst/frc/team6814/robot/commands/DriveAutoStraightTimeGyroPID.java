@@ -10,7 +10,7 @@ package org.usfirst.frc.team6814.robot.commands;
 import org.usfirst.frc.team6814.robot.Constants;
 import org.usfirst.frc.team6814.robot.Robot;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Drive the given distance straight (negative values go backwards). Uses a
@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
  * command is running. The input is the averaged values of the left and right
  * encoders.
  */
-public class DriveAutoStraightTimeGyroPID extends TimedCommand {
+public class DriveAutoStraightTimeGyroPID extends Command {
 	private double speed;
 	private boolean enableGear;
 	private boolean rampMotors;
@@ -29,8 +29,8 @@ public class DriveAutoStraightTimeGyroPID extends TimedCommand {
 	}
 
 	public DriveAutoStraightTimeGyroPID(double TimeInSec, double Speed, boolean EnableGear, boolean RampMotors) {
-		super(TimeInSec); // timeout seconds: (this functionality is built-in to the TimedCommnand base
-		                  // class)
+		super(); // timeout seconds: (this functionality is built-in to the TimedCommnand base
+		         // class)
 		requires(Robot.drive);
 		speed = Speed;
 		enableGear = EnableGear;
@@ -41,6 +41,7 @@ public class DriveAutoStraightTimeGyroPID extends TimedCommand {
 	@Override
 	protected void initialize() {
 		Robot.drive.reset();
+		setTimeout(timeInSec);
 		Robot.drive.drive(speed, speed, enableGear, rampMotors);
 		System.out.println("Auto drive for: " + timeInSec + "s with " + speed + " speed started");
 
