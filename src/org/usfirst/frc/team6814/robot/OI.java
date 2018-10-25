@@ -23,8 +23,6 @@ import org.usfirst.frc.team6814.robot.commands.IntakeStop;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -82,10 +80,9 @@ public class OI { // stands for Operator Interface
 
 		driveForwards.whenPressed(new DriveTeleToggleInverted(false));
 		driveBackwards.whenPressed(new DriveTeleToggleInverted(true));
-		
+
 //		climbUp.whileHeld(new ClimbUp());//not used
 //		climbDown.whileHeld(new ClimbDown());
-
 
 		// put these controls on the SmartDashboard so we can control them with a mouse
 		SmartDashboard.putData("Intake In Fast", new IntakeIn(1.0));
@@ -99,13 +96,12 @@ public class OI { // stands for Operator Interface
 		SmartDashboard.putData("Elev Stop", new ElevatorSetSpeed(0.5));
 
 		SmartDashboard.putData("Run Auto Line", new Autonomous());
-		SmartDashboard.putData("Run Auto M-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right));
-		SmartDashboard.putData("Run Auto M-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left));
-		SmartDashboard.putData("Run Auto L-R", new Autonomous(RobotStartingPos.Left, FieldPos.Right));
-		SmartDashboard.putData("Run Auto L-L", new Autonomous(RobotStartingPos.Left, FieldPos.Left));
-		SmartDashboard.putData("Run Auto R-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right));
-		SmartDashboard.putData("Run Auto R-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left));
-
+		SmartDashboard.putData("Run Auto M-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right, true));
+		SmartDashboard.putData("Run Auto M-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left, true));
+		SmartDashboard.putData("Run Auto L-R", new Autonomous(RobotStartingPos.Left, FieldPos.Right, true));
+		SmartDashboard.putData("Run Auto L-L", new Autonomous(RobotStartingPos.Left, FieldPos.Left, true));
+		SmartDashboard.putData("Run Auto R-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right, true));
+		SmartDashboard.putData("Run Auto R-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left, true));
 
 		// setpoint kp ki kd speed tolerance gear ramp
 		SmartDashboard.putData("Drive Turn PID", new DriveAutoTurnInEllipsePID(90, 0.7, 2));

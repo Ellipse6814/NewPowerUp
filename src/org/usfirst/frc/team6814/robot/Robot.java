@@ -61,12 +61,12 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 
 	private void initAutonomousChooser() {
 		autonomousChooser.addDefault("Auto Line", new Autonomous());
-		autonomousChooser.addDefault("Run Auto M-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right));
-		autonomousChooser.addDefault("Run Auto M-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left));
-		autonomousChooser.addDefault("Run Auto L-R", new Autonomous(RobotStartingPos.Left, FieldPos.Right));
-		autonomousChooser.addDefault("Run Auto L-L", new Autonomous(RobotStartingPos.Left, FieldPos.Left));
-		autonomousChooser.addDefault("Run Auto R-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right));
-		autonomousChooser.addDefault("Run Auto R-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left));
+		autonomousChooser.addDefault("Run Auto M-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right,true));
+		autonomousChooser.addDefault("Run Auto M-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left,true));
+		autonomousChooser.addDefault("Run Auto L-R", new Autonomous(RobotStartingPos.Left, FieldPos.Right,true));
+		autonomousChooser.addDefault("Run Auto L-L", new Autonomous(RobotStartingPos.Left, FieldPos.Left,true));
+		autonomousChooser.addDefault("Run Auto R-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right,true));
+		autonomousChooser.addDefault("Run Auto R-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left,true));
 		SmartDashboard.putData("Auto mode", autonomousChooser);
 	}
 
