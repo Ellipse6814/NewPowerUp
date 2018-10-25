@@ -62,7 +62,7 @@ public class DriveAutoStraightEncoderPID extends PIDCommand {
 	protected void initialize() {
 		Robot.drive.reset();
 		initPIDController();
-		System.out.println("Auto turn with PID speed started with setpoint " + setpoint);
+		System.out.println("Auto straight with PID speed started with setpoint " + setpoint);
 
 	}
 
