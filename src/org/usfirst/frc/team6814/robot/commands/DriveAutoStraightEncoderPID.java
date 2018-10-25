@@ -14,6 +14,7 @@ public class DriveAutoStraightEncoderPID extends PIDCommand {
 	private double tolerance;
 	private double turningP;
 	private double setpoint;
+	private double output;
 	private PIDController PID;
 
 	public DriveAutoStraightEncoderPID(double setpoint, double tolerance, double speed) {
@@ -30,6 +31,7 @@ public class DriveAutoStraightEncoderPID extends PIDCommand {
 		this.turningP = Constants.kDriveStraightTurnPIDkP;
 		this.speed = speed;
 		this.setpoint = setpoint;
+		this.output = 0;
 		initPIDController();
 	}
 
@@ -48,10 +50,11 @@ public class DriveAutoStraightEncoderPID extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		if (Robot.drive.getEncoderSafe()) {
-			Robot.drive.drive(output, output + turningP * Robot.drive.getGyroAngle(), enableGear, rampMotors);
-		}
-		// TODO: is this the right direction?
+		this.output = output;
+//		System.out.println("updating output");
+//		System.out.println("PID " + output + "  " + (double) (output + turningP * Robot.drive.getGyroAngle())
+//		        + enableGear + rampMotors);
+
 	}
 
 	@Override
@@ -59,18 +62,23 @@ public class DriveAutoStraightEncoderPID extends PIDCommand {
 		Robot.drive.reset();
 		PID.setSetpoint(setpoint);
 		PID.enable();
-		System.out.println("Auto turn with PID speed started");
+		System.out.println("Auto turn with PID speed started with setpoint " + setpoint);
 
 	}
 
 	@Override
 	protected void execute() {
+//		System.out.println("executing");
+		if (Robot.drive.getEncoderSafe()) {
+			Robot.drive.drive(output, output - turningP * Robot.drive.getGyroAngle(), enableGear, rampMotors);
+		}
 	}
 
 	// using inherited functionality
 	@Override
 	protected boolean isFinished() {
-		return PID.onTarget() || Robot.drive.getEncoderSafe();
+//		System.out.println(PID.onTarget() || !Robot.drive.getEncoderSafe());
+		return PID.onTarget() || !Robot.drive.getEncoderSafe();
 	}
 
 	@Override
@@ -80,12 +88,12 @@ public class DriveAutoStraightEncoderPID extends PIDCommand {
 		if (!Robot.drive.getEncoderSafe()) {
 			System.out.print("ENCODER UNSAFE: ");
 		}
-		System.out.println("Auto turn with PID ended");
+		System.out.println("Auto straight with PID ended");
 	}
 
 	@Override
 	protected void interrupted() {
-		System.out.println("Auto turn with PID interrupted");
+		System.out.println("Auto straight with PID interrupted");
 		end();
 	}
 

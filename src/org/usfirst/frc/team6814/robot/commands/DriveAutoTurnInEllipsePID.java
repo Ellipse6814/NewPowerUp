@@ -41,12 +41,13 @@ public class DriveAutoTurnInEllipsePID extends PIDCommand {
 	@Override
 	protected double returnPIDInput() {
 		// TODO Auto-generated method stub
+//		System.out.println(Robot.drive.getGyroAngle());
 		return Robot.drive.getGyroAngle();
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
-		Robot.drive.drive(output, -output, enableGear, rampMotors); // TODO: is this the right direction?
+		Robot.drive.drive(-output, output, enableGear, rampMotors);
 	}
 
 	@Override

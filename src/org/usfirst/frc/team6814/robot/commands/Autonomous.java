@@ -14,20 +14,21 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class Autonomous extends CommandGroup {
 
-	private static double sT = 0.1; // Drive Straight Tolerance
+	private static double sT = 0.05; // Drive Straight Tolerance
 	private static double tT = 2; // Turning Tolerance
-	private static double sS = 0.7; // Straight Max Speed
-	private static double tS = 0.7; // Turning Max Speed
-	private static double et = 2; // Elevator Time for Switch
+	private static double sS = 0.5; // Straight Max Speed
+	private static double tS = 0.4; // Turning Max Speed
+	private static double et = 2.5; // Elevator Time for Switch
 
 	public Autonomous(RobotStartingPos robotPos, FieldPos gameData, boolean useEncoders) {
 		System.out.println("Auton Command Group Inited");
 		if (robotPos == RobotStartingPos.Middle) { // M (to the right)
 			if (gameData == FieldPos.Left) {
+				addParallel(new ElevatorSetSpeed(1), 1);
 				addSequential(new DriveAutoStraightEncoderPID(1.5, sT, sS), 3);
-				addSequential(new DriveAutoTurnInEllipsePID(-90, tT, tS), 3);
+				addSequential(new DriveAutoTurnInEllipsePID(-80, tT, tS), 3);
 				addSequential(new DriveAutoStraightEncoderPID(2.8, sT, sS), 3);
-				addSequential(new DriveAutoTurnInEllipsePID(90, tT, tS), 3);
+				addSequential(new DriveAutoTurnInEllipsePID(80, tT, tS), 3);
 				addSequential(new ElevatorSetSpeed(1), et);
 				addSequential(new DriveAutoStraightEncoderPID(2, sT, sS), 3);
 				addSequential(new IntakeOut(0.7), 1);
@@ -40,7 +41,7 @@ public class Autonomous extends CommandGroup {
 		} else if (robotPos == RobotStartingPos.Left) { // L
 			if (gameData == FieldPos.Left) {
 				addSequential(new DriveAutoStraightEncoderPID(4, sT, sS));
-				addSequential(new DriveAutoTurnInEllipsePID(90, tT, tS), 3);
+				addSequential(new DriveAutoTurnInEllipsePID(80, tT, tS), 3);
 				addSequential(new ElevatorSetSpeed(1), et);
 //				addSequential(new DriveAutoStraightPID(1, sT, sS), 3);
 				addSequential(new IntakeOut(0.7), 1);
@@ -55,7 +56,7 @@ public class Autonomous extends CommandGroup {
 				addSequential(new DriveAutoStraightTime(1.6, sS)); // time, speed, gears, ramp
 			} else if (gameData == FieldPos.Right) {
 				addSequential(new DriveAutoStraightEncoderPID(4, sT, sS));
-				addSequential(new DriveAutoTurnInEllipsePID(-90, tT, tS), 3);
+				addSequential(new DriveAutoTurnInEllipsePID(-80, tT, tS), 3);
 				addSequential(new ElevatorSetSpeed(1), et);
 //				addSequential(new DriveAutoStraightPID(1, sT, sS), 3);
 				addSequential(new IntakeOut(0.7), 1);
@@ -69,9 +70,9 @@ public class Autonomous extends CommandGroup {
 		if (robotPos == RobotStartingPos.Middle) { // M (to the right)
 			if (gameData == FieldPos.Left) {
 				addSequential(new DriveAutoStraightTime(1, sS));
-				addSequential(new DriveAutoTurnInEllipsePID(-90, tT, tS), 3);
+				addSequential(new DriveAutoTurnInEllipsePID(-80, tT, tS), 3);
 				addSequential(new DriveAutoStraightTime(1, sS));
-				addSequential(new DriveAutoTurnInEllipsePID(90, tT, tS), 3);
+				addSequential(new DriveAutoTurnInEllipsePID(80, tT, tS), 3);
 				addSequential(new ElevatorSetSpeed(1), et);
 				addSequential(new DriveAutoStraightTime(0.5, sS));
 				addSequential(new IntakeOut(0.7), 1);
@@ -84,7 +85,7 @@ public class Autonomous extends CommandGroup {
 		} else if (robotPos == RobotStartingPos.Left) { // L
 			if (gameData == FieldPos.Left) {
 				addSequential(new DriveAutoStraightTimeGyroPID(1.6, 0.7));
-				addSequential(new DriveAutoTurnInEllipsePID(90, tT, tS), 3);
+				addSequential(new DriveAutoTurnInEllipsePID(80, tT, tS), 3);
 				addSequential(new ElevatorSetSpeed(1), et);
 //				addSequential(new DriveAutoStraightTimeGyroPID(0.5, 0.7));
 				addSequential(new IntakeOut(0.7), 1);
@@ -98,7 +99,7 @@ public class Autonomous extends CommandGroup {
 				addSequential(new DriveAutoStraightTime(1.6, 0.7)); // time, speed, gears, ramp
 			} else if (gameData == FieldPos.Right) {
 				addSequential(new DriveAutoStraightTimeGyroPID(1.6, sS));
-				addSequential(new DriveAutoTurnInEllipsePID(-90, tT, tS), 3);
+				addSequential(new DriveAutoTurnInEllipsePID(-80, tT, tS), 3);
 				addSequential(new ElevatorSetSpeed(1), et);
 				addSequential(new DriveAutoStraightTimeGyroPID(0.5, sS), 3);
 				addSequential(new IntakeOut(0.7), 1);

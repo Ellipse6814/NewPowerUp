@@ -47,22 +47,23 @@ public class Constants {
 
 	public static final int kDriveEncoderReduceNoiseAverageSampleNum = 5;
 
-	public static final boolean kDriveEncoderReversed = false;
+	public static final boolean kDriveEncoderReversed = true;
 	public static final EncodingType kDriveEncoderEncodingType = EncodingType.k4X;
 	public static final double kDriveEncoderRegardStop = 1; // seconds
 
 	public static final double kDriveGearboxRatio = 1 / 1; // output rotations with one motor rotation
 	public static final double kDriveWheelDiameter = 0.15; // meters
-	public static final double kDrivePulse2Distance = (kDriveGearboxRatio) * (Math.PI * kDriveWheelDiameter);
+	public static final double kDriveRotation2Distance = (kDriveGearboxRatio) * (Math.PI * kDriveWheelDiameter);
+	public static final double kDrivePulse2Distance = kDriveRotation2Distance / 128;
 
 	public static final double kDriveStraightPIDkP = 1;
 	public static final double kDriveStraightPIDkI = 0;
 	public static final double kDriveStraightPIDkD = 0;
-	public static final double kDriveStraightTurnPIDkP = 0;
+	public static final double kDriveStraightTurnPIDkP = 0.12; //on cement
 
-	public static final double kDriveTurnPIDkP = 1;
+	public static final double kDriveTurnPIDkP = 0.1;
 	public static final double kDriveTurnPIDkI = 0;
-	public static final double kDriveTurnPIDkD = 0;
+	public static final double kDriveTurnPIDkD = 0.05;
 
 	// static PID constants:
 	// static acceleration, current limits

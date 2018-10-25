@@ -80,11 +80,12 @@ public class OI { // stands for Operator Interface
 		intakeIn3.whileHeld(new IntakeIn(0.6));
 		intakeOut3.whileHeld(new IntakeOut(0.6));
 
+		driveForwards.whenPressed(new DriveTeleToggleInverted(false));
+		driveBackwards.whenPressed(new DriveTeleToggleInverted(true));
+		
 //		climbUp.whileHeld(new ClimbUp());//not used
 //		climbDown.whileHeld(new ClimbDown());
 
-		driveForwards.whenPressed(new DriveTeleToggleInverted(false));
-		driveBackwards.whenPressed(new DriveTeleToggleInverted(true));
 
 		// put these controls on the SmartDashboard so we can control them with a mouse
 		SmartDashboard.putData("Intake In Fast", new IntakeIn(1.0));
@@ -98,12 +99,12 @@ public class OI { // stands for Operator Interface
 		SmartDashboard.putData("Elev Stop", new ElevatorSetSpeed(0.5));
 
 		SmartDashboard.putData("Run Auto Line", new Autonomous());
-//		SmartDashboard.putData("Run Auto M-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right));
-//		SmartDashboard.putData("Run Auto M-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left));
-//		SmartDashboard.putData("Run Auto L-R", new Autonomous(RobotStartingPos.Left, FieldPos.Right));
-//		SmartDashboard.putData("Run Auto L-L", new Autonomous(RobotStartingPos.Left, FieldPos.Left));
-//		SmartDashboard.putData("Run Auto R-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right));
-//		SmartDashboard.putData("Run Auto R-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left));
+		SmartDashboard.putData("Run Auto M-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right));
+		SmartDashboard.putData("Run Auto M-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left));
+		SmartDashboard.putData("Run Auto L-R", new Autonomous(RobotStartingPos.Left, FieldPos.Right));
+		SmartDashboard.putData("Run Auto L-L", new Autonomous(RobotStartingPos.Left, FieldPos.Left));
+		SmartDashboard.putData("Run Auto R-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right));
+		SmartDashboard.putData("Run Auto R-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left));
 
 
 		// setpoint kp ki kd speed tolerance gear ramp
@@ -111,7 +112,7 @@ public class OI { // stands for Operator Interface
 
 		SmartDashboard.putData("Drive Turn Time", new DriveAutoTurnInEllipseTime(2, 0.7));
 
-		SmartDashboard.putData("Drive Straight PID", new DriveAutoStraightEncoderPID(10, 0.1, 0.7));
+		SmartDashboard.putData("Drive Straight PID", new DriveAutoStraightEncoderPID(10, 0.1, 1));
 //double setpoint, double p, double i, double d, double turningP, double tolerance, double speed, boolean enableGear, boolean rampMotors
 
 		System.out.println("Robot OI Started");

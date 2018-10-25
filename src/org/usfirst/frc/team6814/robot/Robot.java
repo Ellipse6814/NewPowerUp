@@ -55,7 +55,7 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 		climb = new Climb();
 		camera = new Camera(0);
 		oi = new OI();
-
+		SmartDashboard.putString("Auton Robot Pos", "");
 		initAutonomousChooser();
 	}
 
@@ -72,7 +72,11 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 
 	@Override
 	public void autonomousInit() {
-		System.out.println("Auton Init Called");
+//		System.out.println("Auton Init Called");
+//		autonomous = new DriveAutoTurnInEllipsePID(80, 2, 0.4);
+////		autonomous = new DriveAutoStraightEncoderPID(5, 0.05, 0.7);
+//		autonomous.start(); // schedule the autonomous command
+
 		String DSpos = SmartDashboard.getString("Auton Robot Pos", " ");
 		System.out.println("DSpos='" + DSpos + "'");
 		RobotStartingPos pos = RobotStartingPos.Middle;
@@ -101,9 +105,9 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 			String gameData = DriverStation.getInstance().getGameSpecificMessage();
 			if (gameData.length() > 0) {
 				if (gameData.charAt(0) == 'L') {
-					autonomous = new Autonomous(pos, FieldPos.Left);
+					autonomous = new Autonomous(pos, FieldPos.Left, true);
 				} else {
-					autonomous = new Autonomous(pos, FieldPos.Right);
+					autonomous = new Autonomous(pos, FieldPos.Right, true);
 				}
 			}
 		}
@@ -121,8 +125,9 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 
 	@Override
 	public void teleopInit() {
-//		if (!(autonomous == null))
-		autonomous.cancel();
+		if (autonomous != null) {
+			autonomous.cancel();
+		}
 	}
 
 	/**
@@ -132,6 +137,7 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		log();
+//		System.out.println(drive.gyro.getAngle());
 	}
 
 	/**

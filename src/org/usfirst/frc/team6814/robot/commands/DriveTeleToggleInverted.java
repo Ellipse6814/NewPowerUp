@@ -7,26 +7,26 @@
 
 package org.usfirst.frc.team6814.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team6814.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * An example command. You can replace me with your own command.
  */
 public class DriveTeleToggleInverted extends Command {
-	public DriveTeleToggleInverted() {
-		// Use requires() here to declare subsystem dependencies
-//		requires(Robot.m_drive); does not conflict with other drive commands, don't interrupt the joystick drive command
-		Robot.drive.toggleInverted();
-	}
+
+	private boolean setInverted;
 
 	public DriveTeleToggleInverted(boolean setInverted) {
-		Robot.drive.setInverted(setInverted);
+		this.setInverted = setInverted;
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		Robot.drive.setInverted(setInverted);
+		System.out.println("Drive Inverted cmd set to " + setInverted);
 	}
 
 	// Called repeatedly when this Command is scheduled to run

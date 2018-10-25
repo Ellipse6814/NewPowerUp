@@ -34,7 +34,7 @@ public class Drive extends Subsystem {
 	private SpeedController rightMotor = new SpeedControllerGroup(new Spark(Constants.kDriveRightFrontMotorPort),
 	        new Spark(Constants.kDriveRightBackMotorPort));
 
-	private AHRS gyro;
+	public AHRS gyro;
 	private Encoder leftEncoder, rightEncoder;
 	private boolean encoderSafe = true;
 	private double encoderSafeValL, encoderSafeValR = 0;
@@ -52,7 +52,6 @@ public class Drive extends Subsystem {
 		super();
 		initGyro();
 		initEncoder();
-		initGyro();
 		System.out.println("Drive Subsystem Started");
 	}
 
@@ -78,12 +77,15 @@ public class Drive extends Subsystem {
 	private void initGyro() {
 		try {
 			gyro = new AHRS(SPI.Port.kMXP);
+//			gyro = new AHRS(SerialPort.Port.kUSB);
+
 		} catch (RuntimeException ex) {
 			System.out.println("Error instantiating navX-MXP:  " + ex.getMessage());
 		}
 	}
 
 	public double getGyroAngle() {
+//		System.out.println("Getangle Func: " + gyro.getRawGyroX());
 		return gyro.getAngle();
 	}
 
@@ -138,12 +140,11 @@ public class Drive extends Subsystem {
 		drive(0, 0);
 	}
 
-	public void reset() { // TODO:
+	public void reset() {
 		gear = 1;
 		driveInverted = false;
 		gyro.reset();
 		rightEncoder.reset();
-//		m_leftEncoder.reset();
 		System.out.println("Drive RESET called: gear, drive, invertedDrive, gyro, rightEncoder resetted successfully.");
 	}
 
@@ -187,7 +188,7 @@ public class Drive extends Subsystem {
 
 			// additional turn reduces (increases controlability)
 			if (gear == 1)
-				turn *= 0.9;
+				turn *= 1.0;
 			else if (gear == 2)
 				turn *= 0.8;
 			else if (gear == 3)
@@ -332,9 +333,8 @@ public class Drive extends Subsystem {
 		SmartDashboard.putNumber("Right Chassis Motor", -prevPowerR);
 		SmartDashboard.putNumber("Right Wheel Encoder", getEncoderRightDistance());
 		SmartDashboard.putBoolean("Drive Encoder Functional", encoderSafe);
-		SmartDashboard.putNumber("Gyro", gyro.getAngle());
-		SmartDashboard.putNumber("Encoder TEST", rightEncoder.get());
-
+		SmartDashboard.putNumber("Gyro", getGyroAngle());
+//		System.out.println("GyroLog:" + getGyroAngle());
 		// in test mode, we can directly see AND MODIFY values from these objects
 		addChild("Drive R Encoder", rightEncoder);
 		addChild("Gyro", gyro);

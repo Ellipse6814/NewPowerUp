@@ -6,7 +6,7 @@
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
-        "gridSize": 128.0,
+        "gridSize": 100.0,
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
@@ -27,10 +27,10 @@
               "showText": true
             }
           },
-          "3,0": {
+          "8,0": {
             "size": [
-              1,
-              1
+              2,
+              2
             ],
             "content": {
               "_type": "Simple Dial",
@@ -58,14 +58,9 @@
               1
             ],
             "content": {
-              "_type": "Number Bar",
+              "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Left Chassis Motor",
-              "_title": "SmartDashboard/Left Chassis Motor",
-              "min": -1.0,
-              "max": 1.0,
-              "center": 0.0,
-              "numTickMarks": 5.0,
-              "showText": true
+              "_title": "SmartDashboard/Left Chassis Motor"
             }
           },
           "5,0": {
@@ -74,14 +69,9 @@
               1
             ],
             "content": {
-              "_type": "Number Bar",
+              "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Right Chassis Motor",
-              "_title": "SmartDashboard/Right Chassis Motor",
-              "min": -1.0,
-              "max": 1.0,
-              "center": 0.0,
-              "numTickMarks": 5.0,
-              "showText": true
+              "_title": "SmartDashboard/Right Chassis Motor"
             }
           },
           "0,1": {
@@ -159,7 +149,7 @@
               "_title": "/SmartDashboard/Intake In Slow"
             }
           },
-          "6,2": {
+          "5,2": {
             "size": [
               2,
               3
@@ -197,6 +187,39 @@
               "_type": "Command",
               "_source0": "network_table:///SmartDashboard/Intake Stop",
               "_title": "SmartDashboard/Intake Stop"
+            }
+          },
+          "0,6": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Gyro",
+              "_title": "SmartDashboard/Gyro"
+            }
+          },
+          "7,2": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "PID Command",
+              "_source0": "network_table:///SmartDashboard/Drive Straight PID",
+              "_title": "SmartDashboard/Drive Straight PID"
+            }
+          },
+          "3,6": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Auton Robot Pos",
+              "_title": "SmartDashboard/Auton Robot Pos"
             }
           }
         }
