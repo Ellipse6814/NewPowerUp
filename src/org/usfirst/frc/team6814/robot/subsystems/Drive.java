@@ -196,7 +196,7 @@ public class Drive extends Subsystem {
 		}
 
 		power = calculatePowerInverted(power);
-		turn = calculatePowerInverted(turn);
+//		turn = calculatePowerInverted(turn);
 
 		double left, right;
 		left = power + turn;
