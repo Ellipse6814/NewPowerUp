@@ -188,7 +188,7 @@ public class Drive extends Subsystem {
 
 			// additional turn reduces (increases controlability)
 			if (gear == 1)
-				turn *= 1.0;
+				turn *= 0.95;
 			else if (gear == 2)
 				turn *= 0.8;
 			else if (gear == 3)
