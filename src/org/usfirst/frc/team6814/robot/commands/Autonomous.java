@@ -27,14 +27,14 @@ public class Autonomous extends CommandGroup {
 				addParallel(new IntakeIn(0.2));
 				addParallel(new ElevatorSetSpeed(1), 0.7);
 				
-				addSequential(new DriveAutoStraightEncoderPID(1.5, sT, sS), 3);
+				addSequential(new DriveAutoStraightEncoderPID(0.7, sT, sS), 3);
 				addSequential(new DriveAutoTurnInEllipsePID(-80, tT, tS), 3);
 				addSequential(new DriveAutoStraightEncoderPID(2.8, sT, sS), 3);
 				addSequential(new DriveAutoTurnInEllipsePID(80, tT, tS), 3);
 				
 				addSequential(new ElevatorSetSpeed(1), 2);
 				
-				addSequential(new DriveAutoStraightEncoderPID(2, sT, sS), 3);
+				addSequential(new DriveAutoStraightEncoderPID(2.86, sT, sS), 3); //forward distance should add to 3.56m
 				addSequential(new IntakeOut(0.7), 1);
 				
 				
