@@ -308,7 +308,7 @@ public class Drive extends Subsystem {
 			if (time - encoderSafeTimestamp > 2000) { // it has been assumed to be unsafe for 2
 			                                          // seconds, probably actually unsafe, EMERGENCY
 			                                          // STOP!
-				encoderSafe = false;
+//				encoderSafe = false; //disable safety function. Reason: untested.
 //				disablePID();
 				System.out.println(
 				        "ERROR: DETECTED DRIVE RIGHT ENCODER NOT FUNCTIONING PROPERLY: DISABLING PID FUNCTIONALITY, EVERYTHING ELSE IS OK.");

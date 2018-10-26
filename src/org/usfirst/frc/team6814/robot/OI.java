@@ -75,8 +75,8 @@ public class OI { // stands for Operator Interface
 		intakeIn2.whileHeld(new IntakeIn(1.0));
 		intakeOut3.whileHeld(new IntakeOut(1.0));
 
-		intakeIn3.whileHeld(new IntakeIn(0.6));
-		intakeOut3.whileHeld(new IntakeOut(0.6));
+		intakeIn3.whileHeld(new IntakeIn(0.7));
+		intakeOut3.whileHeld(new IntakeOut(0.7));
 
 		driveForwards.whenPressed(new DriveTeleToggleInverted(false));
 		driveBackwards.whenPressed(new DriveTeleToggleInverted(true));

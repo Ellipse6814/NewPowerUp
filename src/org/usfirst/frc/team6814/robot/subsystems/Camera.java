@@ -3,9 +3,8 @@ package org.usfirst.frc.team6814.robot.subsystems;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Camera extends Subsystem {
+public class Camera {
 	private UsbCamera camera;
 
 	public Camera(int cameraPort) {
@@ -14,25 +13,16 @@ public class Camera extends Subsystem {
 
 		try {
 			camera = CameraServer.getInstance().startAutomaticCapture(cameraPort);
-			init();
+			camera.setResolution(320, 240);
+			camera.setFPS(20);
+			camera.setBrightness(90);
+			camera.setExposureManual(1);// Lower exposure reduces camera latency
+			camera.setPixelFormat(PixelFormat.kMJPEG);
 			System.out.println("Camera Subsystem Started with specified port " + cameraPort);
 
 		} catch (Exception e) {
 			System.out.println("ERROR: Camera on port " + cameraPort + " failed to start");
 		}
-	}
-
-	private void init() {
-		camera.setResolution(320, 240);
-		camera.setFPS(30);
-		camera.setBrightness(90);
-		camera.setExposureManual(1);// Lower exposure reduces camera latency
-		camera.setPixelFormat(PixelFormat.kMJPEG);
-
-	}
-
-	public void initDefaultCommand() {
-//		setDefaultCommand( new ClimbStop());
 	}
 
 	public void log() {

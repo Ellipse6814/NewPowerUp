@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -40,7 +39,7 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 	public static OI oi;
 
 	private Command autonomous;
-	private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
+//	private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -56,23 +55,23 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 		camera = new Camera(0);
 		oi = new OI();
 		SmartDashboard.putString("Auton Robot Pos", "");
-		initAutonomousChooser();
+//		initAutonomousChooser();
 	}
 
-	private void initAutonomousChooser() {
-		autonomousChooser.addDefault("Auto Line", new Autonomous());
-		autonomousChooser.addDefault("Run Auto M-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right,true));
-		autonomousChooser.addDefault("Run Auto M-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left,true));
-		autonomousChooser.addDefault("Run Auto L-R", new Autonomous(RobotStartingPos.Left, FieldPos.Right,true));
-		autonomousChooser.addDefault("Run Auto L-L", new Autonomous(RobotStartingPos.Left, FieldPos.Left,true));
-		autonomousChooser.addDefault("Run Auto R-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right,true));
-		autonomousChooser.addDefault("Run Auto R-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left,true));
-		SmartDashboard.putData("Auto mode", autonomousChooser);
-	}
+//	private void initAutonomousChooser() {
+//		autonomousChooser.addDefault("Auto Line", new Autonomous());
+//		autonomousChooser.addDefault("Run Auto M-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right,true));
+//		autonomousChooser.addDefault("Run Auto M-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left,true));
+//		autonomousChooser.addDefault("Run Auto L-R", new Autonomous(RobotStartingPos.Left, FieldPos.Right,true));
+//		autonomousChooser.addDefault("Run Auto L-L", new Autonomous(RobotStartingPos.Left, FieldPos.Left,true));
+//		autonomousChooser.addDefault("Run Auto R-R", new Autonomous(RobotStartingPos.Middle, FieldPos.Right,true));
+//		autonomousChooser.addDefault("Run Auto R-L", new Autonomous(RobotStartingPos.Middle, FieldPos.Left,true));
+//		SmartDashboard.putData("Auto mode", autonomousChooser);
+//	}
 
 	@Override
 	public void autonomousInit() {
-//		System.out.println("Auton Init Called");
+		System.out.println("Auton Init");
 //		autonomous = new DriveAutoTurnInEllipsePID(80, 2, 0.4);
 ////		autonomous = new DriveAutoStraightEncoderPID(5, 0.05, 0.7);
 //		autonomous.start(); // schedule the autonomous command
@@ -93,6 +92,10 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 			System.out.println("DSpos says auton LEFT");
 			pos = RobotStartingPos.Left;
 			break;
+		case "A":
+			System.out.println("DSpos says auton auto line");
+			pos = null;
+			break;
 		default:
 			System.out.println("DSpos says auton I DONT KNOW, going with auto line");
 			pos = null;
@@ -103,6 +106,7 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 			autonomous = new Autonomous();
 		} else {
 			String gameData = DriverStation.getInstance().getGameSpecificMessage();
+			System.out.println("GameData: "+ gameData);
 			if (gameData.length() > 0) {
 				if (gameData.charAt(0) == 'L') {
 					autonomous = new Autonomous(pos, FieldPos.Left, true);
@@ -128,6 +132,7 @@ public class Robot extends TimedRobot { // updates code every 20ms (50 times/sec
 		if (autonomous != null) {
 			autonomous.cancel();
 		}
+		System.out.println("TeleopInit");
 	}
 
 	/**

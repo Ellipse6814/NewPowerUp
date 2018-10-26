@@ -21,30 +21,45 @@ public class Autonomous extends CommandGroup {
 //	private static double et = 2.5; // Elevator Time for Switch
 
 	public Autonomous(RobotStartingPos robotPos, FieldPos gameData, boolean useEncoders) {
-		System.out.println("Auton Command Group Inited");
+//		System.out.println("Auton Command Group Inited");
 		if (robotPos == RobotStartingPos.Middle) { // M (to the right)
 			if (gameData == FieldPos.Left) {
+				addParallel(new IntakeIn(0.2));
 				addParallel(new ElevatorSetSpeed(1), 0.7);
+				
 				addSequential(new DriveAutoStraightEncoderPID(1.5, sT, sS), 3);
 				addSequential(new DriveAutoTurnInEllipsePID(-80, tT, tS), 3);
 				addSequential(new DriveAutoStraightEncoderPID(2.8, sT, sS), 3);
 				addSequential(new DriveAutoTurnInEllipsePID(80, tT, tS), 3);
+				
 				addSequential(new ElevatorSetSpeed(1), 2);
+				
 				addSequential(new DriveAutoStraightEncoderPID(2, sT, sS), 3);
 				addSequential(new IntakeOut(0.7), 1);
+				
+				
 			} else if (gameData == FieldPos.Right) {
-				addSequential(new ElevatorSetSpeed(1), 2.5);
+				addParallel(new IntakeIn(0.2));
+				addSequential(new ElevatorSetSpeed(1), 3);
+				
 				addSequential(new DriveAutoStraightEncoderPID(3.56, sT, sS), 3);
 				addSequential(new IntakeOut(0.7), 1);
 			}
 
 		} else if (robotPos == RobotStartingPos.Left) { // L
 			if (gameData == FieldPos.Left) {
+				addParallel(new IntakeIn(0.2));
+				addParallel(new ElevatorSetSpeed(1), 0.7);
+				
 				addSequential(new DriveAutoStraightEncoderPID(4, sT, sS));
 				addSequential(new DriveAutoTurnInEllipsePID(80, tT, tS), 3);
+				
 				addSequential(new ElevatorSetSpeed(1), 2.5);
-//				addSequential(new DriveAutoStraightPID(1, sT, sS), 3);
+				
+//				addSequential(new DriveAutoStraightPID(1, sT, sS), 3); //TODO:
 				addSequential(new IntakeOut(0.7), 1);
+				
+				
 			} else if (gameData == FieldPos.Right) {
 				addSequential(new AutoWait(5));// time in seconds
 				addSequential(new DriveAutoStraightTime(1.6, sS)); // time, speed, gears, ramp
@@ -54,10 +69,17 @@ public class Autonomous extends CommandGroup {
 			if (gameData == FieldPos.Left) {
 				addSequential(new AutoWait(5));// time in seconds
 				addSequential(new DriveAutoStraightTime(1.6, sS)); // time, speed, gears, ramp
+				
+				
 			} else if (gameData == FieldPos.Right) {
+				addParallel(new IntakeIn(0.2));
+				addParallel(new ElevatorSetSpeed(1), 0.7);
+				
 				addSequential(new DriveAutoStraightEncoderPID(4, sT, sS));
 				addSequential(new DriveAutoTurnInEllipsePID(-80, tT, tS), 3);
+				
 				addSequential(new ElevatorSetSpeed(1), 2.5);
+				
 //				addSequential(new DriveAutoStraightPID(1, sT, sS), 3);
 				addSequential(new IntakeOut(0.7), 1);
 			}
