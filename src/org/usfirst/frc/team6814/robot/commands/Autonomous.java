@@ -25,14 +25,14 @@ public class Autonomous extends CommandGroup {
 		if (robotPos == RobotStartingPos.Middle) { // M (to the right)
 			if (gameData == FieldPos.Left) {
 				addParallel(new IntakeIn(0.2));
-				addParallel(new ElevatorSetSpeed(1), 0.7);
+				addParallel(new ElevatorSetSpeed(1), 0.3);
 				
 				addSequential(new DriveAutoStraightEncoderPID(0.7, sT, sS), 3);
 				addSequential(new DriveAutoTurnInEllipsePID(-80, tT, tS), 3);
 				addSequential(new DriveAutoStraightEncoderPID(2.8, sT, sS), 3);
 				addSequential(new DriveAutoTurnInEllipsePID(80, tT, tS), 3);
 				
-				addSequential(new ElevatorSetSpeed(1), 2);
+				addSequential(new ElevatorSetSpeed(1), 1.3);
 				
 				addSequential(new DriveAutoStraightEncoderPID(2.86, sT, sS), 3); //forward distance should add to 3.56m
 				addSequential(new IntakeOut(0.7), 1);
@@ -40,7 +40,7 @@ public class Autonomous extends CommandGroup {
 				
 			} else if (gameData == FieldPos.Right) {
 				addParallel(new IntakeIn(0.2));
-				addSequential(new ElevatorSetSpeed(1), 3);
+				addSequential(new ElevatorSetSpeed(1), 1.8);
 				
 				addSequential(new DriveAutoStraightEncoderPID(3.56, sT, sS), 3);
 				addSequential(new IntakeOut(0.7), 1);
@@ -49,12 +49,12 @@ public class Autonomous extends CommandGroup {
 		} else if (robotPos == RobotStartingPos.Left) { // L
 			if (gameData == FieldPos.Left) {
 				addParallel(new IntakeIn(0.2));
-				addParallel(new ElevatorSetSpeed(1), 0.7);
+				addParallel(new ElevatorSetSpeed(1), 0.3);
 				
 				addSequential(new DriveAutoStraightEncoderPID(4, sT, sS));
 				addSequential(new DriveAutoTurnInEllipsePID(80, tT, tS), 3);
 				
-				addSequential(new ElevatorSetSpeed(1), 2.5);
+				addSequential(new ElevatorSetSpeed(1), 1.5);
 				
 //				addSequential(new DriveAutoStraightPID(1, sT, sS), 3); //TODO:
 				addSequential(new IntakeOut(0.7), 1);
@@ -73,12 +73,12 @@ public class Autonomous extends CommandGroup {
 				
 			} else if (gameData == FieldPos.Right) {
 				addParallel(new IntakeIn(0.2));
-				addParallel(new ElevatorSetSpeed(1), 0.7);
+				addParallel(new ElevatorSetSpeed(1), 0.3);
 				
 				addSequential(new DriveAutoStraightEncoderPID(4, sT, sS));
 				addSequential(new DriveAutoTurnInEllipsePID(-80, tT, tS), 3);
 				
-				addSequential(new ElevatorSetSpeed(1), 2.5);
+				addSequential(new ElevatorSetSpeed(1), 1.7);
 				
 //				addSequential(new DriveAutoStraightPID(1, sT, sS), 3);
 				addSequential(new IntakeOut(0.7), 1);
