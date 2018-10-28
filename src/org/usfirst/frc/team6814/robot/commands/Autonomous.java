@@ -17,7 +17,7 @@ public class Autonomous extends CommandGroup {
 	private static double sT = 0.05; // Drive Straight Tolerance
 	private static double tT = 2; // Turning Tolerance
 	private static double sS = 0.5; // Straight Max Speed
-	private static double tS = 0.4; // Turning Max Speed
+	private static double tS = 0.47; // Turning Max Speed
 //	private static double et = 2.5; // Elevator Time for Switch
 
 	public Autonomous(RobotStartingPos robotPos, FieldPos gameData, boolean useEncoders) {
@@ -29,10 +29,10 @@ public class Autonomous extends CommandGroup {
 				
 				addSequential(new DriveAutoStraightEncoderPID(0.7, sT, sS), 3);
 				addSequential(new DriveAutoTurnInEllipsePID(-80, tT, tS), 3);
-				addSequential(new DriveAutoStraightEncoderPID(2.8, sT, sS), 3);
+				addSequential(new DriveAutoStraightEncoderPID(2.5, sT, sS), 3);
 				addSequential(new DriveAutoTurnInEllipsePID(80, tT, tS), 3);
 				
-				addSequential(new ElevatorSetSpeed(1), 1.3);
+				addSequential(new ElevatorSetSpeed(1), 2);
 				
 				addSequential(new DriveAutoStraightEncoderPID(2.86, sT, sS), 3); //forward distance should add to 3.56m
 				addSequential(new IntakeOut(0.7), 1);
@@ -40,7 +40,7 @@ public class Autonomous extends CommandGroup {
 				
 			} else if (gameData == FieldPos.Right) {
 				addParallel(new IntakeIn(0.2));
-				addSequential(new ElevatorSetSpeed(1), 1.8);
+				addSequential(new ElevatorSetSpeed(1), 2.3);
 				
 				addSequential(new DriveAutoStraightEncoderPID(3.56, sT, sS), 3);
 				addSequential(new IntakeOut(0.7), 1);
@@ -51,12 +51,12 @@ public class Autonomous extends CommandGroup {
 				addParallel(new IntakeIn(0.2));
 				addParallel(new ElevatorSetSpeed(1), 0.3);
 				
-				addSequential(new DriveAutoStraightEncoderPID(4, sT, sS));
+				addSequential(new DriveAutoStraightEncoderPID(4, sT, sS),3);
 				addSequential(new DriveAutoTurnInEllipsePID(80, tT, tS), 3);
 				
-				addSequential(new ElevatorSetSpeed(1), 1.5);
+				addSequential(new ElevatorSetSpeed(1), 2);
 				
-//				addSequential(new DriveAutoStraightPID(1, sT, sS), 3); //TODO:
+				addSequential(new DriveAutoStraightEncoderPID(1, sT, sS), 1.5);
 				addSequential(new IntakeOut(0.7), 1);
 				
 				
@@ -75,12 +75,12 @@ public class Autonomous extends CommandGroup {
 				addParallel(new IntakeIn(0.2));
 				addParallel(new ElevatorSetSpeed(1), 0.3);
 				
-				addSequential(new DriveAutoStraightEncoderPID(4, sT, sS));
+				addSequential(new DriveAutoStraightEncoderPID(4, sT, sS),3);
 				addSequential(new DriveAutoTurnInEllipsePID(-80, tT, tS), 3);
 				
-				addSequential(new ElevatorSetSpeed(1), 1.7);
+				addSequential(new ElevatorSetSpeed(1), 2);
 				
-//				addSequential(new DriveAutoStraightPID(1, sT, sS), 3);
+				addSequential(new DriveAutoStraightEncoderPID(1, sT, sS), 1.5);
 				addSequential(new IntakeOut(0.7), 1);
 			}
 

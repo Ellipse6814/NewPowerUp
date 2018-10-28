@@ -9,17 +9,15 @@ public class Camera {
 
 	public Camera(int cameraPort) {
 		// this is called when the robot power button is pushed
-		super();
 
 		try {
 			camera = CameraServer.getInstance().startAutomaticCapture(cameraPort);
 			camera.setResolution(320, 240);
 			camera.setFPS(20);
-			camera.setBrightness(90);
-			camera.setExposureManual(1);// Lower exposure reduces camera latency
+			camera.setBrightness(50);
+//			camera.setExposureManual(40);// Lower exposure reduces camera latency
 			camera.setPixelFormat(PixelFormat.kMJPEG);
 			System.out.println("Camera Subsystem Started with specified port " + cameraPort);
-
 		} catch (Exception e) {
 			System.out.println("ERROR: Camera on port " + cameraPort + " failed to start");
 		}
