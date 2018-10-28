@@ -88,50 +88,6 @@ public class Autonomous extends CommandGroup {
 
 	}
 
-	// elevaotr time incorrect: do not use!
-
-//	public Autonomous(RobotStartingPos robotPos, FieldPos gameData) { // don't use encoders, but use gyro
-//		if (robotPos == RobotStartingPos.Middle) { // M (to the right)
-//			if (gameData == FieldPos.Left) {
-//				addSequential(new DriveAutoStraightTime(1, sS));
-//				addSequential(new DriveAutoTurnInEllipsePID(-80, tT, tS), 3);
-//				addSequential(new DriveAutoStraightTime(1, sS));
-//				addSequential(new DriveAutoTurnInEllipsePID(80, tT, tS), 3);
-//				addSequential(new ElevatorSetSpeed(1), et);
-//				addSequential(new DriveAutoStraightTime(0.5, sS));
-//				addSequential(new IntakeOut(0.7), 1);
-//			} else if (gameData == FieldPos.Right) {
-//				addSequential(new ElevatorSetSpeed(1), et);
-//				addSequential(new DriveAutoStraightTime(1.4, sS));
-//				addSequential(new IntakeOut(0.7), 1);
-//			}
-//
-//		} else if (robotPos == RobotStartingPos.Left) { // L
-//			if (gameData == FieldPos.Left) {
-//				addSequential(new DriveAutoStraightTimeGyroPID(1.6, 0.7));
-//				addSequential(new DriveAutoTurnInEllipsePID(80, tT, tS), 3);
-//				addSequential(new ElevatorSetSpeed(1), et);
-////				addSequential(new DriveAutoStraightTimeGyroPID(0.5, 0.7));
-//				addSequential(new IntakeOut(0.7), 1);
-//			} else if (gameData == FieldPos.Right) {
-//				addSequential(new AutoWait(5));// time in seconds
-//				addSequential(new DriveAutoStraightTime(1.6, 0.7)); // time, speed, gears, ramp
-//			}
-//		} else if (robotPos == RobotStartingPos.Right) { // R
-//			if (gameData == FieldPos.Left) {
-//				addSequential(new AutoWait(5));// time in seconds
-//				addSequential(new DriveAutoStraightTime(1.6, 0.7)); // time, speed, gears, ramp
-//			} else if (gameData == FieldPos.Right) {
-//				addSequential(new DriveAutoStraightTimeGyroPID(1.6, sS));
-//				addSequential(new DriveAutoTurnInEllipsePID(-80, tT, tS), 3);
-//				addSequential(new ElevatorSetSpeed(1), et);
-//				addSequential(new DriveAutoStraightTimeGyroPID(0.5, sS), 3);
-//				addSequential(new IntakeOut(0.7), 1);
-//			}
-//		}
-//
-//	}
-
 	public Autonomous() {
 		addSequential(new AutoWait(5));// time in seconds
 		addSequential(new DriveAutoStraightTime(1.6, 0.7)); // time, speed, gears, ramp
